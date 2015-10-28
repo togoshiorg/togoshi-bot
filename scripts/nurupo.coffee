@@ -105,12 +105,15 @@ module.exports = (robot) ->
   #   robot.brain.set 'totalSodas', 0
   #   res.reply 'zzzzz'
 
-  robot.respond /にしうまさん|西馬さん|しょうぞうさん|尚三さん/, (msg) ->
-    msg.send [
-      ":west::horse::three:",
-      "バッシーさん = ミッフィーとおともだち",
-      "佐々キング腹ですぎ！",
-      "村岡A11Yヤクザ",
-      "英検＼(^o^)／準一級"
-    ]
-    
+  robot.hear /ぬるぽ|nurupo|ヌルポ/, (msg) ->
+    msg.send """
+```
+   Λ＿Λ     ＼＼
+（  ・∀・）  | | ｶﾞｯ
+ と     ）  | |
+  Ｙ /ノ     人
+   / ）    < >   _Λ  ∩
+＿/し'   ／／  Ｖ｀Д´）/
+（＿フ彡             / ←>> @#{msg.message.user.name}
+```
+  """
