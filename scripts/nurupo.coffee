@@ -105,7 +105,7 @@ module.exports = (robot) ->
   #   robot.brain.set 'totalSodas', 0
   #   res.reply 'zzzzz'
 
-  robot.hear /ぬるぽ/, (msg) ->
+  robot.hear /ぬるぽ|nurupo|ヌルポ/, (msg) ->
     msg.send """
 ```
    Λ＿Λ     ＼＼
