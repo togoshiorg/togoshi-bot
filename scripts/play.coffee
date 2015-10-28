@@ -105,11 +105,7 @@ module.exports = (robot) ->
   #   robot.brain.set 'totalSodas', 0
   #   res.reply 'zzzzz'
 
-  robot.respond /西馬さん/, (msg) ->
-    msg.send [
-      "バッシーさん = ミッフィーとおともだちゴシ！",
-      "佐々キング腹ですぎゴシ！",
-      "村岡A11Yヤクザゴシ！",
-      "英検＼(^o^)／準一級ゴシ！"
-    ]
+  robot.respond /にしうまさん|西馬さん|しょうぞうさん|尚三さん/, (msg) ->
+    msg.send "テストだゴシ！"
+
     
