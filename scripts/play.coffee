@@ -107,7 +107,6 @@ module.exports = (robot) ->
 
   robot.respond /西馬さん/, (msg) ->
     msg.send [
-      ":west::horse::three:ゴシ！",
       "バッシーさん = ミッフィーとおともだちゴシ！",
       "佐々キング腹ですぎゴシ！",
       "村岡A11Yヤクザゴシ！",
