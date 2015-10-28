@@ -106,5 +106,11 @@ module.exports = (robot) ->
   #   res.reply 'zzzzz'
 
   robot.respond /にしうまさん|西馬さん|しょうぞうさん|尚三さん/, (msg) ->
-    msg.send ":west::horse::three:"
+    msg.send msg.random [
+      ":west::horse::three:ゴシ！",
+      "バッシーさん = ミッフィーとおともだちゴシ！",
+      "佐々キング腹ですぎゴシ！",
+      "村岡A11Yヤクザゴシ！",
+      "英検＼(^o^)／準一級ゴシ！"
+    ]
     
