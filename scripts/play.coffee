@@ -106,5 +106,5 @@ module.exports = (robot) ->
   #   res.reply 'zzzzz'
 
   robot.respond /にしうまさん|西馬さん|しょうぞうさん|尚三さん/, (msg) ->
-    msg.send [":west::horse::three:"]
+    msg.send ":west::horse::three:"
     
