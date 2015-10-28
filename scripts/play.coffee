@@ -113,4 +113,10 @@ module.exports = (robot) ->
       "村岡A11Yヤクザゴシ！",
       "英検＼(^o^)／準一級ゴシ！"
     ]
+
+  robot.respond /銀次郎くん！/, (msg) ->
+    msg.send "はいゴシ！"
+
+　robot.respond /うるさい/, (msg) ->
+    msg.send "なんだとゴシ！"    
     
