@@ -120,7 +120,7 @@ module.exports = (robot) ->
   robot.respond /うるさい/, (msg) ->
     msg.send "なんだとゴシ！"    
 
-  robot.respond /頭高くない？/, (msg) ->
+  robot.respond /.*頭高くない.*/, (msg) ->
     msg.send "どうする兄ちゃん"
     msg.send "http://weekly.ascii.jp/elem/000/000/280/280817/1204nabe01_1200x.jpg"  
     
