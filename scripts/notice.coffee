@@ -105,9 +105,13 @@ module.exports = (robot) ->
   #   robot.brain.set 'totalSodas', 0
   #   res.reply 'zzzzz'
 
-  CronJob = require('cron').CronJob
+  cronJob = require('cron').CronJob
 
   module.exports = (robot) ->
-    new CronJob '0 0 10 * * 1-5', () =>
-      robot.messageRoom '#general', 'テストゴシ！'
-    , null, true, 'Asia/Tokyo'
+    cronjob = new cronJob(
+      cronTime: "0 * * * * 1-5"     # 実行時間
+      start:    true              # すぐにcronのjobを実行するか
+      timeZone: "Asia/Tokyo"      # タイムゾーン指定
+      onTick: ->                  # 時間が来た時に実行する処理
+        robot.send {room: "#sandbox"}, "テストです"
+    )
