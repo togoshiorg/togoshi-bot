@@ -105,6 +105,42 @@ module.exports = (robot) ->
   #   robot.brain.set 'totalSodas', 0
   #   res.reply 'zzzzz'
 
-  robot.respond /今日のラーメン|家系|ラーメン|.*麺.*/, (msg) ->
-    msg.send "今のおすすめはここゴシ！"
+  robot.respond /^(?=.*戸越)(?=.*(ラーメン|らーめん|.*麺.*)).*$/, (msg) ->
+    msg.send "戸越のおすすめはここゴシ！"
     msg.send msg.random ["http://tabelog.com/tokyo/A1317/A131712/13003424/", "http://tabelog.com/tokyo/A1317/A131712/13094265/", "http://tabelog.com/tokyo/A1317/A131712/13066259/", "http://tabelog.com/tokyo/A1317/A131712/13153776/", "http://tabelog.com/tokyo/A1317/A131710/13162036/", "http://tabelog.com/tokyo/A1317/A131712/13154503/", "http://tabelog.com/tokyo/A1317/A131712/13042296/", "http://tabelog.com/tokyo/A1317/A131712/13058294/", "http://tabelog.com/tokyo/A1317/A131712/13127279/", "http://tabelog.com/tokyo/A1317/A131712/13018528/", "http://tabelog.com/tokyo/A1317/A131712/13158309/", "http://tabelog.com/tokyo/A1317/A131712/13147197/"]
+
+  robot.respond /^(?=.*池袋)(?=.*(ラーメン|らーめん|.*麺.*)).*$/, (msg) ->
+    msg.send "池袋のおすすめはここゴシ！"
+    msg.send msg.random ["tabelog.com/tokyo/A1305/A130501/13003927/"]
+
+  robot.respond /^(?=.*新宿)(?=.*(ラーメン|らーめん|.*麺.*)).*$/, (msg) ->
+    msg.send "新宿のおすすめはここゴシ！"
+    msg.send msg.random ["tabelog.com/tokyo/A1305/A130501/13003927/"]
+
+  robot.respond /^(?=.*渋谷)(?=.*(ラーメン|らーめん|.*麺.*)).*$/, (msg) ->
+    msg.send "渋谷のおすすめはここゴシ！"
+    msg.send msg.random ["tabelog.com/tokyo/A1305/A130501/13003927/"]
+
+  robot.respond /^(?=.*恵比寿)(?=.*(ラーメン|らーめん|.*麺.*)).*$/, (msg) ->
+    msg.send "恵比寿のおすすめはここゴシ！"
+    msg.send msg.random ["tabelog.com/tokyo/A1305/A130501/13003927/"]
+
+  robot.respond /^(?=.*金沢)(?=.*(ラーメン|らーめん|.*麺.*)).*$/, (msg) ->
+    msg.send "金沢のおすすめはここゴシ！"
+    msg.send msg.random ["tabelog.com/tokyo/A1305/A130501/13003927/"]
+
+  robot.respond /^(?=.*加賀)(?=.*(ラーメン|らーめん|.*麺.*)).*$/, (msg) ->
+    msg.send "加賀のおすすめはここゴシ！"
+    msg.send msg.random ["tabelog.com/tokyo/A1305/A130501/13003927/"]
+
+  robot.respond /^(?=.*吉祥寺)(?=.*(ラーメン|らーめん|.*麺.*)).*$/, (msg) ->
+    msg.send "吉祥寺のおすすめはここゴシ！"
+    msg.send msg.random ["tabelog.com/tokyo/A1305/A130501/13003927/"]
+
+  robot.respond /^(?=.*幡ヶ谷)(?=.*(ラーメン|らーめん|.*麺.*)).*$/, (msg) ->
+    msg.send "幡ヶ谷のおすすめはここゴシ！"
+    msg.send msg.random ["tabelog.com/tokyo/A1305/A130501/13003927/"]
+
+robot.respond /^(?=.*成増)(?=.*(ラーメン|らーめん|.*麺.*)).*$/, (msg) ->
+    msg.send "成増のおすすめはここゴシ！"
+    msg.send msg.random ["tabelog.com/tokyo/A1305/A130501/13003927/"]
