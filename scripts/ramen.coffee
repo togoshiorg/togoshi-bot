@@ -105,7 +105,7 @@ module.exports = (robot) ->
   #   robot.brain.set 'totalSodas', 0
   #   res.reply 'zzzzz'
 
-  robot.respond /^(?=.*戸越).*/, (msg) ->
+  robot.respond /(?=.*戸越).*/, (msg) ->
     msg.send "戸越のおすすめはここゴシ！"
     msg.send msg.random [
       "http://tabelog.com/tokyo/A1317/A131712/13003424/",
