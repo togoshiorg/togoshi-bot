@@ -154,6 +154,6 @@ module.exports = (robot) ->
     msg.send "幡ヶ谷のおすすめはここゴシ！"
     msg.send msg.random ["tabelog.com/tokyo/A1305/A130501/13003927/"]
 
-robot.respond /^(?=.*成増)(?=.*(ラーメン|らーめん|.*麺.*)).*$/, (msg) ->
+  robot.respond /^(?=.*成増)(?=.*(ラーメン|らーめん|.*麺.*)).*$/, (msg) ->
     msg.send "成増のおすすめはここゴシ！"
     msg.send msg.random ["tabelog.com/tokyo/A1305/A130501/13003927/"]
