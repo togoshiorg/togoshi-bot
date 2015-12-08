@@ -108,6 +108,6 @@ module.exports = (robot) ->
   CronJob = require('cron').CronJob
 
   module.exports = (robot) ->
-    new CronJob '0 * * * * *', () =>
-      robot.messageRoom 'general', 'テストゴシ！'
+    new CronJob '0 0 10 * * 1-5', () =>
+      robot.messageRoom '#general', 'テストゴシ！'
     , null, true, 'Asia/Tokyo'
