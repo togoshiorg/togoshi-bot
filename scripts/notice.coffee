@@ -104,3 +104,9 @@ module.exports = (robot) ->
   # robot.respond /sleep it off/i, (res) ->
   #   robot.brain.set 'totalSodas', 0
   #   res.reply 'zzzzz'
+
+  cron = require('cron').CronJob
+  module.exports = (robot) ->
+    new cron('0 1 19 * * 1-5', () ->
+      robot.messageRoom "#hubot", "testゴシ！"
+    , null, true, 'Asia/Tokyo').start()
