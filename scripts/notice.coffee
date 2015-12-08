@@ -109,5 +109,5 @@ module.exports = (robot) ->
 
   module.exports = (robot) ->
     new CronJob '0 * * * * *', () =>
-      robot.messageRoom 'sandbox', 'テストゴシ！'
+      robot.messageRoom 'general', 'テストゴシ！'
     , null, true, 'Asia/Tokyo'
