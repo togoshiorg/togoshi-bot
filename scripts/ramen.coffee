@@ -105,7 +105,24 @@ module.exports = (robot) ->
   #   robot.brain.set 'totalSodas', 0
   #   res.reply 'zzzzz'
 
-  robot.respond /^(?=.*戸越)(?=.*ラーメン).*/, (msg) ->
+  robot.respond /^(?=.*戸越).*/, (msg) ->
+    msg.send "戸越のおすすめはここゴシ！"
+    msg.send msg.random [
+      "http://tabelog.com/tokyo/A1317/A131712/13003424/",
+      "http://tabelog.com/tokyo/A1317/A131712/13094265/",
+      "http://tabelog.com/tokyo/A1317/A131712/13066259/",
+      "http://tabelog.com/tokyo/A1317/A131712/13153776/",
+      "http://tabelog.com/tokyo/A1317/A131710/13162036/",
+      "http://tabelog.com/tokyo/A1317/A131712/13154503/",
+      "http://tabelog.com/tokyo/A1317/A131712/13042296/",
+      "http://tabelog.com/tokyo/A1317/A131712/13058294/",
+      "http://tabelog.com/tokyo/A1317/A131712/13127279/",
+      "http://tabelog.com/tokyo/A1317/A131712/13018528/",
+      "http://tabelog.com/tokyo/A1317/A131712/13158309/",
+      "http://tabelog.com/tokyo/A1317/A131712/13147197/"
+    ]
+
+  robot.respond /^(?=.*戸越)(?=.*(ラーメン|らーめん|.*麺.*)).*/, (msg) ->
     msg.send "戸越のおすすめはここゴシ！"
     msg.send msg.random [
       "http://tabelog.com/tokyo/A1317/A131712/13003424/",
