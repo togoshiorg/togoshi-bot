@@ -36,4 +36,3 @@ module.exports = (robot) ->
     ]
   , null, true, 'Asia/Tokyo')
   test.start()
-
