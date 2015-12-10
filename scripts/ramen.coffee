@@ -189,3 +189,7 @@ module.exports = (robot) ->
   robot.respond /(?=.*成増)(?=.*(ラーメン|らーめん|.*麺.*)).*/, (msg) ->
     msg.send '成増のおすすめは今探索隊が調査中ゴシ！'
     #msg.send msg.random ['今探索隊が調査中ごし！']
+
+  robot.respond /(?=.*志木)(?=.*(ラーメン|らーめん|.*麺.*)).*/, (msg) ->
+    msg.send '志木のおすすめは今探索隊が調査中ゴシ！'
+    #msg.send msg.random ['今探索隊が調査中ごし！']
