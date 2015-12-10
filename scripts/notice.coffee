@@ -28,11 +28,6 @@ module.exports = (robot) ->
 
   test = new cronJob('0 * * * * *', () ->
     room = room: '#sandbox'
-    robot.send room, msg.random [
-      '@ito-mutsumi testだゆ',
-      '@ito-mutsumi test2だゆ',
-      '@ito-mutsumi test3だゆ',
-      '@ito-mutsumi test4だゆ'
-    ]
+    robot.send room, '@ito-mutsumi テストだゆ'
   , null, true, 'Asia/Tokyo')
   test.start()
