@@ -1,4 +1,6 @@
 cronJob = require('cron').CronJob
+random = require('hubot').Response::random
+
 module.exports = (robot) ->
   ###ticketClose = new cronJob('0 50 18 * * 5', () ->
     envelope = room: '#general'
@@ -27,6 +29,11 @@ module.exports = (robot) ->
   ordinary.start()###
 
   test = new cronJob('0 * * * * *', () ->
-    robot.messageRoom '#sandbox', '@ito-mutsumi ランダムメッセージのテストだゆ'
+    post = random [
+      '@ito-mutsumi テストだゆ',
+      '@ito-mutsumi テスト2だゆ'
+    ]
+    room = room: '#sandbox'
+    robot.messageRoom room, post
   , null, true, 'Asia/Tokyo')
   test.start()
