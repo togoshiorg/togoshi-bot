@@ -26,14 +26,20 @@ module.exports = (robot) ->
   newyear = new cronJob('0 0 7 1 1 *', () ->
     robot.messageRoom '#general', '@channel あけましておめでとうゴシ。今年もよろしくお願いしまゴシ。'
   , null, true, 'Asia/Tokyo')
-  ordinary.start()###
+  ordinary.start()
 
   test = new cronJob('0 * * * * *', () ->
     post = random [
-      '@ito-mutsumi テストだゆ',
-      '@ito-mutsumi テスト2だゆ'
+      '<!ito-mutsumi> テストだゆ'
+      '<!ito-mutsumi> テスト2だゆ'
     ]
     room = room: '#sandbox'
-    robot.messageRoom room, post
+    robot.send room, post
+  , null, true, 'Asia/Tokyo')
+  test.start()
+  ###
+
+  test = new cronJob('0 * * * * *', () ->
+    robot.send '#sandbox', '@ito-mutsumi ランダムメッセージのテストだゆ'
   , null, true, 'Asia/Tokyo')
   test.start()
