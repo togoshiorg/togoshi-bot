@@ -40,6 +40,6 @@ module.exports = (robot) ->
   ###
 
   test = new cronJob('0 * * * * *', () ->
-    robot.send '#sandbox', '@ito-mutsumi ランダムメッセージのテストだゆ'
+    robot.send '#sandbox', '<!ito-mutsumi> ランダムメッセージのテストだゆ'
   , null, true, 'Asia/Tokyo')
   test.start()
