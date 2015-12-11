@@ -27,8 +27,6 @@ module.exports = (robot) ->
   ordinary.start()###
 
   test = new cronJob('0 * * * * *', () ->
-    #room = room: '#cron'
-    #robot.send room, '@ito-mutsumi テストだゆ'
     robot.messageRoom '#cron', '@ito-mutsumi テストだゆ'
   , null, true, 'Asia/Tokyo')
   test.start()
