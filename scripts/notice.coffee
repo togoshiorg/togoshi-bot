@@ -2,13 +2,22 @@ cronJob = require('cron').CronJob
 random = require('hubot').Response::random
 
 module.exports = (robot) ->
-  ###ticketClose = new cronJob('0 50 18 * * 5', () ->
-    envelope = room: '#general'
-    robot.send envelope, msg.random [
-      '@channel 今日は花金。チケットクローズよろしくゴシ。'
+  ticketClose = new cronJob('0 50 18 * * 5', () ->
+    room = room: '#general'
+    post = random [
+      '<!channel> 今日は花金。チケットクローズよろしくゴシ。'
+      '<!channel> 今週もお疲れ様ゴシ。チケットクローズして帰るゴシ。'
+      '<!channel> ビール飲み行こ。あ、最後にチケットクローズするゴシ。'
+      '<!channel> チケクロよろおね。'
+      '<!channel> Today is Friday, so please close the ticket!'
     ]
-  , null, true, 'Asia/Tokyo')
+    robot.send room, post
+    start: true
+    timeZone: 'Asia/Tokyo'
+  )
   ticketClose.start()
+
+  ###
 
   ordinary = new cronJob('0 0 19 * * 1-5', () ->
     envelope = room: '#general'
@@ -28,26 +37,15 @@ module.exports = (robot) ->
   , null, true, 'Asia/Tokyo')
   ordinary.start()
 
-  test = new cronJob('0 * * * * *', () ->
-    post = random [
-      '<!ito-mutsumi> テストだゆ'
-      '<!ito-mutsumi> テスト2だゆ'
-    ]
-    room = room: '#sandbox'
-    robot.send room, post
-  , null, true, 'Asia/Tokyo')
-  test.start()
-
+  ###
 
   test = new cronJob('0 * * * * *', () ->
     room = room: '#sandbox'
     post = random [
-      '<!channel> ランダムメッセージのテストだゆ'
-      '<!channel> ランダムメッセージのテスト2だゆ'
+      '複数のタスクのテスト'
     ]
     robot.send room, post
     start: true
     timeZone: 'Asia/Tokyo'
   )
   test.start()
-  ###
