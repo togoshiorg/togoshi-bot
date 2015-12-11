@@ -1,4 +1,6 @@
 cronJob = require('cron').CronJob
+random = require('hubot').Response::random
+
 module.exports = (robot) ->
   ###ticketClose = new cronJob('0 50 18 * * 5', () ->
     envelope = room: '#general'
