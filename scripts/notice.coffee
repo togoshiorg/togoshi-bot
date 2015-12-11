@@ -1,6 +1,6 @@
 cronJob = require('cron').CronJob
 module.exports = (robot) ->
-  ticketClose = new cronJob('0 50 18 * * 5', () ->
+  ###ticketClose = new cronJob('0 50 18 * * 5', () ->
     envelope = room: '#general'
     robot.send envelope, msg.random [
       '@channel 今日は花金。チケットクローズよろしくゴシ。'
@@ -24,10 +24,10 @@ module.exports = (robot) ->
   newyear = new cronJob('0 0 7 1 1 *', () ->
     robot.messageRoom '#general', '@channel あけましておめでとうゴシ。今年もよろしくお願いしまゴシ。'
   , null, true, 'Asia/Tokyo')
-  ordinary.start()
+  ordinary.start()###
 
   test = new cronJob('0 * * * * *', () ->
-    envelope = room: '#sandbox'
-    robot.send envelope, '@ito-mutsumi テストだゆ'
+    room = room: '#sandbox'
+    robot.send room, '@ito-mutsumi テストだゆ'
   , null, true, 'Asia/Tokyo')
   test.start()
