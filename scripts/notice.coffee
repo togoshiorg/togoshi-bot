@@ -41,7 +41,11 @@ module.exports = (robot) ->
 
   test = new cronJob('0 * * * * *', () ->
     room = room: '#sandbox'
-    robot.send room, '<!ito-mutsumi> ランダムメッセージのテストだゆ'
+    post = random [
+      '<!channel> ランダムメッセージのテストだゆ'
+      '<!channel> ランダムメッセージのテスト2だゆ'
+    ]
+    robot.send room, post
     start: true
     timeZone: 'Asia/Tokyo'
   )
