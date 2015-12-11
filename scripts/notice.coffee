@@ -37,7 +37,7 @@ module.exports = (robot) ->
     robot.send room, post
   , null, true, 'Asia/Tokyo')
   test.start()
-  ###
+
 
   test = new cronJob('0 * * * * *', () ->
     room = room: '#sandbox'
@@ -50,3 +50,4 @@ module.exports = (robot) ->
     timeZone: 'Asia/Tokyo'
   )
   test.start()
+  ###
