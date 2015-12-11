@@ -20,11 +20,11 @@ module.exports = (robot) ->
     robot.messageRoom '#general', '@channel 今年もお世話になったゴシ。みなさま良いお年をゴシ。さて、「笑ってはいけない」見よっと。'
   , null, true, 'Asia/Tokyo')
   NewYearsEve.start()
-
+###
   newyear = new cronJob('0 0 7 1 1 *', () ->
     robot.messageRoom '#general', '@channel あけましておめでとうゴシ。今年もよろしくお願いしまゴシ。'
   , null, true, 'Asia/Tokyo')
-  ordinary.start()###
+  ordinary.start()
 
   test = new cronJob('0 * * * * *', () ->
     room = room: '#sandbox'
