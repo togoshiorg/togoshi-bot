@@ -1,9 +1,5 @@
 module.exports = (robot) ->
 
-
-
-
-  ###
   robot.hear /(?=.*戸越)(?=.*(ラーメン|らーめん|.*麺.*)).*/, (msg) ->
     msg.send '戸越のおすすめはここゴシ！'
     msg.send msg.random [
@@ -109,4 +105,3 @@ module.exports = (robot) ->
   robot.hear /(?=.*志木)(?=.*(ラーメン|らーめん|.*麺.*)).*/, (msg) ->
     msg.send '志木のおすすめは今探索隊が調査中ゴシ！'
     #msg.send msg.random ['今探索隊が調査中ごし！']
-  ###
