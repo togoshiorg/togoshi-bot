@@ -1,6 +1,6 @@
 module.exports = (robot) ->
 
-  robot.response /(?=.*(ラーメン|らーめん|.*麺.*))/, (msg) ->
+  robot.respond /(?=.*(ラーメン|らーめん|.*麺.*))/, (msg) ->
   msg.send msg.message.text + 'はここがおすすめゴシ！'
   if msg.message.text.indexOf('戸越') != -1
     msg.send msg.random [
