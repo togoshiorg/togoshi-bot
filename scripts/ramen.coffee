@@ -1,5 +1,5 @@
 module.exports = (robot) ->
-
+###
   robot.respond /(?=.*戸越)(?=.*(ラーメン|らーめん|.*麺.*)).*/, (msg) ->
     msg.send '戸越のおすすめはここゴシ！'
     msg.send msg.random [
@@ -59,36 +59,28 @@ module.exports = (robot) ->
 
   robot.respond /(?=.*渋谷)(?=.*(ラーメン|らーめん|.*麺.*)).*/, (msg) ->
     msg.send '渋谷のおすすめは今探索隊が調査中ゴシ！'
-    #msg.send msg.random ['今探索隊が調査中ごし！']
 
   robot.respond /(?=.*恵比寿)(?=.*(ラーメン|らーめん|.*麺.*)).*/, (msg) ->
     msg.send '恵比寿のおすすめは今探索隊が調査中ゴシ！'
-    #msg.send msg.random ['今探索隊が調査中ごし！']
 
   robot.respond /(?=.*金沢)(?=.*(ラーメン|らーめん|.*麺.*)).*/, (msg) ->
     msg.send '金沢のおすすめは今探索隊が調査中ゴシ！'
-    #msg.send msg.random ['今探索隊が調査中ごし！']
 
   robot.respond /(?=.*加賀)(?=.*(ラーメン|らーめん|.*麺.*)).*/, (msg) ->
     msg.send '加賀のおすすめは今探索隊が調査中ゴシ！'
-    #msg.send msg.random ['今探索隊が調査中ごし！']
 
   robot.respond /(?=.*吉祥寺)(?=.*(ラーメン|らーめん|.*麺.*)).*/, (msg) ->
     msg.send '吉祥寺のおすすめは今探索隊が調査中ゴシ！'
-    #msg.send msg.random ['今探索隊が調査中ごし！']
 
   robot.respond /(?=.*幡ヶ谷)(?=.*(ラーメン|らーめん|.*麺.*)).*/, (msg) ->
     msg.send '幡ヶ谷のおすすめは今探索隊が調査中ゴシ！'
-    #msg.send msg.random ['今探索隊が調査中ごし！']
 
   robot.respond /(?=.*成増)(?=.*(ラーメン|らーめん|.*麺.*)).*/, (msg) ->
     msg.send '成増のおすすめは今探索隊が調査中ゴシ！'
-    #msg.send msg.random ['今探索隊が調査中ごし！']
 
   robot.respond /(?=.*志木)(?=.*(ラーメン|らーめん|.*麺.*)).*/, (msg) ->
     msg.send '志木のおすすめは今探索隊が調査中ゴシ！'
-    #msg.send msg.random ['今探索隊が調査中ごし！']
-
+###
   robot.respond /(?=.*(ラーメン|らーめん|.*麺.*))/, (msg) ->
     msg.send msg.message.user.text + 'はここがおすすめゴシ！'
     if msg.message.user.text.indexOf('戸越') != -1
