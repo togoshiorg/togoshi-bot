@@ -1,8 +1,8 @@
 module.exports = (robot) ->
-
   robot.respond /(?=.*(ラーメン|らーめん|.*麺.*))/, (msg) ->
-  msg.send msg.message.text + 'はここがおすすめゴシ！'
-  if msg.message.text.indexOf('戸越') != -1
+  text = msg.message.text
+  msg.send text + 'はここがおすすめゴシ！'
+  if text.indexOf('戸越') != -1
     msg.send msg.random [
       'http://tabelog.com/tokyo/A1317/A131712/13003424/'
       'http://tabelog.com/tokyo/A1317/A131712/13094265/'
@@ -17,7 +17,7 @@ module.exports = (robot) ->
       'http://tabelog.com/tokyo/A1317/A131712/13158309/'
       'http://tabelog.com/tokyo/A1317/A131712/13147197/'
     ]
-  else if msg.message.text.indexOf('池袋') != -1
+  else if text.indexOf('池袋') != -1
     msg.send msg.random [
       'http://tabelog.com/tokyo/A1317/A131712/13003424/'
       'http://tabelog.com/tokyo/A1317/A131712/13094265/'
@@ -32,7 +32,7 @@ module.exports = (robot) ->
       'http://tabelog.com/tokyo/A1317/A131712/13158309/'
       'http://tabelog.com/tokyo/A1317/A131712/13147197/'
     ]
-  else if msg.message.text.indexOf('新宿') != -1
+  else if text.indexOf('新宿') != -1
     msg.send msg.random [
       'http://tabelog.com/tokyo/A1304/A130401/13141542/'
       'http://tabelog.com/tokyo/A1304/A130401/13090261/'
