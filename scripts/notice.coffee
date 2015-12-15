@@ -24,7 +24,6 @@ module.exports = (robot) ->
       '<!channel> It is hard for me to get out from work because everyone thinks that we should work overtime. We might start changing the idea that it is natural for us to work without overtime.'
       '<!channel> 定時になりました。これからお帰りの方も、残業する方もお疲れ様です。'
       '<!channel> 定時。帰る。'
-      '<!channel> Hər kəs çox iş lazımdır ki, düşünür, çünki mənə iş çıxmaq üçün çətindir.Biz iş olmadan işləmək üçün təbii ki, fikir dəyişən başlamaq bilər.'
     ]
     robot.send room, post
     start: true
