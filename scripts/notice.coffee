@@ -21,9 +21,9 @@ module.exports = (robot) ->
     room = room: '#general'
     post = random [
       '<!channel> 定時になったゴシ。リソース:normal:以下の人は早く帰るゴシ。'
-      '<!channel> It is hard for me to get out from work because everyone thinks that we should work overtime. We might start changing the idea that it is natural for us to work without overtime.'
       '<!channel> 定時になりました。これからお帰りの方も、残業する方もお疲れ様です。'
       '<!channel> 定時。帰る。'
+      '<!channel> 19時！19時！19時！19時！くぁｗせｄｒｆｔｇｙふじこｌｐ'
     ]
     robot.send room, post
     start: true
