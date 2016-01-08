@@ -22,9 +22,9 @@ module.exports = (robot) ->
     post = random [
       '<!channel> 定時になったゴシ。リソース:normal:以下の方は早く帰るゴシ。リソース:bad:以上の方はもうちょっと頑張ろうゴシ！'
       '<!channel> 定時になりました。これからお帰りの方も、残業する方もお疲れ様です。'
-      '<!channel> 19時になったゴシ。'
+      '<!channel> 19時ゴシ。'
       '<!channel> お疲れ様ゴシ。定時になったゴシ。'
-      '<!channel> https://twitter.com/charaginn'
+      '<!channel> http://stamp.bokete.jp/21702992.png'
     ]
     robot.send room, post
     start: true
