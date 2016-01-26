@@ -25,6 +25,7 @@ module.exports = (robot) ->
       '<!channel> 19時ゴシ。'
       '<!channel> お疲れ様ゴシ。定時になったゴシ。'
       '<!channel> http://stamp.bokete.jp/21702992.png'
+      '<!channel> http://serif.hatelabo.jp/images/cache/7cabedfe81e8e328aa930388fad4dbe95fe36aa9/c5673d089fdbb895ce57518bd7502a298a6f42aa.gif'
     ]
     robot.send room, post
     start: true
