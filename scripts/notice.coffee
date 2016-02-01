@@ -2,7 +2,7 @@ cronJob = require('cron').CronJob
 random = require('hubot').Response::random
 
 module.exports = (robot) ->
-  ticketClose = new cronJob('0 00 19 * * 5', () ->
+  ticketClose = new cronJob('0 00 18 * * 5', () ->
     room = room: '#general'
     post = random [
       '<!channel> 今日は花金。チケットクローズよろしくゴシ。'
@@ -64,7 +64,7 @@ module.exports = (robot) ->
   )
   newyearsEve.start()
 
-  newyear = new cronJob('0 10 7 1 1 *', () ->
+  newyear = new cronJob('0 0 8 1 1 *', () ->
     room = room: '#general'
     post = '<!channel> あけましておめでとうゴシ。今年もよろしくお願いしまゴシ。'
     robot.send room, post
