@@ -105,7 +105,7 @@ module.exports = (robot) ->
   #   robot.brain.set 'totalSodas', 0
   #   res.reply 'zzzzz'
 
-  robot.respond /にしうまさん|西馬さん|しょうぞうさん|尚三さん/, (msg) ->
+  robot.hear /にしうまさん|西馬さん|しょうぞうさん|尚三さん/, (msg) ->
     msg.send msg.random [
       ':west::horse::three:ゴシ！',
       'バッシーさん = ミッフィーとおともだちゴシ！',
