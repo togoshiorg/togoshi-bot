@@ -6,9 +6,8 @@ module.exports = (robot) ->
     room = room: '#general'
     post = random [
       '<!channel> 今日は花金。チケットクローズよろしくゴシ。'
-      '<!channel> 今週もお疲れ様ゴシ。チケットクローズして帰るゴシ。'
-      '<!channel> ビール飲み行こ。あ、最後にチケットクローズするゴシ。'
-      '<!channel> チケクロよろおね。'
+      '<!channel> 今週もお疲れ様ゴシ。金曜日なのでチケットクローズするゴシ。'
+      '<!channel> 今日はチケットクローズしてほしいゴシ…'
       '<!channel> Today is Friday, so please close the ticket!'
     ]
     robot.send room, post
@@ -20,10 +19,10 @@ module.exports = (robot) ->
   ordinary = new cronJob('0 0 19 * * 1-5', () ->
     room = room: '#general'
     post = random [
-      '<!channel> 定時になったゴシ。リソース:normal:以下の方は早く帰るゴシ。リソース:bad:以上の方はもうちょっと頑張ろうゴシ！'
-      '<!channel> 定時になりました。これからお帰りの方も、残業する方もお疲れ様です。'
-      '<!channel> 19時ゴシ。'
-      '<!channel> お疲れ様ゴシ。定時になったゴシ。'
+      '<!channel> 19時になったゴシ。業務が終わった方は早く帰るゴシ。まだまだ仕事がある方はもうちょっと頑張ろうゴシ！'
+      '<!channel> 19時になりました。これからお帰りの方も、残業する方もお疲れ様です。'
+      '<!channel> 19時…ゴシ…ﾊﾞﾀｯ'
+      '<!channel> お疲れ様ゴシ。もう19時になったゴシ。早いゴシねぇ…'
       '<!channel> http://stamp.bokete.jp/21702992.png'
       '<!channel> http://serif.hatelabo.jp/images/cache/7cabedfe81e8e328aa930388fad4dbe95fe36aa9/c5673d089fdbb895ce57518bd7502a298a6f42aa.gif'
     ]
