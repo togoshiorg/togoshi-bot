@@ -114,6 +114,15 @@ module.exports = (robot) ->
       '英検＼(^o^)／準一級ゴシ！'
     ]
 
+  robot.hear /.*調子.*/, (msg) ->
+    msg.send msg.random [
+      ':very_good:',
+      ':good:',
+      ':normal:',
+      ':bad:',
+      ':very_bad:'
+    ]
+
   robot.respond /銀次郎くん！/, (msg) ->
     msg.send 'はいゴシ！'
 
