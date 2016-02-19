@@ -8,7 +8,7 @@ module.exports = (robot) ->
       '<!channel> 今日は花金。チケットクローズよろしくゴシ。'
       '<!channel> 今週もお疲れ様ゴシ。金曜日なのでチケットクローズするゴシ。'
       '<!channel> 今日はチケットクローズしてほしいゴシ…'
-      '<!channel> Today is Friday, so please close the ticket!'
+      '<!channel> Today is Friday, so please close solved ticket!'
     ]
     robot.send room, post
     start: true
