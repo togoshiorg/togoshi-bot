@@ -23,9 +23,9 @@ module.exports = (robot) ->
       '<!channel> 19時になりました。これからお帰りの方も、残業する方もお疲れ様です。'
       '<!channel> 19時…ゴシ…ﾊﾞﾀｯ'
       '<!channel> お疲れ様ゴシ。もう19時になったゴシ。早いゴシねぇ…'
-      '<!channel> http://stamp.bokete.jp/21702992.png'
       '<!channel> http://serif.hatelabo.jp/images/cache/7cabedfe81e8e328aa930388fad4dbe95fe36aa9/c5673d089fdbb895ce57518bd7502a298a6f42aa.gif'
       '<!channel> http://bw-ok.co.jp/wp-content/uploads/2016/01/c1daaff496b86c1f9a4bfdfe2405e88e.jpg'
+      '<!channel> https://retrip.s3.amazonaws.com/article/2994/images/2994bc7535af-301a-4f6d-b5a1-d2237c02ff21_m.jpg'
     ]
     robot.send room, post
     start: true
