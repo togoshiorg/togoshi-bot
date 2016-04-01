@@ -27,6 +27,7 @@ module.exports = (robot) ->
       '<!channel> http://bw-ok.co.jp/wp-content/uploads/2016/01/c1daaff496b86c1f9a4bfdfe2405e88e.jpg'
       '<!channel> https://retrip.s3.amazonaws.com/article/2994/images/2994bc7535af-301a-4f6d-b5a1-d2237c02ff21_m.jpg'
       '<!channel> 1分遅れのhttp://ss.bokete.jp/3372262.jpg'
+      'http://p.twpl.jp/show/large/KSVKl'
     ]
     robot.send room, post
     start: true
