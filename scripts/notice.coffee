@@ -28,6 +28,7 @@ module.exports = (robot) ->
       '<!channel> https://retrip.s3.amazonaws.com/article/2994/images/2994bc7535af-301a-4f6d-b5a1-d2237c02ff21_m.jpg'
       '<!channel> 1分遅れのhttp://ss.bokete.jp/3372262.jpg'
       'http://p.twpl.jp/show/large/KSVKl'
+      'http://stat.ameba.jp/user_images/20141119/00/chiko-mikan/d8/d6/p/o0555041413133517439.png'
     ]
     robot.send room, post
     start: true
