@@ -133,3 +133,6 @@ module.exports = (robot) ->
     msg.send 'どうする兄ちゃん'
     msg.send 'http://weekly.ascii.jp/elem/000/000/280/280817/1204nabe01_1200x.jpg'
 
+  robot.hear /@togoshi-bot Hello/, (msg) ->
+    username = msg.message.user.name
+    msg.send 'Hello, ' + username
