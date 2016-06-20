@@ -105,14 +105,14 @@ module.exports = (robot) ->
   #   robot.brain.set 'totalSodas', 0
   #   res.reply 'zzzzz'
 
-  robot.hear /にしうまさん|西馬さん|しょうぞうさん|尚三さん/, (msg) ->
-    msg.send msg.random [
-      ':west::horse::three:ゴシ！',
-      'バッシーさん = ミッフィーとおともだちゴシ！',
-      '佐々キング腹ですぎゴシ！',
-      '村岡A11Yヤクザゴシ！',
-      '英検＼(^o^)／準一級ゴシ！'
-    ]
+#  robot.hear /にしうまさん|西馬さん|しょうぞうさん|尚三さん/, (msg) ->
+#    msg.send msg.random [
+#      ':west::horse::three:ゴシ！',
+#      'バッシーさん = ミッフィーとおともだちゴシ！',
+#      '佐々キング腹ですぎゴシ！',
+#      '村岡A11Yヤクザゴシ！',
+#      '英検＼(^o^)／準一級ゴシ！'
+#    ]
 
   robot.hear /.*調子.*/, (msg) ->
     msg.send msg.random [

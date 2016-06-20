@@ -106,6 +106,7 @@ module.exports = (robot) ->
   #   res.reply 'zzzzz'
 
   robot.hear /ぬるぽ|nurupo|ヌルポ/, (msg) ->
+    user = msg.message.user.name
     msg.send '''
 ```
    Λ＿Λ     ＼＼
@@ -114,6 +115,6 @@ module.exports = (robot) ->
   Ｙ /ノ     人
    / ）    < >   _Λ  ∩
 ＿/し'   ／／  Ｖ｀Д´）/
-（＿フ彡             / ←>> @#{msg.message.user.name}
+（＿フ彡             / ←>> @#{user}
 ```
   '''
