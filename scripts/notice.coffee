@@ -29,6 +29,7 @@ module.exports = (robot) ->
       '<!channel> 1分遅れのhttp://ss.bokete.jp/3372262.jpg'
       'http://p.twpl.jp/show/large/KSVKl'
       'http://stat.ameba.jp/user_images/20141119/00/chiko-mikan/d8/d6/p/o0555041413133517439.png'
+      'http://thumbnail.image.rakuten.co.jp/@0_mall/t-time/cabinet/new_rms2/teijitaishakyoko_tm.jpg?_ex=200x200&s=2&r=1#.png'
     ]
     robot.send room, post
     start: true
