@@ -41,7 +41,12 @@ module.exports = (robot) => {
                     name: body.name,
                     img: config.img.url + imgNo + '.' + config.img.fileType
                 };
-                res.send(pokeData.name + 'を捕まえたゴシ！\n' + pokeData.img);
+
+                // 数値をランダム生成してポケモンの強さ（CP）を定義
+                const cpMax = 2000;
+                const pokeCp = Math.floor(Math.random() * cpMax);
+
+                res.send('CP' + pokeCp + 'の' + pokeData.name + 'を捕まえたゴシ！\n' + pokeData.img);
             } else {
                 res.send('捕まえるの失敗したゴシ…。');
             }
