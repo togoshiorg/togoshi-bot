@@ -4,6 +4,7 @@
 */
 
 const request = require('request');
+import translateData from '../data/pokemon.json';
 
 module.exports = (robot) => {
 
@@ -38,7 +39,7 @@ module.exports = (robot) => {
                 const imgNo = ('00' + body.id).slice(-3);
                 const pokeData = {
                     id: body.id,
-                    name: body.name,
+                    name: translateData[body.id - 1].ja,
                     img: config.img.url + imgNo + '.' + config.img.fileType
                 };
 
