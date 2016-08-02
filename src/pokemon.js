@@ -28,7 +28,7 @@ module.exports = (robot) => {
     };
 
     robot.respond(/get pokemon/, (res) => {
-        res.send('捕まえてくるゴシ。。。。。');
+        res.send(':pokeball: 捕まえてくるゴシ。。。。。');
 
         // 数値をランダム生成してリクエストURL定義
         const pokeSelect = Math.floor(Math.random() * config.max) + 1;
