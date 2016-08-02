@@ -6,7 +6,7 @@ module.exports = (robot) => {
     // チケットクローズ
     const ticketClose = new cronJob('0 00 18 * * 5', () => {
         const room = {room: '#general'}
-        const post = Response.random([
+        const post = Response.prototype.random([
             '<!channel> 今日は花金。チケットクローズよろしくゴシ。',
             '<!channel> 今週もお疲れ様ゴシ。金曜日なのでチケットクローズするゴシ。',
             '<!channel> 今日はチケットクローズしてほしいゴシ…',
@@ -19,7 +19,7 @@ module.exports = (robot) => {
     // 定時のお知らせ
     const ordinary = new cronJob('0 0 19 * * 1-5', () => {
         const room = {room: '#general'}
-        const post = Response.random([
+        const post = Response.prototype.random([
             '<!channel> 19時になったゴシ。業務が終わった方は早く帰るゴシ。まだまだ仕事がある方はもうちょっと頑張ろうゴシ！',
             '<!channel> 19時になりました。これからお帰りの方も、残業する方もお疲れ様です。',
             '<!channel> 19時…ゴシ…ﾊﾞﾀｯ',
@@ -39,9 +39,7 @@ module.exports = (robot) => {
     // カンパニー提出リマインド（前日）
     const companyDailyClose = new cronJob('0 0 19 10 * *', () => {
         const room = {room: '#general'}
-        const post = Response.random([
-            '<!channel> 明日はカンパニーの月次提出日ゴシ。日時提出は今のうち終わらせておくゴシ。'
-        ]);
+        const post = '<!channel> 明日はカンパニーの月次提出日ゴシ。日時提出は今のうち終わらせておくゴシ。';
         robot.send(room, post);
     }, null, true, 'Asia/Tokyo');
     companyDailyClose.start();
@@ -49,9 +47,7 @@ module.exports = (robot) => {
     // カンパニー提出リマインド（当日）
     const companyMonthlyClose = new cronJob('0 55 9 11 * *', () => {
         const room = {room: '#general'}
-        const post = Response.random([
-            '<!channel> 今日はカンパニーの月次提出日ゴシ。朝のうちに出しておくゴシ。'
-        ]);
+        const post = '<!channel> 今日はカンパニーの月次提出日ゴシ。朝のうちに出しておくゴシ。';
         robot.send(room, post);
     }, null, true, 'Asia/Tokyo');
     companyMonthlyClose.start();

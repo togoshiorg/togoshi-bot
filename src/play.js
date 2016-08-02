@@ -1,14 +1,13 @@
 module.exports = (robot) => {
     robot.hear(/.*調子.*/, (res) => {
-        res.send(() => {
-            return res.random([
-                ':very_good:',
-                ':good:',
-                ':normal:',
-                ':bad:',
-                ':very_bad:'
-            ])
-        });
+        const post = res.random([
+            ':very_good:',
+            ':good:',
+            ':normal:',
+            ':bad:',
+            ':very_bad:'
+        ]);
+        res.send(post);
     });
 
     robot.hear(/銀次郎くん！/, (res) => {
