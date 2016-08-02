@@ -1,0 +1,50 @@
+/**
+ * ポケモンゲットだぜ
+ * `get pokemon` というコマンドで、botがランダムに一匹のポケモンを捕獲してきます。
+*/
+
+const request = require('request');
+
+module.exports = (robot) => {
+
+    // ポケモンデータ設定
+    const config = {
+        // サポートするポケモンの数（0からカウントするので最大数-1）
+        max: 720,
+        // APIURL
+        api: 'http://pokeapi.co/api/v2/pokemon/',
+        // 画像表示
+        img: {
+            url: 'http://sprites.pokecheck.org/i/',
+            fileType: 'gif'
+        }
+    };
+
+    // request設定・初期値
+    let options = {
+        url: config.api + '1/',
+        json: true
+    };
+
+    robot.respond(/get pokemon/, (res) => {
+        res.send('捕まえてくるゴシ。。。。。');
+
+        // 数値をランダム生成してリクエストURL定義
+        const pokeSelect = Math.floor(Math.random() * config.max) + 1;
+        options.url = config.api + pokeSelect + '/';
+
+        request.get(options, (err, response, body) => {
+            if (response.statusCode === 200) {
+                const imgNo = ('00' + body.id).slice(-3);
+                const pokeData = {
+                    id: body.id,
+                    name: body.name,
+                    img: config.img.url + imgNo + '.' + config.img.fileType
+                };
+                res.send(pokeData.name + 'を捕まえたゴシ！\n' + pokeData.img);
+            } else {
+                res.send('捕まえるの失敗したゴシ…。');
+            }
+        })
+    });
+}
