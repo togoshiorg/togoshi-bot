@@ -42,13 +42,20 @@ module.exports = (robot) => {
                     }
                 });
 
-                res.send(room, todayStr + 'の運勢ベスト3だゴシ！\n' +
-                    '*1位 ' + result[0].sign + '*\n' + '金運：' + result[0].money + '　仕事運：' + result[0].job + '　恋愛運：' + result[0].love + '　総合運：' + result[0].total + '\n' + result[0].content + '\n\n' +
-                    '*2位 ' + result[1].sign + '*\n' + '金運：' + result[1].money + '　仕事運：' + result[1].job + '　恋愛運：' + result[1].love + '　総合運：' + result[1].total + '\n' + result[1].content + '\n\n' +
-                    '*3位 ' + result[2].sign + '*\n' + '金運：' + result[2].money + '　仕事運：' + result[2].job + '　恋愛運：' + result[2].love + '　総合運：' + result[2].total + '\n' + result[2].content
-                );
+                // 発言文字列作成
+                const text = {
+                    title: todayStr + 'の運勢ベスト3だゴシ！',
+                    one:'*1位 ' + result[0].sign + '*\n' + '金運：' + result[0].money + '　仕事運：' + result[0].job + '　恋愛運：' + result[0].love + '　総合運：' + result[0].total + '\n' + result[0].content,
+                    two: '*2位 ' + result[1].sign + '*\n' + '金運：' + result[1].money + '　仕事運：' + result[1].job + '　恋愛運：' + result[1].love + '　総合運：' + result[1].total + '\n' + result[1].content,
+                    three: '*3位 ' + result[2].sign + '*\n' + '金運：' + result[2].money + '　仕事運：' + result[2].job + '　恋愛運：' + result[2].love + '　総合運：' + result[2].total + '\n' + result[2].content
+                };
+
+                robot.send(room, text.title);
+                robot.send(room, text.one);
+                robot.send(room, text.two);
+                robot.send(room, text.three);
             } else {
-                res.send(room, '今日は占いはお休みゴシ');
+                robot.send(room, '今日は占いはお休みゴシ');
             }
         })
     }, null, true, 'Asia/Tokyo');
