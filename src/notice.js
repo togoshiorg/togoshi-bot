@@ -1,26 +1,41 @@
+/**
+ * リマインダー系
+ * cronで実行タイミングを指定します。
+ *
+ * cronJob('秒, 分, 時, 日, 月, 曜日', callback);
+ * 曜日：{0: 日, 1: 月, 2:火, 3:水, 4:木, 5:金, 6:土}
+ *
+ * その他細かい指定方法については「crontab」で検索してみてください。
+*/
+
 const cronJob = require('cron').CronJob;
 const Response = require('hubot').Response;
 
 module.exports = (robot) => {
 
-    // チケットクローズ
-    const ticketClose = new cronJob('0 00 18 * * 5', () => {
-        const room = {room: '#general'}
-        const post = Response.prototype.random([
-            '<!channel> 今日は花金。チケットクローズよろしくゴシ。',
-            '<!channel> 今週もお疲れ様ゴシ。金曜日なのでチケットクローズするゴシ。',
-            '<!channel> 今日はチケットクローズしてほしいゴシ…',
-            '<!channel> Today is Friday, so please close resolved tickets!'
-        ]);
-        robot.send(room, post);
-    }, null, true, 'Asia/Tokyo');
-    ticketClose.start();
+    // チケットクローズ（リソース管理方法がチーム毎に変わるためDisabled）
+    // 毎週金曜18:00
+    // const ticketClose = new cronJob('0 00 18 * * 5', () => {
+    //     // #generalのID
+    //     const room = {room: 'C04QLTK0C'}
+    //     const post = Response.prototype.random([
+    //         '<!channel> 今日は花金。チケットクローズよろしくゴシ。',
+    //         '<!channel> 今週もお疲れ様ゴシ。金曜日なのでチケットクローズするゴシ。',
+    //         '<!channel> 今日はチケットクローズしてほしいゴシ…',
+    //         '<!channel> Today is Friday, so please close resolved tickets!'
+    //     ]);
+    //     robot.send(room, post);
+    // }, null, true, 'Asia/Tokyo');
+    // ticketClose.start();
 
     // 定時のお知らせ
+    // 平日19:00
     const ordinary = new cronJob('0 0 19 * * 1-5', () => {
-        const room = {room: '#general'}
+        // #generalのID
+        const room = {room: 'C04QLTK0C'}
         const post = Response.prototype.random([
             '<!channel> 19時になったゴシ。業務が終わった方は早く帰るゴシ。まだまだ仕事がある方はもうちょっと頑張ろうゴシ！',
+            '<!channel> 19時ゴシ！19時ゴシ！19時ゴシ！19時ゴシ！19時ゴシ！帰るゴシ！',
             '<!channel> 19時になりました。これからお帰りの方も、残業する方もお疲れ様です。',
             '<!channel> 19時…ゴシ…ﾊﾞﾀｯ',
             '<!channel> お疲れ様ゴシ。もう19時になったゴシ。早いゴシねぇ…',
@@ -37,32 +52,40 @@ module.exports = (robot) => {
     ordinary.start();
 
     // カンパニー提出リマインド（前日）
+    // 毎月10日19:00
     const companyDailyClose = new cronJob('0 0 19 10 * *', () => {
-        const room = {room: '#general'}
+        // #generalのID
+        const room = {room: 'C04QLTK0C'}
         const post = '<!channel> 明日はカンパニーの月次提出日ゴシ。日時提出は今のうち終わらせておくゴシ。';
         robot.send(room, post);
     }, null, true, 'Asia/Tokyo');
     companyDailyClose.start();
 
     // カンパニー提出リマインド（当日）
+    // 毎月11日9:55
     const companyMonthlyClose = new cronJob('0 55 9 11 * *', () => {
-        const room = {room: '#general'}
+        // #generalのID
+        const room = {room: 'C04QLTK0C'}
         const post = '<!channel> 今日はカンパニーの月次提出日ゴシ。朝のうちに出しておくゴシ。';
         robot.send(room, post);
     }, null, true, 'Asia/Tokyo');
     companyMonthlyClose.start();
 
     // 大晦日
+    // 12/31 23:00
     const newyearsEve = new cronJob('0 0 23 31 12 *', () => {
-        const room = {room: '#general'}
+        // #generalのID
+        const room = {room: 'C04QLTK0C'}
         const post = '<!channel> 今年もお世話になったゴシ。みなさま良いお年をゴシ。さて、「笑ってはいけない」見よっと。';
         robot.send(room, post);
     }, null, true, 'Asia/Tokyo');
     newyearsEve.start();
 
     // 新年
+    // 1/1 8:00
     const newyear = new cronJob('0 0 8 1 1 *', () => {
-        const room = {room: '#general'}
+        // #generalのID
+        const room = {room: 'C04QLTK0C'}
         const post = '<!channel> あけましておめでとうゴシ。今年もよろしくお願いしまゴシ。';
         robot.send(room, post);
     }, null, true, 'Asia/Tokyo');
