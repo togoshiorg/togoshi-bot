@@ -16,7 +16,7 @@ module.exports = (robot) => {
         api: 'http://pokeapi.co/api/v2/pokemon/',
         // 画像表示
         img: {
-            url: 'http://sprites.pokecheck.org/i/',
+            url: 'http://www.pokestadium.com/sprites/black-white/animated/',
             fileType: 'gif'
         }
     };
@@ -36,11 +36,10 @@ module.exports = (robot) => {
 
         request.get(options, (err, response, body) => {
             if (response.statusCode === 200) {
-                const imgNo = ('00' + body.id).slice(-3);
                 const pokeData = {
                     id: body.id,
                     name: translateData[body.id - 1].ja,
-                    img: config.img.url + imgNo + '.' + config.img.fileType
+                    img: config.img.url + body.name + '.' + config.img.fileType
                 };
 
                 // 数値をランダム生成してポケモンの強さ（CP）を定義
