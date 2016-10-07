@@ -50,9 +50,47 @@ module.exports = (robot) => {
                 if (pokeCp > 1900) {
                     res.send('コイツはつよいゴシ！！');
                 }
+
+                // ポケモン図鑑に登録ロジック
+                let zukanData = robot.brain.get('pokemon-zukan') || [];
+                const zukanCheck = zukanData.some(elm => {
+                    return elm.id !== pokeData.id;
+                });
+                if (zukanData.length === 0 || zukanCheck) {
+                    zukanData.push({
+                        id: pokeData.id,
+                        name: pokeData.name,
+                        nameEn: body.name,
+                        maxCp: pokeCp
+                    });
+                    robot.brain.set('pokemon-zukan', zukanData);
+                }
             } else {
                 res.send('捕まえるの失敗したゴシ…。');
             }
         })
+    });
+
+    robot.respond(/check zukan/, (res) => {
+        const zukanData = robot.brain.get('pokemon-zukan');
+        console.log(zukanData);
+        let count = 0;
+        if (zukanData) {
+            count = zukanData.length
+        }
+        res.send('ポケモン図鑑は' + count + '匹まで埋まったゴシ！！');
+    });
+
+    robot.respond(/check pokemon (.*)/i, (res) => {
+        const zukanData = robot.brain.get('pokemon-zukan');
+        const hitData = zukanData.filter(elm => {
+            return elm.name === res.match[1];
+        });
+        if (hitData.length === 0) {
+            res.send(res.match[1] + 'はまだ捕まえてないゴシ…');
+        } else {
+            const img = config.img.url + hitData[0].nameEn + '.' + config.img.fileType
+            res.send(res.match[1] + 'はもう捕まえているゴシよ♪\n' + img);
+        }
     });
 }
