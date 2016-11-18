@@ -18,6 +18,10 @@ module.exports = (robot) => {
         img: {
             url: 'http://www.pokestadium.com/sprites/black-white/animated/',
             fileType: 'gif'
+        },
+        imgFan: {
+            url: 'http://www.pokestadium.com/sprites/xy-fan/',
+            fileType: 'png'
         }
     };
 
@@ -34,12 +38,20 @@ module.exports = (robot) => {
         const pokeSelect = Math.floor(Math.random() * config.max) + 1;
         options.url = config.api + pokeSelect + '/';
 
+        const getUrl = (id, name) => {
+            if (id >= 650) {
+                return config.imgFan.url + name + '.' + config.imgFan.fileType;
+            } else {
+                return config.img.url + name + '.' + config.img.fileType;
+            }
+        };
+
         request.get(options, (err, response, body) => {
             if (response.statusCode === 200) {
                 const pokeData = {
                     id: body.id,
                     name: translateData[body.id - 1].ja,
-                    img: config.img.url + body.name + '.' + config.img.fileType
+                    img: getUrl(body.id, body.name)
                 };
 
                 // 数値をランダム生成してポケモンの強さ（CP）を定義
