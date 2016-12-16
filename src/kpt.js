@@ -6,11 +6,12 @@ module.exports = (robot) => {
 
     // KPTモードのON/OFF
     let mode = false;
-    robot.respond(/kptmode (.*)/i, (res) => {
-        if (res.match[0] === 'on') {
+    robot.respond(/kpt mode (.*)/i, (res) => {
+        console.log(res.match[0], res.match[1]);
+        if (res.match[1] === 'on') {
             mode = true;
             res.send('KPTモードがONになったゴシ！振り返るゴシ〜！');
-        } else if (res.match[0] === 'off') {
+        } else if (res.match[1] === 'off') {
             mode = false;
             res.send('KPTモードがOFFになったゴシ！お疲れ様ゴシ。');
         } else {
@@ -21,35 +22,35 @@ module.exports = (robot) => {
     let brainKeep = robot.brain.get('keep') || [];
     let brainProblem = robot.brain.get('problem') || [];
 
-    robot.respond(/k (.*)/i, (res) => {
+    robot.respond(/kpt k (.*)/i, (res) => {
         if (!mode) return false;
 
-        brainKeep.push(res.match[0]);
-        res.send(res.match[0] + 'をKEEPに追加したゴシ！');
+        brainKeep.push(res.match[1]);
+        res.send(`「${res.match[1]}」をKEEPに追加したゴシ！`);
     });
 
-    robot.respond(/p (.*)/i, (res) => {
+    robot.respond(/kpt p (.*)/i, (res) => {
         if (!mode) return false;
 
-        brainProblem.push(res.match[0]);
-        res.send(res.match[0] + 'をPROBLEMに追加したゴシ！');
+        brainProblem.push(res.match[1]);
+        res.send(`「${res.match[1]}」をPROBLEMに追加したゴシ！`);
     });
 
-    robot.respond(/k list/i, (res) => {
+    robot.respond(/kpt list k/i, (res) => {
         if (!mode) return false;
 
         res.send('現在のKEEPはこれだけ出てるゴシよ。');
         brainKeep.forEach(elm => {
-            res.send(':ok_woman:' + elm);
+            res.send(`:ok_woman:「${elm}」`);
         });
     });
 
-    robot.respond(/p list/i, (res) => {
+    robot.respond(/kpt list p/i, (res) => {
         if (!mode) return false;
 
         res.send('現在のPROBLEMはこれだけ出てるゴシよ。');
         brainProblem.forEach(elm => {
-            res.send(':no_good:' + elm);
+            res.send(`:no_good:「${elm}」`);
         });
     });
 
