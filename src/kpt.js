@@ -39,19 +39,27 @@ module.exports = (robot) => {
     robot.respond(/kpt list k/i, (res) => {
         if (!mode) return false;
 
-        res.send('現在のKEEPはこれだけ出てるゴシよ。');
-        brainKeep.forEach(elm => {
-            res.send(`:ok_woman:「${elm}」`);
-        });
+        if (brainKeep.length === 0) {
+            res.send('KEEPはまだ0件だゴシ…。');
+        } else {
+            res.send('現在のKEEPはこれだけ出てるゴシよ。');
+            brainKeep.forEach(elm => {
+                res.send(`:ok_woman:「${elm}」`);
+            });
+        }
     });
 
     robot.respond(/kpt list p/i, (res) => {
         if (!mode) return false;
 
-        res.send('現在のPROBLEMはこれだけ出てるゴシよ。');
-        brainProblem.forEach(elm => {
-            res.send(`:no_good:「${elm}」`);
-        });
+        if (brainKeep.length === 0) {
+            res.send('PROBLEMはまだ0件だゴシ…。');
+        } else {
+            res.send('現在のPROBLEMはこれだけ出てるゴシよ。');
+            brainProblem.forEach(elm => {
+                res.send(`:no_good:「${elm}」`);
+            });
+        }
     });
 
     robot.respond(/kpt clear/i, (res) => {
