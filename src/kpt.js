@@ -23,25 +23,25 @@ module.exports = (robot) => {
     let brainProblem = robot.brain.get('problem') || [];
 
     // 追加
-    const addItem = (brain, type, msg) => {
+    const addItem = (res, brain, type, msg) => {
         brain.push(msg);
         res.send(`「${msg}」を${type}に追加したゴシ！`);
     };
     robot.respond(/kpt k (.*)/i, (res) => {
         if (!mode) return false;
-        addItem(brainKeep, 'KEEP', res.match[1]);
+        addItem(res, brainKeep, 'KEEP', res.match[1]);
     });
     robot.respond(/kpt p (.*)/i, (res) => {
         if (!mode) return false;
-        addItem(brainProblem, 'PROBLEM', res.match[1]);
+        addItem(res, brainProblem, 'PROBLEM', res.match[1]);
     });
 
     // 一覧の確認
-    const showList = (brain, type, emoji) => {
+    const showList = (res, brain, type, emoji) => {
         if (brain.length === 0) {
-            res.send('${type}はまだ0件だゴシ…。');
+            res.send(`${type}はまだ0件だゴシ…。`);
         } else {
-            res.send('現在の${type}はこれだけ出てるゴシよ。');
+            res.send(`現在の${type}はこれだけ出てるゴシよ。`);
             brain.forEach(elm => {
                 res.send(`${emoji}「${elm}」`);
             });
@@ -49,11 +49,11 @@ module.exports = (robot) => {
     };
     robot.respond(/kpt list k/i, (res) => {
         if (!mode) return false;
-        showList(brainKeep, 'KEEP', ':ok_woman:');
+        showList(res, brainKeep, 'KEEP', ':ok_woman:');
     });
     robot.respond(/kpt list p/i, (res) => {
         if (!mode) return false;
-        showList(brainProblem, 'PROBLEM', ':no_good:');
+        showList(res, brainProblem, 'PROBLEM', ':no_good:');
     });
 
     // 一覧のクリア
