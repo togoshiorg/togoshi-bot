@@ -65,4 +65,19 @@ module.exports = (robot) => {
         res.send('KPTをすべてクリアしたゴシ！！');
     });
 
+    // ヘルプ
+    robot.respond(/kpt help/i, (res) => {
+        res.send(`
+KPT機能を紹介するゴシ！
+
+:arrows_counterclockwise: kpt mode {on|off} - KPT機能を有効にするかを切り替え
+:heavy_plus_sign: kpt k {*} - KEEPを追加
+:heavy_minus_sign: kpt p {*} - PROBLEMを追加
+:bookmark: kpt list {k|p} - 今までに追加したKEEP/PROBLEMを参照
+:boom: kpt clear - 今までに追加したものをすべて削除
+:beginner: kpt help - いま見ているコレ
+
+振り返りが終わったら、clearしてmode offを忘れずにゴシ！
+        `);
+    });
 }
