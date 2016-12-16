@@ -7,7 +7,6 @@ module.exports = (robot) => {
     // KPTモードのON/OFF
     let mode = false;
     robot.respond(/kpt mode (.*)/i, (res) => {
-        console.log(res.match[0], res.match[1]);
         if (res.match[1] === 'on') {
             mode = true;
             res.send('KPTモードがONになったゴシ！振り返るゴシ〜！');
