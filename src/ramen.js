@@ -66,6 +66,22 @@ module.exports = (robot) => {
             'http://tabelog.com/saitama/A1103/A110302/11023639/',
             'http://tabelog.com/saitama/A1103/A110302/11040024/',
             'http://tabelog.com/saitama/A1103/A110302/11000286/'
+        ],
+        roppongi: [
+            'https://tabelog.com/tokyo/A1307/A130701/13165303/',
+            'https://tabelog.com/tokyo/A1307/A130701/13116548/',
+            'https://tabelog.com/tokyo/A1307/A130701/13191404/',
+            'https://tabelog.com/tokyo/A1307/A130704/13019464/',
+            'https://tabelog.com/tokyo/A1307/A130701/13005378/',
+            'https://tabelog.com/tokyo/A1307/A130701/13006975/',
+            'https://tabelog.com/tokyo/A1307/A130701/13202021/',
+            'https://tabelog.com/tokyo/A1307/A130701/13131171/',
+            'https://tabelog.com/tokyo/A1307/A130701/13188460/',
+            'https://tabelog.com/tokyo/A1307/A130701/13169616/',
+            'https://tabelog.com/tokyo/A1308/A130802/13014244/',
+            'https://tabelog.com/tokyo/A1308/A130801/13028670/',
+            'https://tabelog.com/tokyo/A1307/A130701/13007006/',
+            'https://tabelog.com/tokyo/A1307/A130701/13195442/'
         ]
     };
 
@@ -87,6 +103,9 @@ module.exports = (robot) => {
             res.send(randomShop('shinjuku'));
         } else if (res.message.text.indexOf('志木') !== -1) {
             res.send('志木ではここがおすすめゴシ！');
+            res.send(randomShop('shiki'));
+        } else if (res.message.text.indexOf('六本木') !== -1) {
+            res.send('六本木ではここがおすすめゴシ！');
             res.send(randomShop('shiki'));
         } else {
             res.send('そこのおすすめは今探索隊が調査中ゴシ！');
