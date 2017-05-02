@@ -106,7 +106,7 @@ module.exports = (robot) => {
             res.send(randomShop('shiki'));
         } else if (res.message.text.indexOf('六本木') !== -1) {
             res.send('六本木ではここがおすすめゴシ！');
-            res.send(randomShop('shiki'));
+            res.send(randomShop('roppongi'));
         } else {
             res.send('そこのおすすめは今探索隊が調査中ゴシ！');
         }
