@@ -2,7 +2,7 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: /release
+    destination: /opt/hubot
 hooks:
   ApplicationStart:
     - location: bin/codedeploy_start.sh
