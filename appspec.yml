@@ -5,5 +5,5 @@ files:
     destination: /release
 hooks:
   ApplicationStart:
-    - location: Procfile
+    - location: bin/codedeploy_start.sh
       timeout: 180
