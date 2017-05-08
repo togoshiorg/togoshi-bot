@@ -1,0 +1,9 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /release
+hooks:
+  ApplicationStart:
+    - location: scripts/codedeploy_start.sh
+      timeout: 180
