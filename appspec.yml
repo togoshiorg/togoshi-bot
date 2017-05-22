@@ -5,5 +5,5 @@ files:
     destination: /opt/hubot
 hooks:
   ApplicationStart:
-    - location: bin/codedeploy_start.sh
+    - location: opt/hubot/bin/codedeploy_start.sh
       timeout: 180
