@@ -1,5 +1,5 @@
 #/!bin/bash
 
 cd /opt/hubot
-sudo npm install
+yarn
 bin/hubot -a slack --require build
