@@ -61,6 +61,8 @@ module.exports = (robot) => {
                 res.send('CP' + pokeCp + 'の' + pokeData.name + 'を捕まえたゴシ！\n' + pokeData.img);
                 if (pokeCp > 1900) {
                     res.send('コイツはつよいゴシ！！');
+                } else if (pokeCp < 100) {
+                    res.send('コイツはよわいゴシ…。');
                 }
             } else {
                 res.send('捕まえるの失敗したゴシ…。');
