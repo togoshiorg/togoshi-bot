@@ -3,72 +3,12 @@
  * `get pokemon` というコマンドで、botがランダムに一匹のポケモンを捕獲してきます。
 */
 
-const request = require('request');
-import translateData from '../data/pokemon.json';
+import {getPokeComment} from './module/pokemon-module';
 
 module.exports = (robot) => {
-
-    // ポケモンデータ設定
-    const config = {
-        // サポートするポケモンの数（0からカウントするので最大数-1）
-        max: 720,
-        // APIURL
-        api: 'http://pokeapi.co/api/v2/pokemon/',
-        // 画像表示
-        img: {
-            url: 'http://www.pokestadium.com/sprites/black-white/animated/',
-            fileType: 'gif'
-        },
-        imgFan: {
-            url: 'http://www.pokestadium.com/sprites/xy-fan/',
-            fileType: 'png'
-        }
-    };
-
-    // request設定・初期値
-    let options = {
-        url: config.api + '1/',
-        json: true
-    };
-
+    const resultComment = getPokeComment();
     robot.respond(/get pokemon/, (res) => {
         res.send(':pokeball: 捕まえてくるゴシ。。。。。');
-
-        // 数値をランダム生成してリクエストURL定義
-        const pokeSelect = Math.floor(Math.random() * config.max) + 1;
-        options.url = config.api + pokeSelect + '/';
-
-        const getUrl = (id, name) => {
-            if (id >= 650) {
-                return config.imgFan.url + name + '.' + config.imgFan.fileType;
-            } else {
-                return config.img.url + name + '.' + config.img.fileType;
-            }
-        };
-
-        request.get(options, (err, response, body) => {
-            if (response.statusCode === 200) {
-                const pokeData = {
-                    id: body.id,
-                    name: translateData[body.id - 1].ja,
-                    img: getUrl(body.id, body.name)
-                };
-
-                // 数値をランダム生成してポケモンの強さ（CP）を定義
-                const cpMax = 4000;
-                const pokeCp = Math.floor(Math.random() * cpMax);
-
-                res.send('CP' + pokeCp + 'の' + pokeData.name + 'を捕まえたゴシ！\n' + pokeData.img);
-                if (pokeCp > 3500) {
-                    res.send('コイツは空前絶後のつよさゴシ！！');
-                } else if (pokeCp >= 2500 && pokeCp <= 3500) {
-                    res.send('コイツはつよいゴシ！！');
-                } else if (pokeCp < 100) {
-                    res.send('コイツはよわいゴシ…。');
-                }
-            } else {
-                res.send('捕まえるの失敗したゴシ…。');
-            }
-        })
+        res.send(resultComment);
     });
 }

@@ -1,0 +1,88 @@
+/**
+ * get pokemonのロジックファイルです。
+*/
+
+const request = require('request');
+import translateData from '../data/pokemon.json';
+
+const getPokeComment = () => {
+    // ポケモンデータ設定
+    const config = {
+        // サポートするポケモンの数（0からカウントするので最大数-1）
+        max: 720,
+        // APIURL
+        api: 'http://pokeapi.co/api/v2/pokemon/',
+        // 画像表示
+        img: {
+            url: 'http://www.pokestadium.com/sprites/black-white/animated/',
+            fileType: 'gif'
+        },
+        imgFan: {
+            url: 'http://www.pokestadium.com/sprites/xy-fan/',
+            fileType: 'png'
+        }
+    };
+
+    // request設定・初期値
+    let options = {
+        url: config.api + '1/',
+        json: true
+    };
+
+
+    // 数値をランダム生成してリクエストURL定義
+    const pokeSelect = Math.floor(Math.random() * config.max) + 1;
+    options.url = config.api + pokeSelect + '/';
+
+    const getUrl = (id, name) => {
+        if (id >= 650) {
+            return config.imgFan.url + name + '.' + config.imgFan.fileType;
+        } else {
+            return config.img.url + name + '.' + config.img.fileType;
+        }
+    };
+
+    request.get(options, (err, response, body) => {
+        const pokeData = {
+            id: body.id,
+            name: translateData[body.id - 1].ja,
+            img: getUrl(body.id, body.name)
+        };
+
+        // 数値をランダム生成してポケモンの強さ（CP）を定義
+        const cpMax = 4000;
+        const pokeCp = Math.floor(Math.random() * cpMax);
+
+        // ポケモンの強さレベルを定義
+        const cpGod = 4000;               //最強
+        const cpStrongest = 3500 - 3999;  //超強い
+        const cpStronger = 2000 - 3499;   //強い
+        const cpNormal = 100 - 1999;      //普通
+        const cpWeaker = 99;              //弱い
+        const cpWeakest = 1;              //最弱
+
+        // 
+        const getAddComment = () => {
+            if (pokeCp = cpGod) {
+                return 'コイツは空前絶後のつよさゴシ！！\n';
+            } else if (pokeCp > 3500) {
+                return 'コイツは空前絶後のつよさゴシ！！\n';
+            } else if (pokeCp >= 2500 && pokeCp <= 3500) {
+                return 'コイツはつよいゴシ！！\n';
+            } else if (pokeCp < 100) {
+                return 'コイツはよわいゴシ…。\n';
+            }
+        };
+        const addComment = getAddComment();
+
+        //
+        const getComment = () => {
+            if (response.statusCode === 200) {
+                return addComment + 'CP' + pokeCp + 'の' + pokeData.name + 'を捕まえたゴシ！\n' + pokeData.img;
+            } else {
+                return '捕まえるの失敗したゴシ…。';
+            }
+        }
+        const resultComment = getComment();
+    });
+};
