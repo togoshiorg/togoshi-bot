@@ -55,11 +55,13 @@ module.exports = (robot) => {
                 };
 
                 // 数値をランダム生成してポケモンの強さ（CP）を定義
-                const cpMax = 2000;
+                const cpMax = 4000;
                 const pokeCp = Math.floor(Math.random() * cpMax);
 
                 res.send('CP' + pokeCp + 'の' + pokeData.name + 'を捕まえたゴシ！\n' + pokeData.img);
-                if (pokeCp > 1900) {
+                if (pokeCp > 3500) {
+                    res.send('コイツは空前絶後のつよさゴシ！！');
+                } else if (pokeCp >= 2500 && pokeCp <= 3500) {
                     res.send('コイツはつよいゴシ！！');
                 } else if (pokeCp < 100) {
                     res.send('コイツはよわいゴシ…。');
