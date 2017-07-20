@@ -3,7 +3,7 @@
 */
 
 const request = require('request');
-import translateData from '../data/pokemon.json';
+import translateData from '../../data/pokemon.json';
 
 const getPokeComment = () => {
     // ポケモンデータ設定
@@ -49,33 +49,61 @@ const getPokeComment = () => {
             img: getUrl(body.id, body.name)
         };
 
-        // 数値をランダム生成してポケモンの強さ（CP）を定義
-        const cpMax = 4000;
-        const pokeCp = Math.floor(Math.random() * cpMax);
-
-        // ポケモンの強さレベルを定義
-        const cpGod = 4000;               //最強
-        const cpStrongest = 3500 - 3999;  //超強い
-        const cpStronger = 2000 - 3499;   //強い
-        const cpNormal = 100 - 1999;      //普通
-        const cpWeaker = 99;              //弱い
-        const cpWeakest = 1;              //最弱
-
-        // 
-        const getAddComment = () => {
-            if (pokeCp = cpGod) {
-                return 'コイツは空前絶後のつよさゴシ！！\n';
-            } else if (pokeCp > 3500) {
-                return 'コイツは空前絶後のつよさゴシ！！\n';
-            } else if (pokeCp >= 2500 && pokeCp <= 3500) {
-                return 'コイツはつよいゴシ！！\n';
-            } else if (pokeCp < 100) {
-                return 'コイツはよわいゴシ…。\n';
-            }
-        };
+        // 強さレベルによってコメントを追加
         const addComment = getAddComment();
+        const getAddComment = () => {
+            // 数値をランダム生成してポケモンの強さ（CP）を定義
+            const cpMax = 4000;
+            const pokeCp = Math.floor(Math.random() * cpMax);
 
-        //
+            // ポケモンの強さレベルを定義
+            const cpGod = 4000;        //神 4000のみ
+            const cpStrongest = 3500;  //最強 3500以上3999以下
+            const cpStronger = 2000;   //強い 2000以上3499以下
+            const cpWeaker = 99;       //弱い 99以下2以上
+            const cpWeakest = 1;       //最弱 1のみ
+
+            // 強さレベルによって返すコメントを変える
+            const status = judgeLevel();
+            switch (status) {
+                case 'god':
+                    return ':god:\n';
+                    break;
+                case 'strongest':
+                    return 'コイツは空前絶後のつよさゴシ！！\n';
+                    break;
+                case 'stronger':
+                    return 'コイツはつよいゴシ！！\n';
+                    break;
+                case 'weaker':
+                    return 'コイツはよわいゴシ…。\n';
+                    break;
+                case 'weakest':
+                    return 'コイツは超絶孤高によわすぎるゴシ…。\n';
+                    break;
+                default:
+                    return '';
+                    break;   
+            }
+
+            // 強さレベルによって返すステータスを定義
+            const judgeLevel = () => {
+                if (pokeCp === cpGod) {
+                    return 'god'
+                } else if (pokeCp < cpGod && pokeCp >= cpStrongest) {
+                    return 'strongest';
+                } else if (pokeCp < cpStrongest && pokeCp >= cpStronger) {
+                    return 'stronger';
+                } else if (pokeCp <= cpWeaker && pokeCp > cpWeakest) {
+                    return 'weaker';
+                } else if (pokeCp === cpWeakest) {
+                    return 'weakest';
+                }
+            };
+        };        
+
+        // ポケモンゲットの結果を返す
+        const resultComment = getComment();
         const getComment = () => {
             if (response.statusCode === 200) {
                 return addComment + 'CP' + pokeCp + 'の' + pokeData.name + 'を捕まえたゴシ！\n' + pokeData.img;
@@ -83,6 +111,6 @@ const getPokeComment = () => {
                 return '捕まえるの失敗したゴシ…。';
             }
         }
-        const resultComment = getComment();
+         return resultComment;
     });
 };
