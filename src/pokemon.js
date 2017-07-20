@@ -28,6 +28,15 @@ const getSpriteUrl = (id, name) => {
     return `${PATH[type].url}${name}.${PATH[type].fileType}`;
 };
 
+const getPokeData = ({ id, name }) => {
+    return {
+        id,
+        name: translateData[id - 1].ja,
+        img: getSpriteUrl(id, name),
+        cp: getRandomCp(MAXCP)
+    };
+};
+
 module.exports = (robot) => {
     robot.respond(/get pokemon/, (res) => {
         res.send(':pokeball: 捕まえてくるゴシ。。。。。');
@@ -36,18 +45,12 @@ module.exports = (robot) => {
 
         request.get({ randomUrl, json: true }, (err, response, body) => {
             if (response.statusCode === 200) {
-                const pokeData = {
-                    id: body.id,
-                    name: translateData[body.id - 1].ja,
-                    img: getSpriteUrl(body.id, body.name)
-                };
+                const pokeData = getPokeData(body);
 
-                const pokeCp = getRandomCp(MAXCP);
-
-                res.send('CP' + pokeCp + 'の' + pokeData.name + 'を捕まえたゴシ！\n' + pokeData.img);
-                if (pokeCp > 1900) {
+                res.send('CP' + pokeData.cp + 'の' + pokeData.name + 'を捕まえたゴシ！\n' + pokeData.img);
+                if (pokeData.cp > 1900) {
                     res.send(RES.strong);
-                } else if (pokeCp < 100) {
+                } else if (pokeData.cp < 100) {
                     res.send(RES.weak);
                 }
             } else {
