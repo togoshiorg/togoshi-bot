@@ -2,6 +2,7 @@
   "name": "togoshi-bot",
   "version": "0.0.0",
   "scripts": {
+    "test": "./node_modules/.bin/mocha --compilers js:babel-register --reporter nyan",
     "build": "babel src --out-dir build",
     "postinstall": "babel src --out-dir build"
   },
@@ -26,5 +27,9 @@
   },
   "engines": {
     "node": "6.10.2"
+  },
+  "devDependencies": {
+    "babel-register": "^6.24.1",
+    "mocha": "^3.4.2"
   }
 }

@@ -5,67 +5,23 @@
 
 const request = require('request');
 import translateData from '../data/pokemon.json';
+import * as libs from './pokemon/libs';
+import { MAX, RES } from './pokemon/constants';
 
 module.exports = (robot) => {
-
-    // ポケモンデータ設定
-    const config = {
-        // サポートするポケモンの数（0からカウントするので最大数-1）
-        max: 720,
-        // APIURL
-        api: 'http://pokeapi.co/api/v2/pokemon/',
-        // 画像表示
-        img: {
-            url: 'http://www.pokestadium.com/sprites/black-white/animated/',
-            fileType: 'gif'
-        },
-        imgFan: {
-            url: 'http://www.pokestadium.com/sprites/xy-fan/',
-            fileType: 'png'
-        }
-    };
-
-    // request設定・初期値
-    let options = {
-        url: config.api + '1/',
-        json: true
-    };
-
     robot.respond(/get pokemon/, (res) => {
-        res.send(':pokeball: 捕まえてくるゴシ。。。。。');
+        res.send(RES.go);
 
-        // 数値をランダム生成してリクエストURL定義
-        const pokeSelect = Math.floor(Math.random() * config.max) + 1;
-        options.url = config.api + pokeSelect + '/';
+        const randomUrl = libs.getRandomUrl(MAX);
 
-        const getUrl = (id, name) => {
-            if (id >= 650) {
-                return config.imgFan.url + name + '.' + config.imgFan.fileType;
-            } else {
-                return config.img.url + name + '.' + config.img.fileType;
-            }
-        };
-
-        request.get(options, (err, response, body) => {
+        request.get({ url: randomUrl, json: true }, (err, response, body) => {
             if (response.statusCode === 200) {
-                const pokeData = {
-                    id: body.id,
-                    name: translateData[body.id - 1].ja,
-                    img: getUrl(body.id, body.name)
-                };
+                const pokeData = libs.getPokeData(body);
 
-                // 数値をランダム生成してポケモンの強さ（CP）を定義
-                const cpMax = 2000;
-                const pokeCp = Math.floor(Math.random() * cpMax);
-
-                res.send('CP' + pokeCp + 'の' + pokeData.name + 'を捕まえたゴシ！\n' + pokeData.img);
-                if (pokeCp > 1900) {
-                    res.send('コイツはつよいゴシ！！');
-                } else if (pokeCp < 100) {
-                    res.send('コイツはよわいゴシ…。');
-                }
+                res.send(libs.getSuccessRes(pokeData));
+                res.send(libs.evalPokeCpRes(pokeData.cp));
             } else {
-                res.send('捕まえるの失敗したゴシ…。');
+                res.send(RES.miss);
             }
         })
     });
