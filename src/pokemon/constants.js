@@ -16,7 +16,8 @@ export const PATH = {
     fan: {
         url: 'http://www.pokestadium.com/sprites/xy-fan/',
         fileType: 'png'
-    }
+    },
+    shiny: 'shiny/'
 };
 
 // レスポンス文
@@ -24,5 +25,6 @@ export const RES = {
     strong: 'コイツはつよいゴシ！！',
     weak: 'コイツはよわいゴシ…。',
     go: ':pokeball: 捕まえてくるゴシ。。。。。',
-    miss: '捕まえるの失敗したゴシ…。'
+    miss: '捕まえるの失敗したゴシ…。',
+    shiny: '色違いを捕まえたゴシィィィ！！！？'
 };

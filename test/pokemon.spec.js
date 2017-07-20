@@ -16,11 +16,11 @@ describe('pokemon.js', () => {
     });
 
     it('指定の範囲内の数値が返ってくる', () => {
-        const randomCp1 = libs.getRandomCp(MAXCP);
-        const randomCp2 = libs.getRandomCp(MAXCP);
-        const randomCp3 = libs.getRandomCp(MAXCP);
-        const randomCp4 = libs.getRandomCp(MAXCP);
-        const randomCp5 = libs.getRandomCp(MAXCP);
+        const randomCp1 = libs.getRandomNum(MAXCP);
+        const randomCp2 = libs.getRandomNum(MAXCP);
+        const randomCp3 = libs.getRandomNum(MAXCP);
+        const randomCp4 = libs.getRandomNum(MAXCP);
+        const randomCp5 = libs.getRandomNum(MAXCP);
         assert(randomCp1 < MAXCP);
         assert(randomCp2 < MAXCP);
         assert(randomCp3 < MAXCP);
@@ -43,6 +43,12 @@ describe('pokemon.js', () => {
         assert.equal(spriteUrlFan2, `${PATH.fan.url}foo.${PATH.fan.fileType}`);
     });
 
+    it('フラグを渡すと色違いのURLが成形される', () => {
+        const name = 'foo';
+        const spriteUrl = libs.getSpriteUrl(1, name, true);
+        assert.equal(spriteUrl, `${PATH.default.url}${PATH.shiny}${name}.${PATH.default.fileType}`);
+    });
+
     it('指定のidと名前を使ったObjectが返ってくる', () => {
         const data = {
             id: 1,
@@ -62,6 +68,11 @@ describe('pokemon.js', () => {
         };
         const successRes = libs.getSuccessRes(data);
         assert.equal(successRes, 'CP99のfooを捕まえたゴシ！\nhttp://example.com');
+    });
+
+    it('trueを渡すと文面が返ってくる', () => {
+        const shinyRes = libs.getShinyRes(true);
+        assert.equal(shinyRes, RES.shiny);
     });
 
     it('数値によって適当なレスポンスが返ってくる', () => {
