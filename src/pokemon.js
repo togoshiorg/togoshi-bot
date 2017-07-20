@@ -26,6 +26,7 @@ module.exports = (robot) => {
                 const json = await response.json();
                 const pokeData = libs.getPokeData(json, isShiny);
                 res.send(libs.getSuccessRes(pokeData));
+                res.send(libs.getShinyRes(isShiny));
                 res.send(libs.evalPokeCpRes(pokeData.cp));
             } catch(err) {
                 res.send(err);

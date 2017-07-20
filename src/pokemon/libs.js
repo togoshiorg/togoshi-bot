@@ -43,6 +43,10 @@ export const getSuccessRes = (data) => {
     return `CP${data.cp}の${data.name}を捕まえたゴシ！\n${data.img}`;
 };
 
+export const getShinyRes = (isShiny = false) => {
+    return isShiny ? RES.shiny : '';
+};
+
 export const evalPokeCpRes = (cp) => {
     if (cp > 1900) {
         return RES.strong;

@@ -70,6 +70,11 @@ describe('pokemon.js', () => {
         assert.equal(successRes, 'CP99のfooを捕まえたゴシ！\nhttp://example.com');
     });
 
+    it('trueを渡すと文面が返ってくる', () => {
+        const shinyRes = libs.getShinyRes(true);
+        assert.equal(shinyRes, RES.shiny);
+    });
+
     it('数値によって適当なレスポンスが返ってくる', () => {
         const over1900 = libs.evalPokeCpRes(1901);
         const under100 = libs.evalPokeCpRes(99);
