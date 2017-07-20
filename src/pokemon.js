@@ -41,6 +41,15 @@ const getSuccessRes = (data) => {
     return `CP${data.cp}の${data.name}を捕まえたゴシ！\n${data.img}`;
 };
 
+const evalPokeCpRes = (cp) => {
+    if (cp > 1900) {
+        return RES.strong;
+    } else (cp < 100) {
+        return RES.weak;
+    }
+    return '';
+};
+
 module.exports = (robot) => {
     robot.respond(/get pokemon/, (res) => {
         res.send(RES.go);
@@ -52,11 +61,7 @@ module.exports = (robot) => {
                 const pokeData = getPokeData(body);
 
                 res.send(getSuccessRes(pokeData));
-                if (pokeData.cp > 1900) {
-                    res.send(RES.strong);
-                } else if (pokeData.cp < 100) {
-                    res.send(RES.weak);
-                }
+                res.send(evalPokeCpRes(pokeData.cp));
             } else {
                 res.send(RES.miss);
             }
