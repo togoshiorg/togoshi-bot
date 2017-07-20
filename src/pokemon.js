@@ -39,7 +39,7 @@ const getPokeData = ({ id, name }) => {
 
 module.exports = (robot) => {
     robot.respond(/get pokemon/, (res) => {
-        res.send(':pokeball: 捕まえてくるゴシ。。。。。');
+        res.send(RES.go);
 
         const randomUrl = getRandomUrl(MAX);
 

@@ -23,5 +23,6 @@ export const PATH = {
 export const RES = {
     strong: 'コイツはつよいゴシ！！',
     weak: 'コイツはよわいゴシ…。',
+    go: ':pokeball: 捕まえてくるゴシ。。。。。',
     miss: '捕まえるの失敗したゴシ…。'
 };
