@@ -4,6 +4,7 @@
   "scripts": {
     "test": "./node_modules/.bin/mocha --compilers js:babel-register --reporter nyan",
     "build": "babel src --out-dir build",
+    "lint": "eslint src",
     "postinstall": "babel src --out-dir build"
   },
   "dependencies": {
@@ -31,7 +32,14 @@
     "node": "6.10.2"
   },
   "devDependencies": {
+    "babel-eslint": "^7.2.3",
     "babel-register": "^6.24.1",
+    "eslint": "^4.2.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-node": "^5.1.1",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1",
     "mocha": "^3.4.2"
   }
 }
