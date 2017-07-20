@@ -14,7 +14,7 @@ module.exports = (robot) => {
 
         const randomUrl = libs.getRandomUrl(MAX);
 
-        request.get({ randomUrl, json: true }, (err, response, body) => {
+        request.get({ url: randomUrl, json: true }, (err, response, body) => {
             if (response.statusCode === 200) {
                 const pokeData = libs.getPokeData(body);
 
