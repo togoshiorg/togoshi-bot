@@ -3,7 +3,7 @@
  * `get pokemon` というコマンドで、botがランダムに一匹のポケモンを捕獲してきます。
 */
 
-const request = require('request');
+import fetch from 'node-fetch';
 import translateData from '../data/pokemon.json';
 import * as libs from './pokemon/libs';
 import { MAX, RES } from './pokemon/constants';
@@ -13,16 +13,19 @@ module.exports = (robot) => {
         res.send(RES.go);
 
         const randomUrl = libs.getRandomUrl(MAX);
-
-        request.get({ url: randomUrl, json: true }, (err, response, body) => {
-            if (response.statusCode === 200) {
-                const pokeData = libs.getPokeData(body);
-
+        fetch(randomUrl)
+            .then(response => {
+                if (response.status !== 200) res.send(RES.miss);
+                return response.json();
+            })
+            .then(json => {
+                const pokeData = libs.getPokeData(json);
                 res.send(libs.getSuccessRes(pokeData));
                 res.send(libs.evalPokeCpRes(pokeData.cp));
-            } else {
+            })
+            .catch(err => {
+                throw new Error('API response is invalid');
                 res.send(RES.miss);
-            }
-        })
+            });
     });
 }
