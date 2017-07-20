@@ -7,6 +7,7 @@ const request = require('request');
 import translateData from '../data/pokemon.json';
 import {
     MAX,
+    MAXCP,
     API,
     PATH,
     RES
@@ -15,6 +16,10 @@ import {
 const getRandomUrl = (max) => {
     const pokeSelect = Math.floor(Math.random() * max) + 1;
     return `${API}${pokeSelect}/`;
+};
+
+const getRandomCp = (max) => {
+    return Math.floor(Math.random() * max);
 };
 
 const getSpriteUrl = (id, name) => {
@@ -37,9 +42,7 @@ module.exports = (robot) => {
                     img: getSpriteUrl(body.id, body.name)
                 };
 
-                // 数値をランダム生成してポケモンの強さ（CP）を定義
-                const cpMax = 2000;
-                const pokeCp = Math.floor(Math.random() * cpMax);
+                const pokeCp = getRandomCp(MAXCP);
 
                 res.send('CP' + pokeCp + 'の' + pokeData.name + 'を捕まえたゴシ！\n' + pokeData.img);
                 if (pokeCp > 1900) {

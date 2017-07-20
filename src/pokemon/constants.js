@@ -1,6 +1,9 @@
 // サポートするポケモンの数（0からカウントするので最大数-1）
 export const MAX = 720;
 
+// サポートするポケモンの強さ（CP）
+export const MAXCP = 2000;
+
 // API URL
 export const API = 'http://pokeapi.co/api/v2/pokemon/';
 
