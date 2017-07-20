@@ -4,6 +4,7 @@ import translateData from '../data/pokemon.json';
 import {
     MAX,
     MAXCP,
+    STRENGTH,
     API,
     PATH,
     RES
@@ -34,13 +35,14 @@ describe('pokemon.js', () => {
         assert.equal(spriteUrl, `${PATH.default.url}${name}.${PATH.default.fileType}`);
     });
 
-    it('idによって異なるURLが成形される', () => {
-        const spriteUrlDefault = libs.getSpriteUrl(1, 'foo');
-        const spriteUrlFan1 = libs.getSpriteUrl(650, 'foo');
-        const spriteUrlFan2 = libs.getSpriteUrl(651, 'foo');
-        assert.equal(spriteUrlDefault, `${PATH.default.url}foo.${PATH.default.fileType}`);
-        assert.equal(spriteUrlFan1, `${PATH.fan.url}foo.${PATH.fan.fileType}`);
-        assert.equal(spriteUrlFan2, `${PATH.fan.url}foo.${PATH.fan.fileType}`);
+    it('idが違っても同じURLが成形される', () => {
+        const spriteUrlDefault1 = libs.getSpriteUrl(1, 'foo');
+        const spriteUrlDefault2 = libs.getSpriteUrl(650, 'foo');
+        const spriteUrlDefault3 = libs.getSpriteUrl(651, 'foo');
+        assert.equal(spriteUrlDefault1, `${PATH.default.url}foo.${PATH.default.fileType}`);
+        assert.equal(spriteUrlDefault2, `${PATH.default.url}foo.${PATH.default.fileType}`);
+        assert.equal(spriteUrlDefault3, `${PATH.default.url}foo.${PATH.default.fileType}`);
+
     });
 
     it('フラグを渡すと色違いのURLが成形される', () => {
@@ -76,16 +78,22 @@ describe('pokemon.js', () => {
     });
 
     it('数値によって適当なレスポンスが返ってくる', () => {
-        const over1900 = libs.evalPokeCpRes(1901);
-        const under100 = libs.evalPokeCpRes(99);
-        assert.equal(over1900, RES.strong);
-        assert.equal(under100, RES.weak);
+        const god = libs.evalPokeCpRes(STRENGTH.god);
+        const strongest = libs.evalPokeCpRes(STRENGTH.strongest);
+        const stronger = libs.evalPokeCpRes(STRENGTH.stronger);
+        const weaker = libs.evalPokeCpRes(STRENGTH.weaker);
+        const weakest = libs.evalPokeCpRes(STRENGTH.weakest);
+        assert.equal(god, RES.god);
+        assert.equal(strongest, RES.strongest);
+        assert.equal(stronger, RES.stronger);
+        assert.equal(weaker, RES.weaker);
+        assert.equal(weakest, RES.weakest);
 
-        const match1900 = libs.evalPokeCpRes(1900);
-        const match100 = libs.evalPokeCpRes(100);
-        const middle = libs.evalPokeCpRes(500);
-        assert.equal(match1900, '');
-        assert.equal(match100, '');
-        assert.equal(middle, '');
+        const matchStronger = libs.evalPokeCpRes(STRENGTH.stronger - 1);
+        const matchWeaker = libs.evalPokeCpRes(STRENGTH.weaker + 1);
+        const normal = libs.evalPokeCpRes(1000);
+        assert.equal(matchStronger, '');
+        assert.equal(matchWeaker, '');
+        assert.equal(normal, '');
     });
 });

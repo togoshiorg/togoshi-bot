@@ -1,6 +1,7 @@
 import translateData from '../../data/pokemon.json';
 import {
     MAXCP,
+    STRENGTH,
     API,
     PATH,
     RES
@@ -22,7 +23,6 @@ export const isShiny = () => {
 
 export const getSpriteUrl = (id, name, isShiny = false) => {
     let type = 'default';
-    if (id >= 650) type = 'fan';
     if (isShiny) {
         return `${PATH[type].url}${PATH.shiny}${name}.${PATH[type].fileType}`;
     } else {
@@ -48,10 +48,16 @@ export const getShinyRes = (isShiny = false) => {
 };
 
 export const evalPokeCpRes = (cp) => {
-    if (cp > 1900) {
-        return RES.strong;
-    } else if (cp < 100) {
-        return RES.weak;
+    if (cp === STRENGTH.god) {
+        return RES.god;
+    } else if (cp < STRENGTH.god && cp >= STRENGTH.strongest) {
+        return RES.strongest;
+    } else if (cp < STRENGTH.strongest && cp >= STRENGTH.stronger) {
+        return RES.stronger;
+    } else if (cp <= STRENGTH.weaker && cp > STRENGTH.weakest) {
+        return RES.weaker;
+    } else if (cp === STRENGTH.weakest) {
+        return RES.weakest;
     }
     return '';
 };
