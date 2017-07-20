@@ -11,22 +11,31 @@ export const getRandomUrl = (max) => {
     return `${API}${pokeSelect}/`;
 };
 
-export const getRandomCp = (max) => {
+export const getRandomNum = (max) => {
     return Math.floor(Math.random() * max);
 };
 
-export const getSpriteUrl = (id, name) => {
-    let type = 'default';
-    if (id >= 650) type = 'fan';
-    return `${PATH[type].url}${name}.${PATH[type].fileType}`;
+export const isShiny = () => {
+    const shinyPossibility = getRandomNum(100);
+    return shinyPossibility < 5;
 };
 
-export const getPokeData = ({ id, name }) => {
+export const getSpriteUrl = (id, name, isShiny = false) => {
+    let type = 'default';
+    if (id >= 650) type = 'fan';
+    if (isShiny) {
+        return `${PATH[type].url}${PATH.shiny}${name}.${PATH[type].fileType}`;
+    } else {
+        return `${PATH[type].url}${name}.${PATH[type].fileType}`;
+    }
+};
+
+export const getPokeData = ({ id, name }, isShiny = false) => {
     return {
         id,
         name: translateData[id - 1].ja,
-        img: getSpriteUrl(id, name),
-        cp: getRandomCp(MAXCP)
+        img: getSpriteUrl(id, name, isShiny),
+        cp: getRandomNum(MAXCP)
     };
 };
 

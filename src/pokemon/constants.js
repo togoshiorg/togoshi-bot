@@ -16,7 +16,8 @@ export const PATH = {
     fan: {
         url: 'http://www.pokestadium.com/sprites/xy-fan/',
         fileType: 'png'
-    }
+    },
+    shiny: 'shiny/'
 };
 
 // レスポンス文

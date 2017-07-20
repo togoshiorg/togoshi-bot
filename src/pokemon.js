@@ -12,7 +12,10 @@ import { MAX, RES } from './pokemon/constants';
 module.exports = (robot) => {
     robot.respond(/get pokemon/, (res) => {
         res.send(RES.go);
+
         const randomUrl = libs.getRandomUrl(MAX);
+        const isShiny = libs.isShiny();
+
         (async () => {
             try {
                 const response = await fetch(randomUrl);
@@ -21,7 +24,7 @@ module.exports = (robot) => {
                 if (status !== 200) res.send(RES.miss);
 
                 const json = await response.json();
-                const pokeData = libs.getPokeData(json);
+                const pokeData = libs.getPokeData(json, isShiny);
                 res.send(libs.getSuccessRes(pokeData));
                 res.send(libs.evalPokeCpRes(pokeData.cp));
             } catch(err) {
