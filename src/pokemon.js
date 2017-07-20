@@ -12,20 +12,14 @@ import {
     RES
 } from './pokemon/constants';
 
+const getRandomUrl = (max) => {
+    const pokeSelect = Math.floor(Math.random() * max) + 1;
+    return `${API}${pokeSelect}/`;
+};
+
 module.exports = (robot) => {
-
-    // request設定・初期値
-    let options = {
-        url: API + '1/',
-        json: true
-    };
-
     robot.respond(/get pokemon/, (res) => {
         res.send(':pokeball: 捕まえてくるゴシ。。。。。');
-
-        // 数値をランダム生成してリクエストURL定義
-        const pokeSelect = Math.floor(Math.random() * MAX) + 1;
-        options.url = API + pokeSelect + '/';
 
         const getUrl = (id, name) => {
             if (id >= 650) {
@@ -35,7 +29,9 @@ module.exports = (robot) => {
             }
         };
 
-        request.get(options, (err, response, body) => {
+        const randomUrl = getRandomUrl(MAX);
+
+        request.get({ randomUrl, json: true }, (err, response, body) => {
             if (response.statusCode === 200) {
                 const pokeData = {
                     id: body.id,
