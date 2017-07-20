@@ -17,17 +17,15 @@ const getRandomUrl = (max) => {
     return `${API}${pokeSelect}/`;
 };
 
+const getSpriteUrl = (id, name) => {
+    let type = 'default';
+    if (id >= 650) type = 'fan';
+    return `${PATH[type].url}${name}.${PATH[type].fileType}`;
+};
+
 module.exports = (robot) => {
     robot.respond(/get pokemon/, (res) => {
         res.send(':pokeball: 捕まえてくるゴシ。。。。。');
-
-        const getUrl = (id, name) => {
-            if (id >= 650) {
-                return PATH.fan.url + name + '.' + PATH.fan.fileType;
-            } else {
-                return PATH.default.url + name + '.' + PATH.default.fileType;
-            }
-        };
 
         const randomUrl = getRandomUrl(MAX);
 
@@ -36,7 +34,7 @@ module.exports = (robot) => {
                 const pokeData = {
                     id: body.id,
                     name: translateData[body.id - 1].ja,
-                    img: getUrl(body.id, body.name)
+                    img: getSpriteUrl(body.id, body.name)
                 };
 
                 // 数値をランダム生成してポケモンの強さ（CP）を定義
