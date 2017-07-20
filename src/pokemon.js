@@ -5,29 +5,18 @@
 
 const request = require('request');
 import translateData from '../data/pokemon.json';
+import {
+    MAX,
+    API,
+    PATH,
+    RES
+} from './pokemon/constants';
 
 module.exports = (robot) => {
 
-    // ポケモンデータ設定
-    const config = {
-        // サポートするポケモンの数（0からカウントするので最大数-1）
-        max: 720,
-        // APIURL
-        api: 'http://pokeapi.co/api/v2/pokemon/',
-        // 画像表示
-        img: {
-            url: 'http://www.pokestadium.com/sprites/black-white/animated/',
-            fileType: 'gif'
-        },
-        imgFan: {
-            url: 'http://www.pokestadium.com/sprites/xy-fan/',
-            fileType: 'png'
-        }
-    };
-
     // request設定・初期値
     let options = {
-        url: config.api + '1/',
+        url: API + '1/',
         json: true
     };
 
@@ -35,14 +24,14 @@ module.exports = (robot) => {
         res.send(':pokeball: 捕まえてくるゴシ。。。。。');
 
         // 数値をランダム生成してリクエストURL定義
-        const pokeSelect = Math.floor(Math.random() * config.max) + 1;
-        options.url = config.api + pokeSelect + '/';
+        const pokeSelect = Math.floor(Math.random() * MAX) + 1;
+        options.url = API + pokeSelect + '/';
 
         const getUrl = (id, name) => {
             if (id >= 650) {
-                return config.imgFan.url + name + '.' + config.imgFan.fileType;
+                return PATH.fan.url + name + '.' + PATH.fan.fileType;
             } else {
-                return config.img.url + name + '.' + config.img.fileType;
+                return PATH.default.url + name + '.' + PATH.default.fileType;
             }
         };
 
@@ -60,12 +49,12 @@ module.exports = (robot) => {
 
                 res.send('CP' + pokeCp + 'の' + pokeData.name + 'を捕まえたゴシ！\n' + pokeData.img);
                 if (pokeCp > 1900) {
-                    res.send('コイツはつよいゴシ！！');
+                    res.send(RES.strong);
                 } else if (pokeCp < 100) {
-                    res.send('コイツはよわいゴシ…。');
+                    res.send(RES.weak);
                 }
             } else {
-                res.send('捕まえるの失敗したゴシ…。');
+                res.send(RES.miss);
             }
         })
     });
