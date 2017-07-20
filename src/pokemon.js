@@ -3,12 +3,34 @@
  * `get pokemon` というコマンドで、botがランダムに一匹のポケモンを捕獲してきます。
 */
 
-import {getPokeComment} from './module/pokemon-module';
+import 'babel-polyfill';
+import fetch from 'node-fetch';
+import translateData from '../data/pokemon.json';
+import * as libs from './pokemon/libs';
+import { MAX, RES } from './pokemon/constants';
 
 module.exports = (robot) => {
-    const resultComment = getPokeComment();
     robot.respond(/get pokemon/, (res) => {
-        res.send(':pokeball: 捕まえてくるゴシ。。。。。');
-        res.send(resultComment);
+        res.send(RES.go);
+
+        const randomUrl = libs.getRandomUrl(MAX);
+        const isShiny = libs.isShiny();
+
+        (async () => {
+            try {
+                const response = await fetch(randomUrl);
+
+                const status = response.status;
+                if (status !== 200) res.send(RES.miss);
+
+                const json = await response.json();
+                const pokeData = libs.getPokeData(json, isShiny);
+                res.send(libs.getSuccessRes(pokeData));
+                res.send(libs.getShinyRes(isShiny));
+                res.send(libs.evalPokeCpRes(pokeData.cp));
+            } catch(err) {
+                res.send(err);
+            }
+        })()
     });
 }

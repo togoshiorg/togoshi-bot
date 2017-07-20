@@ -5,7 +5,7 @@
 const request = require('request');
 import translateData from '../../data/pokemon.json';
 
-const getPokeComment = () => {
+export const getPokeComment = () => {
     // ポケモンデータ設定
     const config = {
         // サポートするポケモンの数（0からカウントするので最大数-1）
@@ -111,6 +111,6 @@ const getPokeComment = () => {
                 return '捕まえるの失敗したゴシ…。';
             }
         }
-         return resultComment;
+        return resultComment;
     });
 };
