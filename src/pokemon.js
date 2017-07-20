@@ -5,7 +5,6 @@
 
 import 'babel-polyfill';
 import fetch from 'node-fetch';
-import translateData from '../data/pokemon.json';
 import * as libs from './pokemon/libs';
 import { MAX, RES } from './pokemon/constants';
 
@@ -28,9 +27,9 @@ module.exports = (robot) => {
                 res.send(libs.getSuccessRes(pokeData));
                 res.send(libs.getShinyRes(isShiny));
                 res.send(libs.evalPokeCpRes(pokeData.cp));
-            } catch(err) {
+            } catch (err) {
                 res.send(err);
             }
-        })()
+        })();
     });
-}
+};

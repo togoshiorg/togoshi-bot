@@ -8,11 +8,10 @@
  * その他細かい指定方法については「crontab」で検索してみてください。
 */
 
-const cronJob = require('cron').CronJob;
+const CronJob = require('cron').CronJob;
 const Response = require('hubot').Response;
 
 module.exports = (robot) => {
-
     // チケットクローズ（リソース管理方法がチーム毎に変わるためDisabled）
     // 毎週金曜18:00
     // const ticketClose = new cronJob('0 00 18 * * 5', () => {
@@ -30,9 +29,9 @@ module.exports = (robot) => {
 
     // 定時のお知らせ
     // 平日19:00
-    const ordinary = new cronJob('0 0 19 * * 1-5', () => {
+    const ordinary = new CronJob('0 0 19 * * 1-5', () => {
         // #generalのID
-        const room = {room: 'C04QLTK0C'}
+        const room = {room: 'C04QLTK0C'};
         const post = Response.prototype.random([
             '<!channel> 19時になったゴシ。業務が終わった方は早く帰るゴシ。まだまだ仕事がある方はもうちょっと頑張ろうゴシ！',
             '<!channel> 19時ゴシ！19時ゴシ！19時ゴシ！19時ゴシ！19時ゴシ！帰るゴシ！',
@@ -53,9 +52,9 @@ module.exports = (robot) => {
 
     // カンパニー提出リマインド（前日）
     // 毎月10日19:00
-    const companyDailyClose = new cronJob('0 0 19 10 * *', () => {
+    const companyDailyClose = new CronJob('0 0 19 10 * *', () => {
         // #generalのID
-        const room = {room: 'C04QLTK0C'}
+        const room = {room: 'C04QLTK0C'};
         const post = '<!channel> 明日はカンパニーの月次提出日ゴシ。日時提出は今のうち終わらせておくゴシ。';
         robot.send(room, post);
     }, null, true, 'Asia/Tokyo');
@@ -63,9 +62,9 @@ module.exports = (robot) => {
 
     // カンパニー提出リマインド（当日）
     // 毎月11日9:55
-    const companyMonthlyClose = new cronJob('0 55 9 11 * *', () => {
+    const companyMonthlyClose = new CronJob('0 55 9 11 * *', () => {
         // #generalのID
-        const room = {room: 'C04QLTK0C'}
+        const room = {room: 'C04QLTK0C'};
         const post = '<!channel> 今日はカンパニーの月次提出日ゴシ。朝のうちに出しておくゴシ。';
         robot.send(room, post);
     }, null, true, 'Asia/Tokyo');
@@ -73,9 +72,9 @@ module.exports = (robot) => {
 
     // 大晦日
     // 12/31 23:00
-    const newyearsEve = new cronJob('0 0 23 31 12 *', () => {
+    const newyearsEve = new CronJob('0 0 23 31 12 *', () => {
         // #generalのID
-        const room = {room: 'C04QLTK0C'}
+        const room = {room: 'C04QLTK0C'};
         const post = '<!channel> 今年もお世話になったゴシ。みなさま良いお年をゴシ。さて、「笑ってはいけない」見よっと。';
         robot.send(room, post);
     }, null, true, 'Asia/Tokyo');
@@ -83,11 +82,11 @@ module.exports = (robot) => {
 
     // 新年
     // 1/1 8:00
-    const newyear = new cronJob('0 0 8 1 1 *', () => {
+    const newyear = new CronJob('0 0 8 1 1 *', () => {
         // #generalのID
-        const room = {room: 'C04QLTK0C'}
+        const room = {room: 'C04QLTK0C'};
         const post = '<!channel> あけましておめでとうゴシ。今年もよろしくお願いしまゴシ。';
         robot.send(room, post);
     }, null, true, 'Asia/Tokyo');
     newyear.start();
-}
+};
