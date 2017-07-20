@@ -44,7 +44,7 @@ const getSuccessRes = (data) => {
 const evalPokeCpRes = (cp) => {
     if (cp > 1900) {
         return RES.strong;
-    } else (cp < 100) {
+    } else if (cp < 100) {
         return RES.weak;
     }
     return '';
