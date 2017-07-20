@@ -37,6 +37,10 @@ const getPokeData = ({ id, name }) => {
     };
 };
 
+const getSuccessRes = (data) => {
+    return `CP${data.cp}の${data.name}を捕まえたゴシ！\n${data.img}`;
+};
+
 module.exports = (robot) => {
     robot.respond(/get pokemon/, (res) => {
         res.send(RES.go);
@@ -47,7 +51,7 @@ module.exports = (robot) => {
             if (response.statusCode === 200) {
                 const pokeData = getPokeData(body);
 
-                res.send('CP' + pokeData.cp + 'の' + pokeData.name + 'を捕まえたゴシ！\n' + pokeData.img);
+                res.send(getSuccessRes(pokeData));
                 if (pokeData.cp > 1900) {
                     res.send(RES.strong);
                 } else if (pokeData.cp < 100) {
