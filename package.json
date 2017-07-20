@@ -5,6 +5,7 @@
     "test": "./node_modules/.bin/mocha --compilers js:babel-register --reporter nyan",
     "build": "babel src --out-dir build",
     "lint": "eslint src",
+    "flow": "flow",
     "postinstall": "babel src --out-dir build"
   },
   "dependencies": {
@@ -40,6 +41,7 @@
     "eslint-plugin-node": "^5.1.1",
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-standard": "^3.0.1",
+    "flow-bin": "^0.50.0",
     "mocha": "^3.4.2"
   }
 }
