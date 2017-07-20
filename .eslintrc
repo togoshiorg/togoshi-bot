@@ -7,6 +7,7 @@
     "extends": "standard",
     "rules": {
         "indent": [2, 4],
+        "semi": ["error", "always"],
         "arrow-body-style": [0],
         "import/no-unresolved": [2, { "ignore": ["log4js"] }],
         "no-useless-escape": [0],
