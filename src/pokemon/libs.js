@@ -51,6 +51,7 @@ export const getShinyRes = (isShiny: boolean = false): string => {
 
 export const evalPokeCpRes = (cp: number): ?string => {
     for (let [key, val] of Object.entries(STRENGTH)) {
+        // flow-disable-line // val as mixed. https://github.com/facebook/flow/issues/2221
         if (cp >= val) return RES[key];
     }
 };
