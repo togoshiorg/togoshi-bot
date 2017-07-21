@@ -88,7 +88,7 @@ module.exports = (robot) => {
     // Keywordを頼りに配列からランダムな値を返す
     const randomShop = (key) => {
         return Response.prototype.random(shoplist[key]);
-    }
+    };
 
     // 分岐処理
     robot.respond(/(?=.*(ラーメン|らーめん|.*麺.*))/, (res) => {
@@ -111,4 +111,4 @@ module.exports = (robot) => {
             res.send('そこのおすすめは今探索隊が調査中ゴシ！');
         }
     });
-}
+};
