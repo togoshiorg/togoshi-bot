@@ -6,10 +6,11 @@ export const MAXCP = 4000;
 
 // ポケモンの強さレベルを定義
 export const STRENGTH = {
-    god: 4000,        //神 4000のみ
+    god: MAXCP,       //神 4000のみ
     strongest: 3500,  //最強 3500以上3999以下
     stronger: 2000,   //強い 2000以上3499以下
-    weaker: 99,       //弱い 99以下2以上
+    normal: 100,      //普通 100以上1999以下
+    weaker: 2,        //弱い 2以上99以下
     weakest: 1        //最弱 1のみ
 }
 
@@ -18,10 +19,8 @@ export const API = 'http://pokeapi.co/api/v2/pokemon/';
 
 // 画像path
 export const PATH = {
-    default: {
-        url: 'http://www.pokestadium.com/sprites/xy/',
-        fileType: 'gif'
-    },
+    url: 'http://www.pokestadium.com/sprites/xy/',
+    fileType: 'gif',
     shiny: 'shiny/'
 };
 
@@ -30,6 +29,7 @@ export const RES = {
     god: ':god:',
     strongest: 'コイツは空前絶後のつよさゴシ！！',
     stronger: 'コイツはつよいゴシ！！',
+    normal: '',
     weaker: 'コイツはよわいゴシ…。',
     weakest: 'コイツは超絶孤高によわすぎるゴシ…。',
     go: ':pokeball: 捕まえてくるゴシ。。。。。',

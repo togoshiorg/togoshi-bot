@@ -22,19 +22,19 @@ export const isShiny = () => {
 };
 
 export const getSpriteUrl = (id, name, isShiny = false) => {
-    let type = 'default';
     if (isShiny) {
-        return `${PATH[type].url}${PATH.shiny}${name}.${PATH[type].fileType}`;
+        return `${PATH.url}${PATH.shiny}${name}.${PATH.fileType}`;
     } else {
-        return `${PATH[type].url}${name}.${PATH[type].fileType}`;
+        return `${PATH.url}${name}.${PATH.fileType}`;
     }
 };
 
 export const getPokeData = ({ id, name }, isShiny = false) => {
+    const convName = name.replace(/(-)(.*)/, ''); //形態変化があるポケモンはPokeAPIでは名前の後ろに'-avarage'等がついて画像名にそのまま使えないので'-'以降は削除
     return {
         id,
         name: translateData[id - 1].ja,
-        img: getSpriteUrl(id, name, isShiny),
+        img: getSpriteUrl(id, convName, isShiny),
         cp: getRandomNum(MAXCP)
     };
 };
@@ -48,16 +48,7 @@ export const getShinyRes = (isShiny = false) => {
 };
 
 export const evalPokeCpRes = (cp) => {
-    if (cp === STRENGTH.god) {
-        return RES.god;
-    } else if (cp < STRENGTH.god && cp >= STRENGTH.strongest) {
-        return RES.strongest;
-    } else if (cp < STRENGTH.strongest && cp >= STRENGTH.stronger) {
-        return RES.stronger;
-    } else if (cp <= STRENGTH.weaker && cp > STRENGTH.weakest) {
-        return RES.weaker;
-    } else if (cp === STRENGTH.weakest) {
-        return RES.weakest;
+    for (let [key, val] of Object.entries(STRENGTH)) {
+        if (cp >= val) return RES[key];
     }
-    return '';
 };

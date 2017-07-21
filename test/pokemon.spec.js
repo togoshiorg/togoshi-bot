@@ -32,23 +32,13 @@ describe('pokemon.js', () => {
     it('指定の名前を含むURLが成形される', () => {
         const name = 'foo';
         const spriteUrl = libs.getSpriteUrl(1, name);
-        assert.equal(spriteUrl, `${PATH.default.url}${name}.${PATH.default.fileType}`);
-    });
-
-    it('idが違っても同じURLが成形される', () => {
-        const spriteUrlDefault1 = libs.getSpriteUrl(1, 'foo');
-        const spriteUrlDefault2 = libs.getSpriteUrl(650, 'foo');
-        const spriteUrlDefault3 = libs.getSpriteUrl(651, 'foo');
-        assert.equal(spriteUrlDefault1, `${PATH.default.url}foo.${PATH.default.fileType}`);
-        assert.equal(spriteUrlDefault2, `${PATH.default.url}foo.${PATH.default.fileType}`);
-        assert.equal(spriteUrlDefault3, `${PATH.default.url}foo.${PATH.default.fileType}`);
-
+        assert.equal(spriteUrl, `${PATH.url}${name}.${PATH.fileType}`);
     });
 
     it('フラグを渡すと色違いのURLが成形される', () => {
         const name = 'foo';
         const spriteUrl = libs.getSpriteUrl(1, name, true);
-        assert.equal(spriteUrl, `${PATH.default.url}${PATH.shiny}${name}.${PATH.default.fileType}`);
+        assert.equal(spriteUrl, `${PATH.url}${PATH.shiny}${name}.${PATH.fileType}`);
     });
 
     it('指定のidと名前を使ったObjectが返ってくる', () => {
@@ -60,6 +50,15 @@ describe('pokemon.js', () => {
         assert.equal(pokeData.id, data.id);
         assert.equal(pokeData.name, translateData[data.id - 1].ja);
         assert.equal(pokeData.img, libs.getSpriteUrl(data.id, data.name));
+    });
+
+    it('ハイフンの入ったnameからハイフンが削除される', () => {
+        const data = {
+            id: 1,
+            name: 'foo-average'
+        };
+        const pokeData = libs.getPokeData(data);
+        assert.equal(pokeData.img, 'http://www.pokestadium.com/sprites/xy/foo.gif');
     });
 
     it('指定した内容で成形された文面が返ってくる', () => {
@@ -90,10 +89,8 @@ describe('pokemon.js', () => {
         assert.equal(weakest, RES.weakest);
 
         const matchStronger = libs.evalPokeCpRes(STRENGTH.stronger - 1);
-        const matchWeaker = libs.evalPokeCpRes(STRENGTH.weaker + 1);
-        const normal = libs.evalPokeCpRes(1000);
+        const matchNormal = libs.evalPokeCpRes(STRENGTH.normal);
         assert.equal(matchStronger, '');
-        assert.equal(matchWeaker, '');
-        assert.equal(normal, '');
+        assert.equal(matchNormal, '');
     });
 });

@@ -2,7 +2,7 @@
   "name": "togoshi-bot",
   "version": "0.0.0",
   "scripts": {
-    "test": "./node_modules/.bin/mocha --compilers js:babel-register --reporter nyan",
+    "test": "./node_modules/.bin/mocha --require babel-polyfill --compilers js:babel-register --reporter nyan",
     "build": "babel src --out-dir build",
     "postinstall": "babel src --out-dir build"
   },
