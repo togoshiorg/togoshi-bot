@@ -8,12 +8,12 @@ export const MAXCP: number = 4000;
 
 // ポケモンの強さレベルを定義
 export const STRENGTH = {
-    god: MAXCP,       // 神 4000のみ
-    strongest: 3500,  // 最強 3500以上3999以下
-    stronger: 2000,   // 強い 2000以上3499以下
-    normal: 100,      // 普通 100以上1999以下
-    weaker: 2,        // 弱い 2以上99以下
-    weakest: 1        // 最弱 1のみ
+    god: MAXCP, //      神 4000のみ
+    strongest: 3500, // 最強 3500以上3999以下
+    stronger: 2000, //  強い 2000以上3499以下
+    normal: 100, //     普通 100以上1999以下
+    weaker: 2, //       弱い 2以上99以下
+    weakest: 1 //       最弱 1のみ
 };
 
 // API URL
