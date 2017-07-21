@@ -3,9 +3,9 @@
  * 上位3つ分の星座占いをチャットに流します
 */
 
+import roomJson from '../data/room.json';
 const CronJob = require('cron').CronJob;
 const request = require('request');
-import room from '../../data/room.json';
 
 module.exports = (robot) => {
     // 星座占いの無料API
@@ -13,7 +13,7 @@ module.exports = (robot) => {
 
     // 平日の朝10:00に#chattingへ流します
     const horoscope = new CronJob('0 00 10 * * 1-5', () => {
-        const room = { room: room.chatting }
+        const room = { room: roomJson.chatting };
 
         // 現在の日時を使って必要なデータ生成
         const todayDate = new Date();
