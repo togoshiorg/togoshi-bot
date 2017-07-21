@@ -2,7 +2,7 @@
   "name": "togoshi-bot",
   "version": "0.0.0",
   "scripts": {
-    "test": "mocha --compilers js:babel-register --reporter nyan -r flow-remove-types/register",
+    "test": "mocha --require babel-polyfill --compilers js:babel-register --reporter nyan -r flow-remove-types/register",
     "build": "babel src --out-dir build",
     "lint": "eslint src",
     "flow": "flow",

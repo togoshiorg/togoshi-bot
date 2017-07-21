@@ -3,6 +3,7 @@
 import translateData from '../../data/pokemon.json';
 import {
     MAXCP,
+    STRENGTH,
     API,
     PATH,
     RES
@@ -23,20 +24,19 @@ export const isShiny = (): boolean => {
 };
 
 export const getSpriteUrl = (id: number, name: string, isShiny: boolean = false): string => {
-    let type = 'default';
-    if (id >= 650) type = 'fan';
     if (isShiny) {
-        return `${PATH[type].url}${PATH.shiny}${name}.${PATH[type].fileType}`;
+        return `${PATH.url}${PATH.shiny}${name}.${PATH.fileType}`;
     } else {
-        return `${PATH[type].url}${name}.${PATH[type].fileType}`;
+        return `${PATH.url}${name}.${PATH.fileType}`;
     }
 };
 
 export const getPokeData = ({ id, name }: Object, isShiny: boolean = false): Object => {
+    const convName: string = name.replace(/(-)(.*)/, ''); // 形態変化があるポケモンはPokeAPIでは名前の後ろに'-avarage'等がついて画像名にそのまま使えないので'-'以降は削除
     return {
         id,
         name: translateData[id - 1].ja,
-        img: getSpriteUrl(id, name, isShiny),
+        img: getSpriteUrl(id, convName, isShiny),
         cp: getRandomNum(MAXCP)
     };
 };
@@ -49,11 +49,9 @@ export const getShinyRes = (isShiny: boolean = false): string => {
     return isShiny ? RES.shiny : '';
 };
 
-export const evalPokeCpRes = (cp: number): string => {
-    if (cp > 1900) {
-        return RES.strong;
-    } else if (cp < 100) {
-        return RES.weak;
+export const evalPokeCpRes = (cp: number): ?string => {
+    for (let [key, val] of Object.entries(STRENGTH)) {
+        // flow-disable-line // val as mixed. https://github.com/facebook/flow/issues/2221
+        if (cp >= val) return RES[key];
     }
-    return '';
 };
