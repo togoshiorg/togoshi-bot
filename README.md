@@ -1,30 +1,44 @@
 # togoshi-bot
 
-身内用のhubotです
+[![CircleCI](https://circleci.com/gh/usagi-f/togoshi-bot.svg?style=shield)](https://circleci.com/gh/usagi-f/togoshi-bot)
+
+> a private hubot program
+
+## Main Dependencies
 
 * hubot
-* ES2015(babel)
-* cron
+* babel
 
-* heroku
+## Installation
 
-# 開発のしかた
+```
+yarn
+```
 
-`src` ディレクトリに実行するscriptのソースファイルが入っています。
-ここのファイルを編集することで、機能追加・修正が可能です。
+## Contribution
 
-`npm run build` を実行することで、babelが走り実行可能なjsファイルとして `build` ディレクトリに生成されます。
+The script file in `src/` directory. There are two ways to check script.
 
-（※デプロイ先サーバー上でbabelが走るようにscripts設定がされているため、build配下ファイルはコミットする必要はありません。）
+### 1. Unit Testing
 
-# ローカルでの動作確認方法
+Please separate script into functions as much as possible. By doing so you can Unit Test using mocha.
 
-`.env` ファイルを用意したのち、 `heroku local web` と実行するとSlackと紐付いた状態でローカルにbotが立ち上がります。
+The test file in `test/` directory.
 
-（※heroku上の既存のbotが常時実行されているため、見た目上は変化ありません。）
+```
+yarn test
+```
 
-# デプロイ
+### 2. Local web
 
-herokuリポジトリのmasterブランチに対してpushすることでデプロイされます。
+If you have an `.env` file, it can be run in Slack.
 
-`https://git.heroku.com/togoshi-bot.git`
+However, you need the `heroku` command for that.
+
+```
+heroku local web
+```
+
+## Deployment
+
+It's hosted by heroku. go there exactly.
