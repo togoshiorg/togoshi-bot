@@ -8,7 +8,6 @@
 
 * hubot
 * babel
-* heroku
 
 ## Installation
 
