@@ -5,6 +5,7 @@
 
 const cronJob = require('cron').CronJob;
 const request = require('request');
+import room from '../../data/room.json';
 
 module.exports = (robot) => {
 
@@ -13,8 +14,7 @@ module.exports = (robot) => {
 
     // 平日の朝10:00に#chattingへ流します
     const horoscope = new cronJob('0 00 10 * * 1-5', () => {
-        // #chattingのID
-        const room = {room: 'C0533T6Q6'}
+        const room = { room: room.chatting }
 
         // 現在の日時を使って必要なデータ生成
         const todayDate = new Date();
