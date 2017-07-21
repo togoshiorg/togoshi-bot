@@ -13,21 +13,6 @@ const CronJob = require('cron').CronJob;
 const Response = require('hubot').Response;
 
 module.exports = (robot) => {
-    // チケットクローズ（リソース管理方法がチーム毎に変わるためDisabled）
-    // 毎週金曜18:00
-    // const ticketClose = new cronJob('0 00 18 * * 5', () => {
-    //     // #generalのID
-    //     const room = {room: 'C04QLTK0C'}
-    //     const post = Response.prototype.random([
-    //         '<!channel> 今日は花金。チケットクローズよろしくゴシ。',
-    //         '<!channel> 今週もお疲れ様ゴシ。金曜日なのでチケットクローズするゴシ。',
-    //         '<!channel> 今日はチケットクローズしてほしいゴシ…',
-    //         '<!channel> Today is Friday, so please close resolved tickets!'
-    //     ]);
-    //     robot.send(room, post);
-    // }, null, true, 'Asia/Tokyo');
-    // ticketClose.start();
-
     // 定時のお知らせ
     // 平日19:00
     const ordinary = new CronJob('0 0 19 * * 1-5', () => {
