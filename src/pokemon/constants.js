@@ -1,11 +1,13 @@
+// @flow
+
 // サポートするポケモンの数（0からカウントするので最大数-1）
-export const MAX = 720;
+export const MAX: number = 720;
 
 // サポートするポケモンの強さ（CP）
-export const MAXCP = 2000;
+export const MAXCP: number = 2000;
 
 // API URL
-export const API = 'http://pokeapi.co/api/v2/pokemon/';
+export const API: string = 'http://pokeapi.co/api/v2/pokemon/';
 
 // 画像path
 export const PATH = {

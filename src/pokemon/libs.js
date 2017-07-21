@@ -1,3 +1,5 @@
+// @flow
+
 import translateData from '../../data/pokemon.json';
 import {
     MAXCP,
@@ -6,21 +8,21 @@ import {
     RES
 } from './constants';
 
-export const getRandomUrl = (max) => {
+export const getRandomUrl = (max: number): string => {
     const pokeSelect = Math.floor(Math.random() * max) + 1;
     return `${API}${pokeSelect}/`;
 };
 
-export const getRandomNum = (max) => {
+export const getRandomNum = (max: number): number => {
     return Math.floor(Math.random() * max);
 };
 
-export const isShiny = () => {
+export const isShiny = (): boolean => {
     const shinyPossibility = getRandomNum(100);
     return shinyPossibility < 5;
 };
 
-export const getSpriteUrl = (id, name, isShiny = false) => {
+export const getSpriteUrl = (id: number, name: string, isShiny: boolean = false): string => {
     let type = 'default';
     if (id >= 650) type = 'fan';
     if (isShiny) {
@@ -30,7 +32,7 @@ export const getSpriteUrl = (id, name, isShiny = false) => {
     }
 };
 
-export const getPokeData = ({ id, name }, isShiny = false) => {
+export const getPokeData = ({ id, name }: Object, isShiny: boolean = false): Object => {
     return {
         id,
         name: translateData[id - 1].ja,
@@ -39,15 +41,15 @@ export const getPokeData = ({ id, name }, isShiny = false) => {
     };
 };
 
-export const getSuccessRes = (data) => {
+export const getSuccessRes = (data: Object): string => {
     return `CP${data.cp}の${data.name}を捕まえたゴシ！\n${data.img}`;
 };
 
-export const getShinyRes = (isShiny = false) => {
+export const getShinyRes = (isShiny: boolean = false): string => {
     return isShiny ? RES.shiny : '';
 };
 
-export const evalPokeCpRes = (cp) => {
+export const evalPokeCpRes = (cp: number): string => {
     if (cp > 1900) {
         return RES.strong;
     } else if (cp < 100) {

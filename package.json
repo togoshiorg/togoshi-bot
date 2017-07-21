@@ -2,9 +2,10 @@
   "name": "togoshi-bot",
   "version": "0.0.0",
   "scripts": {
-    "test": "./node_modules/.bin/mocha --compilers js:babel-register --reporter nyan",
+    "test": "mocha --compilers js:babel-register --reporter nyan -r flow-remove-types/register",
     "build": "babel src --out-dir build",
     "lint": "eslint src",
+    "flow": "flow",
     "postinstall": "babel src --out-dir build"
   },
   "dependencies": {
@@ -33,6 +34,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
+    "babel-plugin-syntax-flow": "^6.18.0",
     "babel-register": "^6.24.1",
     "eslint": "^4.2.0",
     "eslint-config-standard": "^10.2.1",
@@ -40,6 +42,8 @@
     "eslint-plugin-node": "^5.1.1",
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-standard": "^3.0.1",
+    "flow-bin": "^0.50.0",
+    "flow-remove-types": "^1.2.1",
     "mocha": "^3.4.2"
   }
 }
