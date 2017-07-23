@@ -1,5 +1,6 @@
 // @flow
 
+import { format } from 'date-fns';
 import translateData from '../../data/pokemon.json';
 import { pushData } from '../firebase/';
 import {
@@ -58,5 +59,6 @@ export const evalPokeCpRes = (cp: number): ?string => {
 };
 
 export const savePokemon = ({ id, cp }: Object) => {
-    pushData({ id, cp });
+    const time = format(new Date(), 'YYYY-MM-DDTHH:mm:ssZ');
+    pushData({ id, time, cp });
 };
