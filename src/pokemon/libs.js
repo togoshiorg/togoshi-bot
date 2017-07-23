@@ -1,6 +1,7 @@
 // @flow
 
 import translateData from '../../data/pokemon.json';
+import { pushData } from '../firebase/';
 import {
     MAXCP,
     STRENGTH,
@@ -54,4 +55,8 @@ export const evalPokeCpRes = (cp: number): ?string => {
         // flow-disable-line // val as mixed. https://github.com/facebook/flow/issues/2221
         if (cp >= val) return RES[key];
     }
+};
+
+export const savePokemon = ({ id, cp }: Object) => {
+    pushData({ id, cp });
 };
