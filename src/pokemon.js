@@ -12,6 +12,7 @@ module.exports = (robot) => {
     robot.respond(/get pokemon/, (res) => {
         res.send(RES.go);
 
+        const user = res.message.user.name;
         const randomUrl = libs.getRandomUrl(MAX);
         const isShiny = libs.isShiny();
 
@@ -27,7 +28,7 @@ module.exports = (robot) => {
                 res.send(libs.getSuccessRes(pokeData));
                 res.send(libs.getShinyRes(isShiny));
                 res.send(libs.evalPokeCpRes(pokeData.cp));
-                libs.savePokemon(pokeData);
+                libs.savePokemon(pokeData, user);
             } catch (err) {
                 res.send(err);
             }

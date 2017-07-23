@@ -10,13 +10,8 @@ const app = firebase.initializeApp({
 
 const getlist = app.database().ref('/getlist');
 
-export const pushData = ({ id, time, cp }) => {
-    getlist.push({
-        id,
-        user: 'ishibashi-keita', // 一旦固定値
-        time,
-        cp
-    });
+export const pushData = ({ id, user, time, cp }) => {
+    getlist.push({ id, user, time, cp });
 };
 
 // getlist.on('value', snapshot => {

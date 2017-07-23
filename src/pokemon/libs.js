@@ -58,7 +58,7 @@ export const evalPokeCpRes = (cp: number): ?string => {
     }
 };
 
-export const savePokemon = ({ id, cp }: Object) => {
+export const savePokemon = ({ id, cp }: Object, user: string) => {
     const time = format(new Date(), 'YYYY-MM-DDTHH:mm:ssZ');
-    pushData({ id, time, cp });
+    pushData({ id, user, time, cp });
 };
