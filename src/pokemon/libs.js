@@ -2,7 +2,7 @@
 
 import { format } from 'date-fns';
 import translateData from '../../data/pokemon.json';
-import { pushData } from '../firebase/';
+import * as firebase from '../firebase/';
 import {
     MAXCP,
     STRENGTH,
@@ -58,7 +58,11 @@ export const evalPokeCpRes = (cp: number): ?string => {
     }
 };
 
-export const savePokemon = ({ id, cp }: Object, user: string) => {
+export const getSaveData = ({ id, cp }: Object, user: string) => {
     const time = format(new Date(), 'YYYY-MM-DDTHH:mm:ssZ');
-    pushData({ id, user, time, cp });
+    return { id, user, time, cp };
+};
+
+export const savePokemon = (saveData: Object) => {
+    firebase.pushData(saveData);
 };

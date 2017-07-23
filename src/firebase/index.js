@@ -1,3 +1,5 @@
+// @flow
+
 import * as firebase from 'firebase';
 
 // initialize firebase
@@ -10,8 +12,8 @@ const app = firebase.initializeApp({
 
 const getlist = app.database().ref('/getlist');
 
-export const pushData = ({ id, user, time, cp }) => {
-    getlist.push({ id, user, time, cp });
+export const pushData = (data: Object) => {
+    getlist.push(data);
 };
 
 // getlist.on('value', snapshot => {

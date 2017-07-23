@@ -5,4 +5,4 @@
 suppress_comment= \\(.\\|\n\\)*\\flow-disable-line
 
 [libs]
-./decls
+./decls/decls.js
