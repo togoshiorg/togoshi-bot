@@ -66,3 +66,7 @@ export const getSaveData = ({ id, cp }: Object, user: string, isShiny: boolean =
 export const savePokemon = (saveData: Object) => {
     firebase.pushData(saveData);
 };
+
+export const getPokeLength = (saveData: Object) => {
+    return firebase.readLength();
+};

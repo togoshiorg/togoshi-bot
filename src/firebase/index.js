@@ -16,6 +16,9 @@ export const pushData = (data: Object) => {
     getlist.push(data);
 };
 
-// getlist.on('value', snapshot => {
-//     console.log(snapshot.val());
-// });
+export const readLength = () => {
+    const num = getlist.on('value', snapshot => {
+        return snapshot.numChildren();
+    });
+    return num;
+};

@@ -36,4 +36,8 @@ module.exports = (robot) => {
             }
         })();
     });
+    robot.respond(/length pokemon/, (res) => {
+        const length = libs.getPokeLength();
+        res.send(`${length}匹捕まえたゴシ！`);
+    });
 };
