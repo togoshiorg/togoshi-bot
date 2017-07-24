@@ -43,6 +43,14 @@ module.exports = (robot) => {
                 res.send(libs.getLengthRes(length));
             });
     });
+    robot.respond(/user pokemon (.*)/, (res) => {
+        const user = res.match[1];
+        firebase.equalUser(user)
+            .then(length => {
+                if (length === 0) return false;
+                res.send(`${user}が捕まえたポケモンは${length}匹だゴシ！`);
+            });
+    });
     robot.respond(/overcp pokemon (.*)/, (res) => {
         const selectCp = parseInt(res.match[1]);
         firebase.overCp(selectCp)
