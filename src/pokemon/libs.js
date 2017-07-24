@@ -57,7 +57,7 @@ export const getLengthRes = (length: number): string => {
 };
 
 export const getLengthIdRes = (length: number, id: number): string => {
-    const name = translateData[id - 1].ja
+    const name = translateData[id - 1].ja;
     return `${name}はこれまでに${length}匹捕まえたゴシ！`;
 };
 
