@@ -62,20 +62,20 @@ module.exports = (robot) => {
         firebase.equalUser(user)
             .then(length => {
                 if (length === 0) return false;
-                res.send(`${user}が捕まえたポケモンは${length}匹だゴシ！`);
+                res.send(libs.getLengthUserRes(length, user));
             });
     });
     robot.respond(/overcp pokemon (.*)/, (res) => {
         const selectCp = parseInt(res.match[1]);
         firebase.overCp(selectCp)
             .then(length => {
-                res.send(`今までにCP${selectCp}以上のポケモンは${length}匹捕まえたゴシ！`);
+                res.send(libs.getLengthOvercpRes(length, selectCp));
             });
     });
     robot.respond(/shiny pokemon/, (res) => {
         firebase.equalShiny()
             .then(length => {
-                res.send(`今までに色違いポケモンは${length}匹捕まえたゴシ！`);
+                res.send(libs.getLengthShinyRes(length));
             });
     });
 
