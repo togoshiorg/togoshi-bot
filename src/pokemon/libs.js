@@ -54,6 +54,11 @@ export const getLengthRes = (length: number): string => {
     return `全部で${length}匹捕まえたゴシ！`;
 };
 
+export const getLengthIdRes = (length: number, id: number): string => {
+    const name = translateData[id - 1].ja
+    return `${name}はこれまでに${length}匹捕まえたゴシ！`;
+};
+
 export const evalPokeCpRes = (cp: number): ?string => {
     for (let [key, val] of Object.entries(STRENGTH)) {
         // flow-disable-line // val as mixed. https://github.com/facebook/flow/issues/2221

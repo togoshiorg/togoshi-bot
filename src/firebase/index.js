@@ -23,6 +23,13 @@ export const readLength = () => {
         });
 };
 
+export const readLengthId = (id: number) => {
+    return getlist.orderByChild('id').equalTo(id).once('value')
+        .then(snapshot => {
+            return snapshot.numChildren();
+        });
+};
+
 export const equalUser = (user: string) => {
     return getlist.orderByChild('user').equalTo(user).once('value')
         .then(snapshot => {
