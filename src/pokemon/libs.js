@@ -58,9 +58,9 @@ export const evalPokeCpRes = (cp: number): ?string => {
     }
 };
 
-export const getSaveData = ({ id, cp }: Object, user: string) => {
+export const getSaveData = ({ id, cp }: Object, user: string, isShiny: boolean = false) => {
     const time = format(new Date(), 'YYYY-MM-DDTHH:mm:ssZ');
-    return { id, user, time, cp };
+    return { id, user, time, cp, isShiny };
 };
 
 export const savePokemon = (saveData: Object) => {

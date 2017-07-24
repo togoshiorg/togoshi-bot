@@ -29,7 +29,7 @@ module.exports = (robot) => {
                 res.send(libs.getShinyRes(isShiny));
                 res.send(libs.evalPokeCpRes(pokeData.cp));
 
-                const saveData = libs.getSaveData(pokeData, user);
+                const saveData = libs.getSaveData(pokeData, user, isShiny);
                 libs.savePokemon(saveData);
             } catch (err) {
                 res.send(err);
