@@ -17,8 +17,8 @@ export const pushData = (data: Object) => {
 };
 
 export const readLength = () => {
-    const num = getlist.on('value', snapshot => {
-        return snapshot.numChildren();
-    });
-    return num;
+    return getlist.once('value')
+        .then(snapshot => {
+            return snapshot.numChildren();
+        });
 };

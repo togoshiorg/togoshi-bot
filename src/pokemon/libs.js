@@ -2,7 +2,6 @@
 
 import { format } from 'date-fns';
 import translateData from '../../data/pokemon.json';
-import * as firebase from '../firebase/';
 import {
     MAXCP,
     STRENGTH,
@@ -51,6 +50,10 @@ export const getShinyRes = (isShiny: boolean = false): string => {
     return isShiny ? RES.shiny : '';
 };
 
+export const getLengthRes = (length: number): string => {
+    return `全部で${length}匹捕まえたゴシ！`;
+};
+
 export const evalPokeCpRes = (cp: number): ?string => {
     for (let [key, val] of Object.entries(STRENGTH)) {
         // flow-disable-line // val as mixed. https://github.com/facebook/flow/issues/2221
@@ -61,12 +64,4 @@ export const evalPokeCpRes = (cp: number): ?string => {
 export const getSaveData = ({ id, cp }: Object, user: string, isShiny: boolean = false) => {
     const time = format(new Date(), 'YYYY-MM-DDTHH:mm:ssZ');
     return { id, user, time, cp, isShiny };
-};
-
-export const savePokemon = (saveData: Object) => {
-    firebase.pushData(saveData);
-};
-
-export const getPokeLength = (saveData: Object) => {
-    return firebase.readLength();
 };

@@ -6,6 +6,7 @@
 import 'babel-polyfill';
 import fetch from 'node-fetch';
 import * as libs from './pokemon/libs';
+import * as firebase from './firebase/';
 import { MAX, RES } from './pokemon/constants';
 
 module.exports = (robot) => {
@@ -30,14 +31,16 @@ module.exports = (robot) => {
                 res.send(libs.evalPokeCpRes(pokeData.cp));
 
                 const saveData = libs.getSaveData(pokeData, user, isShiny);
-                libs.savePokemon(saveData);
+                firebase.pushData(saveData);
             } catch (err) {
                 res.send(err);
             }
         })();
     });
-    robot.respond(/length pokemon/, (res) => {
-        const length = libs.getPokeLength();
-        res.send(`${length}匹捕まえたゴシ！`);
+    robot.respond(/zukan pokemon/, (res) => {
+        firebase.readLength()
+            .then(length => {
+                res.send(libs.getLengthRes(length));
+            });
     });
 };
