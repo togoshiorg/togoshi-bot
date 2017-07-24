@@ -43,4 +43,17 @@ module.exports = (robot) => {
                 res.send(libs.getLengthRes(length));
             });
     });
+    robot.respond(/overcp pokemon (.*)/, (res) => {
+        const selectCp = parseInt(res.match[1]);
+        firebase.overCp(selectCp)
+            .then(length => {
+                res.send(`今までにCP${selectCp}以上のポケモンは${length}匹捕まえたゴシ！`);
+            });
+    });
+    robot.respond(/shiny pokemon/, (res) => {
+        firebase.equalShiny()
+            .then(length => {
+                res.send(`今までに色違いポケモンは${length}匹捕まえたゴシ！`);
+            });
+    });
 };

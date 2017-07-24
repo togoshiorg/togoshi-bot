@@ -22,3 +22,17 @@ export const readLength = () => {
             return snapshot.numChildren();
         });
 };
+
+export const overCp = (selectCp: number) => {
+    return getlist.orderByChild('cp').startAt(selectCp).once('value')
+        .then(snapshot => {
+            return snapshot.numChildren();
+        });
+};
+
+export const equalShiny = () => {
+    return getlist.orderByChild('isShiny').equalTo(true).once('value')
+        .then(snapshot => {
+            return snapshot.numChildren();
+        });
+};
