@@ -6,7 +6,8 @@ import {
     STRENGTH,
     API,
     PATH,
-    RES
+    RES,
+    CHANGE_NAME_ARR
 } from './constants';
 
 export const getRandomUrl = (max: number): string => {
@@ -31,8 +32,19 @@ export const getSpriteUrl = (id: number, name: string, isShiny: boolean = false)
     }
 };
 
+// 形態変化があるポケモンはPokeAPIでは名前の後ろに'-'がついて画像名にそのまま使えないので、pokestudium.comに合わせて名前を変換する
+export const nameConvert = (id: number, name: string): string => {
+    let imgName = name;
+    if (CHANGE_NAME_ARR.deletHyphen.indexOf(id) !== -1) {
+        imgName = name.replace(/-/, '');
+    } else if (CHANGE_NAME_ARR.deleteHyphenBack.indexOf(id) !== -1) {
+        imgName = name.replace(/(-)(.*)/, '');
+    }
+    return imgName;
+};
+
 export const getPokeData = ({ id, name }: Object, isShiny: boolean = false): Object => {
-    const convName: string = name.replace(/(-)(.*)/, ''); // 形態変化があるポケモンはPokeAPIでは名前の後ろに'-avarage'等がついて画像名にそのまま使えないので'-'以降は削除
+    const convName = nameConvert(id, name);
     return {
         id,
         name: translateData[id - 1].ja,
