@@ -64,4 +64,9 @@ module.exports = (robot) => {
                 res.send(`今までに色違いポケモンは${length}匹捕まえたゴシ！`);
             });
     });
+
+    // Help Command
+    robot.respond(/h pokemon/, (res) => {
+        res.send(RES.help);
+    });
 };
