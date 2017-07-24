@@ -24,13 +24,13 @@ module.exports = (robot) => {
                 if (status !== 200) res.send(RES.miss);
 
                 const json = await response.json();
-                const pokeData = libs.getPokeData(json, isShiny);
-                res.send(libs.getSuccessRes(pokeData));
-                res.send(libs.getShinyRes(isShiny));
-                res.send(libs.evalPokeCpRes(pokeData.cp));
-
-                const saveData = libs.getSaveData(pokeData, user);
+                const saveData = libs.getSaveData(json, user, isShiny);
                 libs.savePokemon(saveData);
+
+                // const pokeData = libs.getPokeData(json, isShiny);
+                // res.send(libs.getSuccessRes(pokeData));
+                // res.send(libs.getShinyRes(isShiny));
+                // res.send(libs.evalPokeCpRes(pokeData.cp));
             } catch (err) {
                 res.send(err);
             }

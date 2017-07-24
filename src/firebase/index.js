@@ -2,6 +2,7 @@
 
 import * as firebase from 'firebase';
 import { isAfter, format } from 'date-fns';
+import * as libs from '../pokemon/libs';
 
 // initialize firebase
 const app = firebase.initializeApp({
@@ -14,15 +15,20 @@ const app = firebase.initializeApp({
 const getlist = app.database().ref('/getlist');
 const tmp = app.database().ref('/tmp');
 const initialize = (tmp, getlist) => {
+    // 初回起動時タイムスタンプ
     const starttime = format(new Date(), 'YYYY-MM-DDTHH:mm:ssZ');
     tmp.set({ starttime });
 
     tmp.once('value', tSnapshot => {
-        const STARTUP_TIMESTAMP = tSnapshot.val().timestamp;
+        // タイムスタンプ取得
+        const START_TIME = tSnapshot.val().starttime;
+
+        // イベント登録
         getlist.on('child_added', mSnapshot => {
             const snapshotData = mSnapshot.val();
-            if (isAfter(snapshotData.time, STARTUP_TIMESTAMP)) {
-                console.log(snapshotData);
+            if (isAfter(snapshotData.time, START_TIME)) {
+                const pokeData = libs.getPokeData(snapshotData);
+                console.log(libs.getSuccessRes(pokeData));
             }
         });
     });

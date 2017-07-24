@@ -33,13 +33,15 @@ export const getSpriteUrl = (id: number, name: string, isShiny: boolean = false)
     }
 };
 
-export const getPokeData = ({ id, name }: Object, isShiny: boolean = false): Object => {
-    const convName: string = name.replace(/(-)(.*)/, ''); // 形態変化があるポケモンはPokeAPIでは名前の後ろに'-avarage'等がついて画像名にそのまま使えないので'-'以降は削除
+export const getPokeData = ({ id, cp, isShiny }: Object): Object => {
+    const nameJa = translateData[id - 1].ja;
+    const nameEn = translateData[id - 1].en.toLowerCase();
+    // const convName: string = name.replace(/(-)(.*)/, ''); // 形態変化があるポケモンはPokeAPIでは名前の後ろに'-avarage'等がついて画像名にそのまま使えないので'-'以降は削除
     return {
         id,
-        name: translateData[id - 1].ja,
-        img: getSpriteUrl(id, convName, isShiny),
-        cp: getRandomNum(MAXCP)
+        name: nameJa,
+        img: getSpriteUrl(id, nameEn, isShiny),
+        cp
     };
 };
 
@@ -58,9 +60,10 @@ export const evalPokeCpRes = (cp: number): ?string => {
     }
 };
 
-export const getSaveData = ({ id, cp }: Object, user: string) => {
+export const getSaveData = ({ id }: Object, user: string, isShiny: boolean) => {
     const time = format(new Date(), 'YYYY-MM-DDTHH:mm:ssZ');
-    return { id, user, time, cp };
+    const cp = getRandomNum(MAXCP);
+    return { id, user, time, cp, isShiny };
 };
 
 export const savePokemon = (saveData: Object) => {
