@@ -16,6 +16,37 @@ export const pushData = (data: Object) => {
     getlist.push(data);
 };
 
-// getlist.on('value', snapshot => {
-//     console.log(snapshot.val());
-// });
+export const readLength = () => {
+    return getlist.once('value')
+        .then(snapshot => {
+            return snapshot.numChildren();
+        });
+};
+
+export const readLengthId = (id: number) => {
+    return getlist.orderByChild('id').equalTo(id).once('value')
+        .then(snapshot => {
+            return snapshot.numChildren();
+        });
+};
+
+export const equalUser = (user: string) => {
+    return getlist.orderByChild('user').equalTo(user).once('value')
+        .then(snapshot => {
+            return snapshot.numChildren();
+        });
+};
+
+export const overCp = (selectCp: number) => {
+    return getlist.orderByChild('cp').startAt(selectCp).once('value')
+        .then(snapshot => {
+            return snapshot.numChildren();
+        });
+};
+
+export const equalShiny = () => {
+    return getlist.orderByChild('isShiny').equalTo(true).once('value')
+        .then(snapshot => {
+            return snapshot.numChildren();
+        });
+};
