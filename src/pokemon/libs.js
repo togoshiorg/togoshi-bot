@@ -1,5 +1,6 @@
 // @flow
 
+import { format } from 'date-fns';
 import translateData from '../../data/pokemon.json';
 import {
     MAX,
@@ -12,14 +13,16 @@ import {
 } from './constants';
 
 export default class Libs {
-    constructor({ id, name, isShiny, cp }: Object) {
+    constructor({ id, name, isShiny, cp }: Object, user: string) {
         this.id = (id !== undefined) ? id : 1; // APIから取得したポケモンid
         this.name = (name !== undefined) ? name : 'bulbasaur'; // APIから取得したポケモンname
+        this.user = (user !== undefined) ? user : 'admin'; // ユーザー
         this.isShiny = (isShiny !== undefined) ? isShiny : Libs.getRandomNum(100) < 5; // 色違い
         this.cp = (cp !== undefined) ? cp : Libs.getRandomNum(MAXCP); // CP
         this.pokestudiumName = Libs.nameConvert(this.id, this.name); // pokestudium.com使用name
         this.nameJp = translateData[this.id - 1].ja; // ポケモン日本語名
         this.img = Libs.getSpriteUrl(this.id, this.pokestudiumName, this.isShiny); // 画像パス
+        this.time = format(new Date(), 'YYYY-MM-DDTHH:mm:ssZ'); // 時間
     }
 
     getPokeData(): Object {
@@ -28,6 +31,16 @@ export default class Libs {
             name: this.nameJp,
             img: this.img,
             cp: this.cp
+        };
+    }
+
+    getSaveData(): Object {
+        return {
+            id: this.id,
+            user: this.user,
+            time: this.time,
+            cp: this.cp,
+            isShiny: this.isShiny
         };
     }
 
@@ -73,5 +86,27 @@ export default class Libs {
         } else {
             return `${PATH.url}${name}.${PATH.fileType}`;
         }
+    }
+
+    // Response Message
+    static getLengthRes(length: number): string {
+        return `全部で${length}匹捕まえたゴシ！`;
+    };
+
+    static getLengthIdRes(length: number, id: number): string {
+        const name = translateData[id - 1].ja;
+        return `${name}はこれまでに${length}匹捕まえたゴシ！`;
+    };
+
+    static getLengthUserRes(length: number, user: string): string {
+        return `${user}が捕まえたポケモンは${length}匹だゴシ！`;
+    };
+
+    static getLengthOvercpRes(length: number, selectCp: number): string {
+        return `今までにCP${selectCp}以上のポケモンは${length}匹捕まえたゴシ！`;
+    }
+
+    static getLengthShinyRes(length: number): string {
+        return `今までに色違いポケモンは${length}匹捕まえたゴシ！`;
     }
 }
