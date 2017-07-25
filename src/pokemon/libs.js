@@ -2,7 +2,6 @@
 
 import translateData from '../../data/pokemon.json';
 import {
-    MAXCP,
     STRENGTH,
     API,
     PATH,
@@ -19,9 +18,26 @@ export const getRandomNum = (max: number): number => {
     return Math.floor(Math.random() * max);
 };
 
+export const getStrength = (obj: object): string => {
+    let probabilityTotal = 0;
+    const parameter = getRandomNum(100) + 1; // 0〜100%
+    for (let [key, val] of Object.entries(obj)) {
+        probabilityTotal += val.probability;
+        if (probabilityTotal >= parameter) return key;
+    }
+};
+
+export const getCp = (strength: string): number => {
+    const strengthLv = strength;
+    const cpMax = STRENGTH[strengthLv].cpMax;
+    const cpMin = STRENGTH[strengthLv].cpMin;
+    const cp = Math.floor(Math.random() * (cpMax - cpMin + 1) + cpMin);
+    return cp;
+};
+
 export const isShiny = (): boolean => {
-    const shinyPossibility = getRandomNum(100);
-    return shinyPossibility < 5;
+    const shinyPossibility = getRandomNum(100) + 1;
+    return shinyPossibility < ((1 / 4096) * 100); // 色違いの確率は1/4096
 };
 
 export const getSpriteUrl = (id: number, name: string, isShiny: boolean = false): string => {
@@ -45,11 +61,13 @@ export const nameConvert = (id: number, name: string): string => {
 
 export const getPokeData = ({ id, name }: Object, isShiny: boolean = false): Object => {
     const convName = nameConvert(id, name);
+    const strength = getStrength(STRENGTH);
     return {
         id,
         name: translateData[id - 1].ja,
         img: getSpriteUrl(id, convName, isShiny),
-        cp: getRandomNum(MAXCP)
+        strength: strength,
+        cp: getCp(strength)
     };
 };
 
@@ -61,9 +79,6 @@ export const getShinyRes = (isShiny: boolean = false): string => {
     return isShiny ? RES.shiny : '';
 };
 
-export const evalPokeCpRes = (cp: number): ?string => {
-    for (let [key, val] of Object.entries(STRENGTH)) {
-        // flow-disable-line // val as mixed. https://github.com/facebook/flow/issues/2221
-        if (cp >= val) return RES[key];
-    }
+export const evalPokeCpRes = (strength: object): string => {
+    return RES[strength];
 };

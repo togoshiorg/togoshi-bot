@@ -7,8 +7,7 @@ import {
     STRENGTH,
     API,
     PATH,
-    RES,
-    CHANGE_NAME_ARR
+    RES
 } from '../src/pokemon/constants';
 
 describe('pokemon.js', () => {
@@ -28,6 +27,108 @@ describe('pokemon.js', () => {
         assert(randomCp3 < MAXCP);
         assert(randomCp4 < MAXCP);
         assert(randomCp5 < MAXCP);
+    });
+
+    it('指定したパーセンテージの強さが返ってくる', () => {
+        const dataGod = {
+            god: { probability: 100 },
+            strongest: { probability: 0 },
+            stronger: { probability: 0 },
+            normal: { probability: 0 },
+            weaker: { probability: 0 },
+            weakest: { probability: 0 }
+        };
+        const dataStrongest = {
+            god: { probability: 0 },
+            strongest: { probability: 100 },
+            stronger: { probability: 0 },
+            normal: { probability: 0 },
+            weaker: { probability: 0 },
+            weakest: { probability: 0 }
+        };
+        const dataStronger = {
+            god: { probability: 0 },
+            strongest: { probability: 0 },
+            stronger: { probability: 100 },
+            normal: { probability: 0 },
+            weaker: { probability: 0 },
+            weakest: { probability: 0 }
+        };
+        const dataNormal = {
+            god: { probability: 0 },
+            strongest: { probability: 0 },
+            stronger: { probability: 0 },
+            normal: { probability: 100 },
+            weaker: { probability: 0 },
+            weakest: { probability: 0 }
+        };
+        const dataWeaker = {
+            god: { probability: 0 },
+            strongest: { probability: 0 },
+            stronger: { probability: 0 },
+            normal: { probability: 0 },
+            weaker: { probability: 100 },
+            weakest: { probability: 0 }
+        };
+        const dataWeakest = {
+            god: { probability: 0 },
+            strongest: { probability: 0 },
+            stronger: { probability: 0 },
+            normal: { probability: 0 },
+            weaker: { probability: 0 },
+            weakest: { probability: 100 }
+        };
+        const strengthGod = libs.getStrength(dataGod);
+        const strengthStrongest = libs.getStrength(dataStrongest);
+        const strengthStronger = libs.getStrength(dataStronger);
+        const strengthNormal = libs.getStrength(dataNormal);
+        const strengthWeaker = libs.getStrength(dataWeaker);
+        const strengthWeakest = libs.getStrength(dataWeakest);
+        assert.equal(strengthGod, 'god');
+        assert.equal(strengthStrongest, 'strongest');
+        assert.equal(strengthStronger, 'stronger');
+        assert.equal(strengthNormal, 'normal');
+        assert.equal(strengthWeaker, 'weaker');
+        assert.equal(strengthWeakest, 'weakest');
+    });
+
+    it('指定した強さのCPの範囲内の数値が返ってくる', () => {
+        const cpGod = libs.getCp('god');
+        const cpStrongest = libs.getCp('strongest');
+        const cpStronger = libs.getCp('stronger');
+        const cpNormal = libs.getCp('normal');
+        const cpWeaker = libs.getCp('weaker');
+        const cpWeakest = libs.getCp('weakest');
+        if (cpGod === STRENGTH.god.cpMax && cpGod === STRENGTH.god.cpMin) {
+            assert.ok(true);
+        } else {
+            assert.ok(false);
+        }
+        if (cpStrongest <= STRENGTH.strongest.cpMax && cpStrongest >= STRENGTH.strongest.cpMin) {
+            assert.ok(true);
+        } else {
+            assert.ok(false);
+        }
+        if (cpStronger <= STRENGTH.stronger.cpMax && cpStronger >= STRENGTH.stronger.cpMin) {
+            assert.ok(true);
+        } else {
+            assert.ok(false);
+        }
+        if (cpNormal <= STRENGTH.normal.cpMax && cpNormal >= STRENGTH.normal.cpMin) {
+            assert.ok(true);
+        } else {
+            assert.ok(false);
+        }
+        if (cpWeaker <= STRENGTH.weaker.cpMax && cpWeaker >= STRENGTH.weaker.cpMin) {
+            assert.ok(true);
+        } else {
+            assert.ok(false);
+        }
+        if (cpWeakest === STRENGTH.weakest.cpMax && cpWeakest === STRENGTH.weakest.cpMin) {
+            assert.ok(true);
+        } else {
+            assert.ok(false);
+        }
     });
 
     it('指定の名前を含むURLが成形される', () => {
@@ -91,21 +192,16 @@ describe('pokemon.js', () => {
         assert.equal(shinyRes, RES.shiny);
     });
 
-    it('数値によって適当なレスポンスが返ってくる', () => {
-        const god = libs.evalPokeCpRes(STRENGTH.god);
-        const strongest = libs.evalPokeCpRes(STRENGTH.strongest);
-        const stronger = libs.evalPokeCpRes(STRENGTH.stronger);
-        const weaker = libs.evalPokeCpRes(STRENGTH.weaker);
-        const weakest = libs.evalPokeCpRes(STRENGTH.weakest);
+    it('強さレベルによって適当なレスポンスが返ってくる', () => {
+        const god = libs.evalPokeCpRes('god');
+        const strongest = libs.evalPokeCpRes('strongest');
+        const stronger = libs.evalPokeCpRes('stronger');
+        const weaker = libs.evalPokeCpRes('weaker');
+        const weakest = libs.evalPokeCpRes('weakest');
         assert.equal(god, RES.god);
         assert.equal(strongest, RES.strongest);
         assert.equal(stronger, RES.stronger);
         assert.equal(weaker, RES.weaker);
         assert.equal(weakest, RES.weakest);
-
-        const matchStronger = libs.evalPokeCpRes(STRENGTH.stronger - 1);
-        const matchNormal = libs.evalPokeCpRes(STRENGTH.normal);
-        assert.equal(matchStronger, '');
-        assert.equal(matchNormal, '');
     });
 });
