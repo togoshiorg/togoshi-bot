@@ -48,13 +48,10 @@ module.exports = (robot) => {
             });
     });
     robot.respond(/zukan pokemon (.*)/, (res) => {
-        // 0指定の場合は処理しない
-        const id = parseInt(res.match[1]);
-        if (id === 0) return false;
-
-        firebase.readLengthId(id)
+        const name = res.match[1];
+        firebase.readLengthName(name)
             .then(length => {
-                res.send(libs.getLengthIdRes(length, id));
+                res.send(libs.getLengthNameRes(length, name));
             });
     });
     robot.respond(/user pokemon (.*)/, (res) => {
