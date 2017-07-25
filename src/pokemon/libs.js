@@ -20,12 +20,15 @@ export const getRandomNum = (max: number): number => {
 };
 
 export const getStrength = (obj: Object): string => {
+    let strengthLv = '';
     let probabilityTotal = 0;
     const parameter = getRandomNum(100) + 1; // 0〜100%
     for (let [key, val] of Object.entries(obj)) {
+        // flow-disable-line // val as mixed. https://github.com/facebook/flow/issues/2221
         probabilityTotal += val.probability;
-        if (probabilityTotal >= parameter) return key;
+        if (probabilityTotal >= parameter) strengthLv = key;
     }
+    return strengthLv;
 };
 
 export const getCp = (strength: string): number => {
