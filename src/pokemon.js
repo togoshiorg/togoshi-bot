@@ -40,7 +40,9 @@ module.exports = (robot) => {
     robot.respond(/zukan pokemon/, (res) => {
         // 入力値に数値が付与されていたら処理しない
         const input = res.message.text;
-        if (input !== 'togoshi-bot zukan pokemon') return false;
+        const resMention = '@togoshi-bot zukan pokemon';
+        const resDirect = 'togoshi-bot zukan pokemon';
+        if (input !== resMention && input !== resDirect) return false;
 
         firebase.readLength()
             .then(length => {
