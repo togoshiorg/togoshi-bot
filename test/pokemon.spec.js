@@ -7,7 +7,8 @@ import {
     STRENGTH,
     API,
     PATH,
-    RES
+    RES,
+    CHANGE_NAME_ARR
 } from '../src/pokemon/constants';
 
 describe('pokemon.js', () => {
@@ -54,11 +55,25 @@ describe('pokemon.js', () => {
 
     it('ハイフンの入ったnameからハイフンが削除される', () => {
         const data = {
-            id: 1,
-            name: 'foo-average'
+            bulbasaur: {
+                id: 1,
+                name: 'bulbasaur'
+            },
+            nidoranf: {
+                id: 29,
+                name: 'nidoran-f'
+            },
+            deoxys: {
+                id: 386,
+                name: 'deoxys-normal'
+            }
         };
-        const pokeData = libs.getPokeData(data);
-        assert.equal(pokeData.img, 'http://www.pokestadium.com/sprites/xy/foo.gif');
+        const bulbasaurData = libs.getPokeData(data.bulbasaur);
+        const nidranData = libs.getPokeData(data.nidoranf);
+        const deoxysData = libs.getPokeData(data.deoxys);
+        assert.equal(bulbasaurData.img, 'http://www.pokestadium.com/sprites/xy/bulbasaur.gif');
+        assert.equal(nidranData.img, 'http://www.pokestadium.com/sprites/xy/nidoranf.gif');
+        assert.equal(deoxysData.img, 'http://www.pokestadium.com/sprites/xy/deoxys.gif');
     });
 
     it('指定した内容で成形された文面が返ってくる', () => {
