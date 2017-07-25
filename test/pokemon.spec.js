@@ -1,28 +1,26 @@
 import assert from 'assert';
-import * as libs from '../src/pokemon/libs';
+import Libs from '../src/pokemon/libs';
 import translateData from '../data/pokemon.json';
 import {
-    MAX,
     MAXCP,
     STRENGTH,
     API,
     PATH,
-    RES,
-    CHANGE_NAME_ARR
+    RES
 } from '../src/pokemon/constants';
 
 describe('pokemon.js', () => {
     it('指定の文字列を含んだURLが返ってくる', () => {
-        const randomUrl = libs.getRandomUrl(MAX);
+        const randomUrl = Libs.getRandomUrl();
         assert.equal(randomUrl.indexOf(API), 0);
     });
 
     it('指定の範囲内の数値が返ってくる', () => {
-        const randomCp1 = libs.getRandomNum(MAXCP);
-        const randomCp2 = libs.getRandomNum(MAXCP);
-        const randomCp3 = libs.getRandomNum(MAXCP);
-        const randomCp4 = libs.getRandomNum(MAXCP);
-        const randomCp5 = libs.getRandomNum(MAXCP);
+        const randomCp1 = Libs.getRandomNum(MAXCP);
+        const randomCp2 = Libs.getRandomNum(MAXCP);
+        const randomCp3 = Libs.getRandomNum(MAXCP);
+        const randomCp4 = Libs.getRandomNum(MAXCP);
+        const randomCp5 = Libs.getRandomNum(MAXCP);
         assert(randomCp1 < MAXCP);
         assert(randomCp2 < MAXCP);
         assert(randomCp3 < MAXCP);
@@ -32,13 +30,13 @@ describe('pokemon.js', () => {
 
     it('指定の名前を含むURLが成形される', () => {
         const name = 'foo';
-        const spriteUrl = libs.getSpriteUrl(1, name);
+        const spriteUrl = Libs.getSpriteUrl(1, name);
         assert.equal(spriteUrl, `${PATH.url}${name}.${PATH.fileType}`);
     });
 
     it('フラグを渡すと色違いのURLが成形される', () => {
         const name = 'foo';
-        const spriteUrl = libs.getSpriteUrl(1, name, true);
+        const spriteUrl = Libs.getSpriteUrl(1, name, true);
         assert.equal(spriteUrl, `${PATH.url}${PATH.shiny}${name}.${PATH.fileType}`);
     });
 
@@ -47,10 +45,11 @@ describe('pokemon.js', () => {
             id: 1,
             name: 'foo'
         };
-        const pokeData = libs.getPokeData(data);
+        const libs = new Libs(data);
+        const pokeData = libs.getPokeData();
         assert.equal(pokeData.id, data.id);
         assert.equal(pokeData.name, translateData[data.id - 1].ja);
-        assert.equal(pokeData.img, libs.getSpriteUrl(data.id, data.name));
+        assert.equal(pokeData.img, Libs.getSpriteUrl(data.id, data.name));
     });
 
     it('ハイフンの入ったnameからハイフンが削除される', () => {
@@ -68,9 +67,9 @@ describe('pokemon.js', () => {
                 name: 'deoxys-normal'
             }
         };
-        const bulbasaurData = libs.getPokeData(data.bulbasaur);
-        const nidranData = libs.getPokeData(data.nidoranf);
-        const deoxysData = libs.getPokeData(data.deoxys);
+        const bulbasaurData = new Libs(data.bulbasaur).getPokeData();
+        const nidranData = new Libs(data.nidoranf).getPokeData();
+        const deoxysData = new Libs(data.deoxys).getPokeData();
         assert.equal(bulbasaurData.img, 'http://www.pokestadium.com/sprites/xy/bulbasaur.gif');
         assert.equal(nidranData.img, 'http://www.pokestadium.com/sprites/xy/nidoranf.gif');
         assert.equal(deoxysData.img, 'http://www.pokestadium.com/sprites/xy/deoxys.gif');
@@ -82,7 +81,7 @@ describe('pokemon.js', () => {
             img: 'http://example.com',
             cp: 99
         };
-        const successRes = libs.getSuccessRes(data);
+        const successRes = new Libs(data).getSuccessRes();
         assert.equal(successRes, 'CP99のfooを捕まえたゴシ！\nhttp://example.com');
     });
 
