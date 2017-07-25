@@ -19,7 +19,7 @@ export const getRandomNum = (max: number): number => {
     return Math.floor(Math.random() * max);
 };
 
-export const getStrength = (obj: object): string => {
+export const getStrength = (obj: Object): string => {
     let probabilityTotal = 0;
     const parameter = getRandomNum(100) + 1; // 0〜100%
     for (let [key, val] of Object.entries(obj)) {
@@ -107,6 +107,6 @@ export const getShinyRes = (isShiny: boolean = false): string => {
     return isShiny ? RES.shiny : '';
 };
 
-export const evalPokeCpRes = (strength: object): string => {
+export const evalPokeCpRes = (strength: string): string => {
     return RES[strength];
 };
