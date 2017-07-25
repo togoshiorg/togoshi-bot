@@ -68,8 +68,7 @@ export const getLengthRes = (length: number): string => {
     return `全部で${length}匹捕まえたゴシ！`;
 };
 
-export const getLengthIdRes = (length: number, id: number): string => {
-    const name = translateData[id - 1].ja;
+export const getLengthNameRes = (length: number, name: string): string => {
     return length ? `${name}はこれまでに${length}匹捕まえたゴシ！` : `${name}はまだ捕まえてないゴシ...`;
 };
 
