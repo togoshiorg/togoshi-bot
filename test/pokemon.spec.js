@@ -43,7 +43,8 @@ describe('pokemon.js', () => {
     it('指定のidと名前を使ったObjectが返ってくる', () => {
         const data = {
             id: 1,
-            name: 'foo'
+            name: 'foo',
+            isShiny: false
         };
         const libs = new Libs(data);
         const pokeData = libs.getPokeData();
@@ -56,15 +57,18 @@ describe('pokemon.js', () => {
         const data = {
             bulbasaur: {
                 id: 1,
-                name: 'bulbasaur'
+                name: 'bulbasaur',
+                isShiny: false
             },
             nidoranf: {
                 id: 29,
-                name: 'nidoran-f'
+                name: 'nidoran-f',
+                isShiny: false
             },
             deoxys: {
                 id: 386,
-                name: 'deoxys-normal'
+                name: 'deoxys-normal',
+                isShiny: false
             }
         };
         const bulbasaurData = new Libs(data.bulbasaur).getPokeData();
@@ -77,33 +81,34 @@ describe('pokemon.js', () => {
 
     it('指定した内容で成形された文面が返ってくる', () => {
         const data = {
-            name: 'foo',
-            img: 'http://example.com',
-            cp: 99
+            id: 1,
+            name: 'bulbasaur',
+            isShiny: false,
+            cp: 100
         };
         const successRes = new Libs(data).getSuccessRes();
-        assert.equal(successRes, 'CP99のfooを捕まえたゴシ！\nhttp://example.com');
+        assert.equal(successRes, 'CP100のフシギダネを捕まえたゴシ！\nhttp://www.pokestadium.com/sprites/xy/bulbasaur.gif');
     });
 
     it('trueを渡すと文面が返ってくる', () => {
-        const shinyRes = libs.getShinyRes(true);
+        const shinyRes = new Libs({ isShiny: true }).getShinyRes();
         assert.equal(shinyRes, RES.shiny);
     });
 
     it('数値によって適当なレスポンスが返ってくる', () => {
-        const god = libs.evalPokeCpRes(STRENGTH.god);
-        const strongest = libs.evalPokeCpRes(STRENGTH.strongest);
-        const stronger = libs.evalPokeCpRes(STRENGTH.stronger);
-        const weaker = libs.evalPokeCpRes(STRENGTH.weaker);
-        const weakest = libs.evalPokeCpRes(STRENGTH.weakest);
+        const god = new Libs({ cp: STRENGTH.god }).evalPokeCpRes();
+        const strongest = new Libs({ cp: STRENGTH.strongest }).evalPokeCpRes();
+        const stronger = new Libs({ cp: STRENGTH.stronger }).evalPokeCpRes();
+        const weaker = new Libs({ cp: STRENGTH.weaker }).evalPokeCpRes();
+        const weakest = new Libs({ cp: STRENGTH.weakest }).evalPokeCpRes();
         assert.equal(god, RES.god);
         assert.equal(strongest, RES.strongest);
         assert.equal(stronger, RES.stronger);
         assert.equal(weaker, RES.weaker);
         assert.equal(weakest, RES.weakest);
 
-        const matchStronger = libs.evalPokeCpRes(STRENGTH.stronger - 1);
-        const matchNormal = libs.evalPokeCpRes(STRENGTH.normal);
+        const matchStronger = new Libs({ cp: STRENGTH.stronger - 1 }).evalPokeCpRes();
+        const matchNormal = new Libs({ cp: STRENGTH.normal }).evalPokeCpRes();
         assert.equal(matchStronger, '');
         assert.equal(matchNormal, '');
     });

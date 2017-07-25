@@ -22,6 +22,8 @@ module.exports = (robot) => {
                 const json = await response.json();
                 const libs = new Libs(json);
                 res.send(libs.getSuccessRes());
+                res.send(libs.getShinyRes());
+                res.send(libs.evalPokeCpRes());
             } catch (err) {
                 res.send(err);
             }

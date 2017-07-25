@@ -12,14 +12,14 @@ import {
 } from './constants';
 
 export default class Libs {
-    constructor({ id, name }: Object) {
-        this.isShiny = Libs.getRandomNum(100) < 5; // 色違い
-        this.id = id; // APIから取得したポケモンid
-        this.name = name; // APIから取得したポケモンname
+    constructor({ id, name, isShiny, cp }: Object) {
+        this.id = (id !== undefined) ? id : 1; // APIから取得したポケモンid
+        this.name = (name !== undefined) ? name : 'bulbasaur'; // APIから取得したポケモンname
+        this.isShiny = (isShiny !== undefined) ? isShiny : Libs.getRandomNum(100) < 5; // 色違い
+        this.cp = (cp !== undefined) ? cp : Libs.getRandomNum(MAXCP); // CP
         this.pokestudiumName = Libs.nameConvert(this.id, this.name); // pokestudium.com使用name
         this.nameJp = translateData[this.id - 1].ja; // ポケモン日本語名
-        this.cp = Libs.getRandomNum(MAXCP); // CP
-        this.img = Libs.getSpriteUrl(this.id, this.pokestudiumNamem, this.isShiny); // 画像パス
+        this.img = Libs.getSpriteUrl(this.id, this.pokestudiumName, this.isShiny); // 画像パス
     }
 
     getPokeData(): Object {
@@ -32,12 +32,19 @@ export default class Libs {
     }
 
     getSuccessRes(): string {
-        let res = Libs.evalPokeCpRes(this.cp);
-        if (this.isShiny) {
-            res += RES.shiny + '\n';
+        return `CP${this.cp}の${this.nameJp}を捕まえたゴシ！\n${this.img}`;
+    }
+
+    getShinyRes(): string {
+        return this.isShiny ? RES.shiny : '';
+    }
+
+    evalPokeCpRes(): string {
+        for (let [key, val] of Object.entries(STRENGTH)) {
+            // flow-disable-line // val as mixed. https://github.com/facebook/flow/issues/2221
+            if (this.cp >= val) return RES[key];
         }
-        res += `CP${this.cp}の${this.nameJp}を捕まえたゴシ！\n${this.img}\n`;
-        return res;
+        return '';
     }
 
     static getRandomUrl(): string {
@@ -65,13 +72,6 @@ export default class Libs {
             return `${PATH.url}${PATH.shiny}${name}.${PATH.fileType}`;
         } else {
             return `${PATH.url}${name}.${PATH.fileType}`;
-        }
-    }
-
-    static evalPokeCpRes(cp: number): ?string {
-        for (let [key, val] of Object.entries(STRENGTH)) {
-            // flow-disable-line // val as mixed. https://github.com/facebook/flow/issues/2221
-            if (cp >= val) return RES[key] + '\n';
         }
     }
 }
