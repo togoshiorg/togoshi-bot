@@ -1,4 +1,5 @@
 import assert from 'assert';
+import { isToday } from 'date-fns';
 import * as libs from '../src/pokemon/libs';
 import translateData from '../data/pokemon.json';
 import {
@@ -203,5 +204,20 @@ describe('pokemon.js', () => {
         assert.equal(stronger, RES.stronger);
         assert.equal(weaker, RES.weaker);
         assert.equal(weakest, RES.weakest);
+    });
+
+    it('渡したデータが保存用のオブジェクトで帰ってくる', () => {
+        const data = {
+            pokeData: {
+                id: 1,
+                cp: 100
+            },
+            user: 'foo'
+        };
+        const saveData = libs.getSaveData(data.pokeData, data.user);
+        assert.equal(saveData.id, data.pokeData.id);
+        assert.equal(saveData.cp, data.pokeData.cp);
+        assert.equal(saveData.user, data.user);
+        assert.ok(isToday(saveData.time));
     });
 });
