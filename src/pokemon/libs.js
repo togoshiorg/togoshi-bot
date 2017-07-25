@@ -26,13 +26,15 @@ export const getStrength = (obj: Object): string => {
     for (let [key, val] of Object.entries(obj)) {
         // flow-disable-line // val as mixed. https://github.com/facebook/flow/issues/2221
         probabilityTotal += val.probability;
-        if (probabilityTotal >= parameter) strengthLv = key;
+        if (probabilityTotal >= parameter) {
+            strengthLv = key;
+            break;
+        }
     }
     return strengthLv;
 };
 
-export const getCp = (strength: string): number => {
-    const strengthLv = strength;
+export const getCp = (strengthLv: string): number => {
     const cpMax = STRENGTH[strengthLv].cpMax;
     const cpMin = STRENGTH[strengthLv].cpMin;
     const cp = Math.floor(Math.random() * (cpMax - cpMin + 1) + cpMin);
@@ -65,13 +67,13 @@ export const nameConvert = (id: number, name: string): string => {
 
 export const getPokeData = ({ id, name }: Object, isShiny: boolean = false): Object => {
     const convName = nameConvert(id, name);
-    const strength = getStrength(STRENGTH);
+    const strengthLv = getStrength(STRENGTH);
     return {
         id,
         name: translateData[id - 1].ja,
         img: getSpriteUrl(id, convName, isShiny),
-        strength: strength,
-        cp: getCp(strength)
+        strength: strengthLv,
+        cp: getCp(strengthLv)
     };
 };
 
