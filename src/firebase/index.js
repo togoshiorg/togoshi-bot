@@ -1,6 +1,7 @@
 // @flow
 
 import * as firebase from 'firebase';
+import translateData from '../../data/pokemon.json';
 
 // initialize firebase
 const app = firebase.initializeApp({
@@ -23,7 +24,11 @@ export const readLength = () => {
         });
 };
 
-export const readLengthId = (id: number) => {
+export const readLengthName = (name: string) => {
+    let id: number;
+    translateData.forEach((data, index) => {
+        if (data.ja === name) id = (index + 1);
+    });
     return getlist.orderByChild('id').equalTo(id).once('value')
         .then(snapshot => {
             return snapshot.numChildren();

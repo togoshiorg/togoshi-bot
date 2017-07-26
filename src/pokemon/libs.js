@@ -13,7 +13,7 @@ import {
 } from './constants';
 
 export default class Libs {
-    constructor({ id, name, isShiny, cp }: Object, user: string) {
+    constructor ({ id, name, isShiny, cp }: Object, user: string) {
         this.id = (id !== undefined) ? id : 1; // APIから取得したポケモンid
         this.name = (name !== undefined) ? name : 'bulbasaur'; // APIから取得したポケモンname
         this.user = (user !== undefined) ? user : 'admin'; // ユーザー
@@ -25,7 +25,7 @@ export default class Libs {
         this.time = format(new Date(), 'YYYY-MM-DDTHH:mm:ssZ'); // 時間
     }
 
-    getPokeData(): Object {
+    getPokeData (): Object {
         return {
             id: this.id,
             name: this.nameJp,
@@ -34,7 +34,7 @@ export default class Libs {
         };
     }
 
-    getSaveData(): Object {
+    getSaveData (): Object {
         return {
             id: this.id,
             user: this.user,
@@ -44,15 +44,15 @@ export default class Libs {
         };
     }
 
-    getSuccessRes(): string {
+    getSuccessRes (): string {
         return `CP${this.cp}の${this.nameJp}を捕まえたゴシ！\n${this.img}`;
     }
 
-    getShinyRes(): string {
+    getShinyRes (): string {
         return this.isShiny ? RES.shiny : '';
     }
 
-    evalPokeCpRes(): string {
+    evalPokeCpRes (): string {
         for (let [key, val] of Object.entries(STRENGTH)) {
             // flow-disable-line // val as mixed. https://github.com/facebook/flow/issues/2221
             if (this.cp >= val) return RES[key];
@@ -60,17 +60,17 @@ export default class Libs {
         return '';
     }
 
-    static getRandomUrl(): string {
+    static getRandomUrl (): string {
         const pokeSelect = Libs.getRandomNum(MAX) + 1;
         return `${API}${pokeSelect}/`;
     }
 
-    static getRandomNum(max: number): number {
+    static getRandomNum (max: number): number {
         return Math.floor(Math.random() * max);
     }
 
     // 形態変化があるポケモンはPokeAPIでは名前の後ろに'-'がついて画像名にそのまま使えないので、pokestudium.comに合わせて名前を変換する
-    static nameConvert(id: number, name: string): string{
+    static nameConvert (id: number, name: string): string{
         let imgName = name;
         if (CHANGE_NAME_ARR.deletHyphen.indexOf(id) !== -1) {
             imgName = name.replace(/-/, '');
@@ -80,7 +80,7 @@ export default class Libs {
         return imgName;
     }
 
-    static getSpriteUrl(id: number, name: string, isShiny: boolean = false): string {
+    static getSpriteUrl (id: number, name: string, isShiny: boolean = false): string {
         if (isShiny) {
             return `${PATH.url}${PATH.shiny}${name}.${PATH.fileType}`;
         } else {
@@ -89,24 +89,23 @@ export default class Libs {
     }
 
     // Response Message
-    static getLengthRes(length: number): string {
+    static getLengthRes (length: number): string {
         return `全部で${length}匹捕まえたゴシ！`;
-    };
-
-    static getLengthIdRes(length: number, id: number): string {
-        const name = translateData[id - 1].ja;
-        return `${name}はこれまでに${length}匹捕まえたゴシ！`;
-    };
-
-    static getLengthUserRes(length: number, user: string): string {
-        return `${user}が捕まえたポケモンは${length}匹だゴシ！`;
-    };
-
-    static getLengthOvercpRes(length: number, selectCp: number): string {
-        return `今までにCP${selectCp}以上のポケモンは${length}匹捕まえたゴシ！`;
     }
 
-    static getLengthShinyRes(length: number): string {
-        return `今までに色違いポケモンは${length}匹捕まえたゴシ！`;
+    static getLengthNameRes (length: number, name: string): string {
+        return length ? `${name}はこれまでに${length}匹捕まえたゴシ！` : `${name}はまだ捕まえてないゴシ...`;
     }
-}
+
+    static getLengthUserRes (length: number, user: string): string {
+        return length ? `${user}が捕まえたポケモンは${length}匹だゴシ！` : `${user}はまだポケモンを捕まえてないゴシ...`;
+    }
+
+    static getLengthOvercpRes (length: number, selectCp: number): string {
+        return length ? `今までにCP${selectCp}以上のポケモンは${length}匹捕まえたゴシ！` : `CP${selectCp}以上のポケモンはまだ捕まえてないゴシ...`;
+    }
+
+    static getLengthShinyRes (length: number): string {
+        return length ? `今までに色違いポケモンは${length}匹捕まえたゴシ！` : `まだ普通のポケモンしか捕まえてないゴシ...`;
+    }
+};

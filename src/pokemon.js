@@ -36,7 +36,9 @@ module.exports = (robot) => {
     robot.respond(/zukan pokemon/, (res) => {
         // 入力値に数値が付与されていたら処理しない
         const input = res.message.text;
-        if (input !== 'togoshi-bot zukan pokemon') return false;
+        const resMention = '@togoshi-bot zukan pokemon';
+        const resDirect = 'togoshi-bot zukan pokemon';
+        if (input !== resMention && input !== resDirect) return false;
 
         firebase.readLength()
             .then(length => {
@@ -44,13 +46,10 @@ module.exports = (robot) => {
             });
     });
     robot.respond(/zukan pokemon (.*)/, (res) => {
-        // 0指定の場合は処理しない
-        const id = parseInt(res.match[1]);
-        if (id === 0) return false;
-
-        firebase.readLengthId(id)
+        const name = res.match[1];
+        firebase.readLengthName(name)
             .then(length => {
-                res.send(Libs.getLengthIdRes(length, id));
+                res.send(Libs.getLengthNameRes(length, name));
             });
     });
     robot.respond(/user pokemon (.*)/, (res) => {
