@@ -30,6 +30,51 @@ describe('pokemon.js', () => {
         assert(randomCp5 < MAXCP);
     });
 
+    it('強さレベルの順番がかならずCPの高い順になる', () => {
+        const STRENGTH1 = {
+            god: { cp: MAXCP },
+            strongest: { cp: 3500 },
+            stronger: { cp: 2000 },
+            normal: { cp: 100 },
+            weaker: { cp: 2 },
+            weakest: { cp: 1 }
+        };
+        const STRENGTH2 = {
+            stronger: { cp: 2000 },
+            weaker: { cp: 2 },
+            strongest: { cp: 3500 },
+            weakest: { cp: 1 },
+            normal: { cp: 100 },
+            god: { cp: MAXCP },
+        };
+        const STRENGTH3 = {
+            stronger: { cp: 2000 },
+            god: { cp: MAXCP },
+            normal: { cp: 100 },
+            weakest: { cp: 1 },
+            weaker: { cp: 2 },
+            strongest: { cp: 3500 },
+            
+        };
+        const strengthArr1 = Object.keys(STRENGTH1);
+        const strengthSortedArr1 = libs.strengthSort(strengthArr1);
+        const strengthArr2 = Object.keys(STRENGTH2);
+        const strengthSortedArr2 = libs.strengthSort(strengthArr2);
+        const strengthArr3 = Object.keys(STRENGTH3);
+        const strengthSortedArr3 = libs.strengthSort(strengthArr3);
+        const testArr = ['god', 'strongest', 'stronger', 'normal', 'weaker', 'weakest'];
+        let i;
+        for (i = 0; strengthSortedArr1.length > i; i++) {
+            assert.equal(strengthSortedArr1[i], testArr[i]);
+        }
+        for (i = 0; strengthSortedArr2.length > i; i++) {
+            assert.equal(strengthSortedArr2[i], testArr[i]);
+        }
+        for (i = 0; strengthSortedArr3.length > i; i++) {
+            assert.equal(strengthSortedArr3[i], testArr[i]);
+        }
+    });
+
     it('指定したパーセンテージの強さが返ってくる', () => {
         const dataGod = {
             god: { probability: 100 },
