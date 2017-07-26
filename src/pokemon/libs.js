@@ -19,7 +19,7 @@ export const getRandomNum = (max: number): number => {
     return Math.floor(Math.random() * max);
 };
 
-export const strengthSort = (arr: Array<string>): string => {
+export const strengthSort = (arr: Array<string>): Array<string> => {
     return arr.sort((aArr, bArr) => {
         const cpA = STRENGTH[aArr].cp;
         const cpB = STRENGTH[bArr].cp;
