@@ -19,6 +19,19 @@ export const getRandomNum = (max: number): number => {
     return Math.floor(Math.random() * max);
 };
 
+export const strengthSort = (arr: Array<string>): string => {
+    return arr.sort((aArr, bArr) => {
+        const cpA = STRENGTH[aArr].cp;
+        const cpB = STRENGTH[bArr].cp;
+        if (cpA > cpB) {
+            return -1;
+        } else if (cpA < cpB) {
+            return 1;
+        }
+        return 0;
+    });
+};
+
 export const getStrength = (obj: Object): string => {
     let strengthLv = '';
     let probabilityTotal = 0;
@@ -35,15 +48,22 @@ export const getStrength = (obj: Object): string => {
 };
 
 export const getCp = (strengthLv: string): number => {
-    const cpMax = STRENGTH[strengthLv].cpMax;
-    const cpMin = STRENGTH[strengthLv].cpMin;
-    const cp = Math.floor(Math.random() * (cpMax - cpMin + 1) + cpMin);
-    return cp;
+    const cpMin = STRENGTH[strengthLv].cp;
+    const strengthArr = Object.keys(STRENGTH);
+    const strengthSortedArr = strengthSort(strengthArr);
+    if (strengthSortedArr[0] === strengthLv) {
+        return cpMin;
+    } else {
+        const index = strengthSortedArr.indexOf(strengthLv);
+        const strengthUpLv = strengthSortedArr[index - 1];
+        const cpMax = STRENGTH[strengthUpLv].cp - 1;
+        return Math.floor(Math.random() * (cpMax - cpMin + 1) + cpMin);
+    }
 };
 
 export const isShiny = (): boolean => {
-    const shinyPossibility = getRandomNum(100) + 1;
-    return shinyPossibility < ((1 / 4096) * 100); // 色違いの確率は1/4096
+    const shinyPossibility = getRandomNum(4096); // 色違いの確率は1/4096
+    return shinyPossibility < 1;
 };
 
 export const getSpriteUrl = (id: number, name: string, isShiny: boolean = false): string => {
@@ -56,13 +76,12 @@ export const getSpriteUrl = (id: number, name: string, isShiny: boolean = false)
 
 // 形態変化があるポケモンはPokeAPIでは名前の後ろに'-'がついて画像名にそのまま使えないので、pokestudium.comに合わせて名前を変換する
 export const nameConvert = (id: number, name: string): string => {
-    let imgName = name;
     if (CHANGE_NAME_ARR.deletHyphen.indexOf(id) !== -1) {
-        imgName = name.replace(/-/, '');
+        return name.replace(/-/, '');
     } else if (CHANGE_NAME_ARR.deleteHyphenBack.indexOf(id) !== -1) {
-        imgName = name.replace(/(-)(.*)/, '');
+        return name.replace(/(-)(.*)/, '');
     }
-    return imgName;
+    return name;
 };
 
 export const getPokeData = ({ id, name }: Object, isShiny: boolean = false): Object => {
@@ -113,5 +132,5 @@ export const getShinyRes = (isShiny: boolean = false): string => {
 };
 
 export const evalPokeCpRes = (strength: string): string => {
-    return RES[strength];
+    return STRENGTH[strength].res;
 };

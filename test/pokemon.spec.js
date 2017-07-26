@@ -100,32 +100,32 @@ describe('pokemon.js', () => {
         const cpNormal = libs.getCp('normal');
         const cpWeaker = libs.getCp('weaker');
         const cpWeakest = libs.getCp('weakest');
-        if (cpGod === STRENGTH.god.cpMax && cpGod === STRENGTH.god.cpMin) {
+        if (cpGod === STRENGTH.god.cp) {
             assert.ok(true);
         } else {
             assert.ok(false);
         }
-        if (cpStrongest <= STRENGTH.strongest.cpMax && cpStrongest >= STRENGTH.strongest.cpMin) {
+        if (cpStrongest < STRENGTH.god.cp && cpStrongest >= STRENGTH.strongest.cp) {
             assert.ok(true);
         } else {
             assert.ok(false);
         }
-        if (cpStronger <= STRENGTH.stronger.cpMax && cpStronger >= STRENGTH.stronger.cpMin) {
+        if (cpStronger < STRENGTH.strongest.cp && cpStronger >= STRENGTH.stronger.cp) {
             assert.ok(true);
         } else {
             assert.ok(false);
         }
-        if (cpNormal <= STRENGTH.normal.cpMax && cpNormal >= STRENGTH.normal.cpMin) {
+        if (cpNormal < STRENGTH.stronger.cp && cpNormal >= STRENGTH.normal.cp) {
             assert.ok(true);
         } else {
             assert.ok(false);
         }
-        if (cpWeaker <= STRENGTH.weaker.cpMax && cpWeaker >= STRENGTH.weaker.cpMin) {
+        if (cpWeaker < STRENGTH.normal.cp && cpWeaker >= STRENGTH.weaker.cp) {
             assert.ok(true);
         } else {
             assert.ok(false);
         }
-        if (cpWeakest === STRENGTH.weakest.cpMax && cpWeakest === STRENGTH.weakest.cpMin) {
+        if (cpWeakest === STRENGTH.weakest.cp) {
             assert.ok(true);
         } else {
             assert.ok(false);
@@ -199,11 +199,11 @@ describe('pokemon.js', () => {
         const stronger = libs.evalPokeCpRes('stronger');
         const weaker = libs.evalPokeCpRes('weaker');
         const weakest = libs.evalPokeCpRes('weakest');
-        assert.equal(god, RES.god);
-        assert.equal(strongest, RES.strongest);
-        assert.equal(stronger, RES.stronger);
-        assert.equal(weaker, RES.weaker);
-        assert.equal(weakest, RES.weakest);
+        assert.equal(god, STRENGTH.god.res);
+        assert.equal(strongest, STRENGTH.strongest.res);
+        assert.equal(stronger, STRENGTH.stronger.res);
+        assert.equal(weaker, STRENGTH.weaker.res);
+        assert.equal(weakest, STRENGTH.weakest.res);
     });
 
     it('渡したデータが保存用のオブジェクトで帰ってくる', () => {

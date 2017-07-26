@@ -9,38 +9,32 @@ export const MAXCP: number = 4000;
 // ポケモンの強さレベルと出現確率、レスポンスコメントを定義
 export const STRENGTH = {
     god: { // 神 CP4000のみ
-        cpMax: MAXCP,
-        cpMin: MAXCP,
+        cp: MAXCP,
         res: ':god:',
         probability: 0.01
     },
     strongest: { // 最強 CP3500以上3999以下
-        cpMax: 3999,
-        cpMin: 3500,
+        cp: 3500,
         res: 'コイツは空前絶後のつよさゴシ！！',
         probability: 1
     },
     stronger: { // 強い CP2000以上3499以下
-        cpMax: 3499,
-        cpMin: 2000,
+        cp: 2000,
         res: 'コイツはつよいゴシ！！',
         probability: 5
     },
     normal: { // 普通 CP100以上1999以下
-        cpMax: 1999,
-        cpMin: 100,
+        cp: 100,
         res: '',
         probability: 83.49
     },
     weaker: { // 弱い CP2以上99以下
-        cpMax: 99,
-        cpMin: 2,
+        cp: 2,
         res: 'コイツはよわいゴシ…。',
         probability: 10
     },
     weakest: { // 最弱 CP1のみ
-        cpMax: 1,
-        cpMin: 1,
+        cp: 1,
         res: 'コイツは超絶孤高によわすぎるゴシ…。',
         probability: 0.5
     }
@@ -58,12 +52,6 @@ export const PATH = {
 
 // レスポンス文
 export const RES = {
-    god: STRENGTH.god.res,
-    strongest: STRENGTH.strongest.res,
-    stronger: STRENGTH.stronger.res,
-    normal: STRENGTH.normal.res,
-    weaker: STRENGTH.weaker.res,
-    weakest: STRENGTH.weakest.res,
     go: ':pokeball: 捕まえてくるゴシ。。。。。',
     miss: '捕まえるの失敗したゴシ…。',
     shiny: '色違いを捕まえたゴシィィィ！！！？',
