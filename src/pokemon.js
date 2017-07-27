@@ -5,7 +5,8 @@
 
 import 'babel-polyfill';
 import fetch from 'node-fetch';
-import Libs from './pokemon/libs';
+import GetPokemon from './pokemon/get-pokemon';
+import * as libs from './pokemon/libs';
 import * as firebase from './firebase/';
 import { RES } from './pokemon/constants';
 
@@ -15,19 +16,16 @@ module.exports = (robot) => {
 
         (async () => {
             try {
-                const response = await fetch(Libs.getRandomUrl());
+                const response = await fetch(libs.getRandomUrl(GetPokemon.MAX));
 
                 const status = response.status;
                 if (status !== 200) res.send(RES.miss);
 
                 const json = await response.json();
-                const libs = new Libs(json, res.message.user.name);
-                res.send(libs.getSuccessRes());
-                res.send(libs.getShinyRes());
-                res.send(libs.evalPokeCpRes());
+                const getPokemon = new GetPokemon(json, res.message.user.name);
+                res.send(getPokemon.getSuccessRes());
 
-                const saveData = libs.getSaveData();
-                firebase.pushData(saveData);
+                firebase.pushData(getPokemon.getSaveData());
             } catch (err) {
                 res.send(err);
             }
@@ -42,14 +40,14 @@ module.exports = (robot) => {
 
         firebase.readLength()
             .then(length => {
-                res.send(Libs.getLengthRes(length));
+                res.send(libs.getLengthRes(length));
             });
     });
     robot.respond(/zukan pokemon (.*)/, (res) => {
         const name = res.match[1];
         firebase.readLengthName(name)
             .then(length => {
-                res.send(Libs.getLengthNameRes(length, name));
+                res.send(libs.getLengthNameRes(length, name));
             });
     });
     robot.respond(/user pokemon (.*)/, (res) => {
@@ -57,20 +55,20 @@ module.exports = (robot) => {
         firebase.equalUser(user)
             .then(length => {
                 if (length === 0) return false;
-                res.send(Libs.getLengthUserRes(length, user));
+                res.send(libs.getLengthUserRes(length, user));
             });
     });
     robot.respond(/overcp pokemon (.*)/, (res) => {
         const selectCp = parseInt(res.match[1]);
         firebase.overCp(selectCp)
             .then(length => {
-                res.send(Libs.getLengthOvercpRes(length, selectCp));
+                res.send(libs.getLengthOvercpRes(length, selectCp));
             });
     });
     robot.respond(/shiny pokemon/, (res) => {
         firebase.equalShiny()
             .then(length => {
-                res.send(Libs.getLengthShinyRes(length));
+                res.send(libs.getLengthShinyRes(length));
             });
     });
 
