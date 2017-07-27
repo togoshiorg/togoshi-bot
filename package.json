@@ -48,6 +48,6 @@
     "flow-bin": "^0.50.0",
     "flow-remove-types": "^1.2.1",
     "mocha": "^3.4.2",
-    "sinon": "^2.4.0"
+    "sinon": "^2.4.1"
   }
 }

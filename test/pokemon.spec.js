@@ -1,35 +1,41 @@
 import assert from 'assert';
 import { isToday } from 'date-fns';
 import sinon from 'sinon';
-import Libs from '../src/pokemon/libs';
+import * as libs from '../src/pokemon/libs';
 import translateData from '../data/pokemon.json';
 import {
     MAXCP,
     STRENGTH,
-    API,
     PATH,
     RES
 } from '../src/pokemon/constants';
 
-describe('pokemon.js', () => {
-    it('指定の文字列を含んだURLが返ってくる', () => {
-        const randomUrl = Libs.getRandomUrl();
-        assert.equal(randomUrl.indexOf(API), 0);
+describe('pokemon/libs.js', () => {
+    const random = Math.random;
+    afterEach(() => {
+        Math.random = random;
+    });
+
+    it('指定のURLが返ってくる', () => {
+        Math.random = () => { return 0.9999999999; };
+        assert.equal(libs.getRandomUrl(200), 'http://pokeapi.co/api/v2/pokemon/200/');
     });
 
     it('指定の範囲内の数値が返ってくる', () => {
-        const randomCp1 = Libs.getRandomNum(MAXCP);
-        const randomCp2 = Libs.getRandomNum(MAXCP);
-        const randomCp3 = Libs.getRandomNum(MAXCP);
-        const randomCp4 = Libs.getRandomNum(MAXCP);
-        const randomCp5 = Libs.getRandomNum(MAXCP);
-        assert(randomCp1 < MAXCP);
-        assert(randomCp2 < MAXCP);
-        assert(randomCp3 < MAXCP);
-        assert(randomCp4 < MAXCP);
-        assert(randomCp5 < MAXCP);
+        const MAX = 1000;
+        Math.random = () => { return 0; };
+        const randomCpMin = libs.getRandomNum(MAX);
+        Math.random = () => { return 0.9999999999; };
+        const randomCpMax = libs.getRandomNum(MAX);
+        Math.random = () => { return 0.5; };
+        const randomCpMid = libs.getRandomNum(MAX);
+        assert(randomCpMin >= 0 && randomCpMin < MAX);
+        assert(randomCpMax >= 0 && randomCpMax < MAX);
+        assert(randomCpMid >= 0 && randomCpMid < MAX);
     });
+});
 
+describe('pokemon.js', () => {
     it('強さレベルの順番がかならずCPの高い順になる', () => {
         const STRENGTH1 = {
             god: { cp: MAXCP },
