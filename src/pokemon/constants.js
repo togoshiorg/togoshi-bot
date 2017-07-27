@@ -6,14 +6,38 @@ export const MAX: number = 720;
 // サポートするポケモンの強さ（CP）
 export const MAXCP: number = 4000;
 
-// ポケモンの強さレベルを定義
+// ポケモンの強さレベルと出現確率、レスポンスコメントを定義
 export const STRENGTH = {
-    god: MAXCP, //      神 4000のみ
-    strongest: 3500, // 最強 3500以上3999以下
-    stronger: 2000, //  強い 2000以上3499以下
-    normal: 100, //     普通 100以上1999以下
-    weaker: 2, //       弱い 2以上99以下
-    weakest: 1 //       最弱 1のみ
+    god: { // 神 CP4000のみ
+        cp: MAXCP,
+        res: ':god:',
+        probability: 0.01
+    },
+    strongest: { // 最強 CP3500以上3999以下
+        cp: 3500,
+        res: 'コイツは空前絶後のつよさゴシ！！',
+        probability: 1
+    },
+    stronger: { // 強い CP2000以上3499以下
+        cp: 2000,
+        res: 'コイツはつよいゴシ！！',
+        probability: 5
+    },
+    normal: { // 普通 CP100以上1999以下
+        cp: 100,
+        res: '',
+        probability: 83.49
+    },
+    weaker: { // 弱い CP2以上99以下
+        cp: 2,
+        res: 'コイツはよわいゴシ…。',
+        probability: 10
+    },
+    weakest: { // 最弱 CP1のみ
+        cp: 1,
+        res: 'コイツは超絶孤高によわすぎるゴシ…。',
+        probability: 0.5
+    }
 };
 
 // API URL
@@ -28,12 +52,6 @@ export const PATH = {
 
 // レスポンス文
 export const RES = {
-    god: ':god:',
-    strongest: 'コイツは空前絶後のつよさゴシ！！',
-    stronger: 'コイツはつよいゴシ！！',
-    normal: '',
-    weaker: 'コイツはよわいゴシ…。',
-    weakest: 'コイツは超絶孤高によわすぎるゴシ…。',
     go: ':pokeball: 捕まえてくるゴシ。。。。。',
     miss: '捕まえるの失敗したゴシ…。',
     shiny: '色違いを捕まえたゴシィィィ！！！？',

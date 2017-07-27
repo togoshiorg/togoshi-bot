@@ -28,7 +28,7 @@ module.exports = (robot) => {
                 const pokeData = libs.getPokeData(json, isShiny);
                 res.send(libs.getSuccessRes(pokeData));
                 res.send(libs.getShinyRes(isShiny));
-                res.send(libs.evalPokeCpRes(pokeData.cp));
+                res.send(libs.evalPokeCpRes(pokeData.strength));
 
                 const saveData = libs.getSaveData(pokeData, user, isShiny);
                 firebase.pushData(saveData);
