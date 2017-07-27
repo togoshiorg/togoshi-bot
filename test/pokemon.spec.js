@@ -1,5 +1,6 @@
 import assert from 'assert';
 import { isToday } from 'date-fns';
+import sinon from 'sinon';
 import Libs from '../src/pokemon/libs';
 import translateData from '../data/pokemon.json';
 import {
@@ -42,16 +43,20 @@ describe('pokemon.js', () => {
     });
 
     it('指定のidと名前を使ったObjectが返ってくる', () => {
+        const stub = sinon.stub(Libs, 'getRandomNum');
+        stub.returns(1);
+        console.log('test');
         const data = {
             id: 1,
-            name: 'foo',
-            isShiny: false
+            name: 'foo'
         };
         const libs = new Libs(data);
         const pokeData = libs.getPokeData();
+        console.log(libs.isShiny);
         assert.equal(pokeData.id, data.id);
         assert.equal(pokeData.name, translateData[data.id - 1].ja);
         assert.equal(pokeData.img, Libs.getSpriteUrl(data.id, data.name));
+        stub.restore();
     });
 
     it('ハイフンの入ったnameからハイフンが削除される', () => {
