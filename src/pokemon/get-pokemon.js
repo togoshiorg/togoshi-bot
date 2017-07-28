@@ -6,10 +6,20 @@ import translateData from '../../data/pokemon.json';
 import * as libs from './libs';
 
 export default class GetPokemon {
-    constructor ({ id, name }: Object, user: string) {
-        this.id = (id !== undefined) ? id : 1; // APIから取得したポケモンid
-        this.name = (name !== undefined) ? name : 'bulbasaur'; // APIから取得したポケモンname
-        this.user = (user !== undefined) ? user : 'admin'; // ユーザー
+    id: number;
+    name: string;
+    user: string;
+    isShiny: boolean;
+    strengthLv: string;
+    cp: number;
+    jpName: string;
+    img: string;
+    time: string;
+
+    constructor ({ id, name }: Object = { id: 1, name: 'bulbasaur' }, user: string = 'admin') {
+        this.id = id; // APIから取得したポケモンid
+        this.name = name; // APIから取得したポケモンname
+        this.user = user; // ユーザー
 
         this.isShiny = this.lotShiny(); // 色違い
         this.strengthLv = this.lotStrength(); // ポケモンの強さ
@@ -41,7 +51,7 @@ export default class GetPokemon {
     };
 
     // CPを抽選する
-    lotCp (): boolean {
+    lotCp (): number {
         const cpMin = GetPokemon.STRENGTH[this.strengthLv].cp;
         const strengthSortedArr = Object.keys(GetPokemon.STRENGTH).sort((aArr, bArr) => {
             const cpA = GetPokemon.STRENGTH[aArr].cp;
@@ -65,7 +75,12 @@ export default class GetPokemon {
 
     // ポケモンの日本語名を作成する
     createJpName (): string {
-        return translateData[this.id - 1].ja;
+        try {
+            return translateData[this.id - 1].ja;
+        } catch (err) {
+            // 該当する日本語名が無かった場合はnameをそのまま返却
+            return this.name;
+        }
     }
 
     // 画像パスを作成する

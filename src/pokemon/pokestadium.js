@@ -1,9 +1,14 @@
 // @flow
 
 export default class Pokestadium {
+    id: number;
+    name: string;
+    isShiny: boolean;
+    pokestudiumName: string;
+
     constructor ({ id, name, isShiny }: Object) {
         this.id = id;
-        this.name = (name !== undefined) ? name : 'bulbasaur';
+        this.name = name;
         this.isShiny = isShiny;
         this.pokestudiumName = this.createPokestudiumName(); // pokestudium.com用の名前
     }
