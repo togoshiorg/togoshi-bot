@@ -6,7 +6,7 @@ export default class Pokestadium {
     isShiny: boolean;
     pokestudiumName: string;
 
-    constructor ({ id, name, isShiny }: Object) {
+    constructor ({ id, name, isShiny }: Object = { id: 1, name: 'bulbasaur', isShiny: false }) {
         this.id = id;
         this.name = name;
         this.isShiny = isShiny;
@@ -16,7 +16,7 @@ export default class Pokestadium {
     // pokestudium.com用の名前を作成する
     // ※形態変化があるポケモンはPokeAPIでは名前の後ろに'-'がついて画像名にそのまま使えない。
     createPokestudiumName (): string {
-        if (Pokestadium.CHANGE_NAME_ARR.deletHyphen.indexOf(this.id) !== -1) {
+        if (Pokestadium.CHANGE_NAME_ARR.deleteHyphen.indexOf(this.id) !== -1) {
             return this.name.replace(/-/, '');
         } else if (Pokestadium.CHANGE_NAME_ARR.deleteHyphenBack.indexOf(this.id) !== -1) {
             return this.name.replace(/(-)(.*)/, '');
@@ -45,7 +45,7 @@ export default class Pokestadium {
     // 名前変換が必要なポケモンの種類分け
     static get CHANGE_NAME_ARR (): Object {
         return {
-            deletHyphen: [ // ハイフンのみを削除
+            deleteHyphen: [ // ハイフンのみを削除
                 29, // ニドラン♀
                 32 // ニドラン♂
             ],

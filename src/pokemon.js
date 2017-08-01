@@ -17,17 +17,15 @@ module.exports = (robot) => {
         (async () => {
             try {
                 const response = await fetch(libs.getRandomUrl(GetPokemon.MAX));
-
                 const status = response.status;
-                if (status !== 200) res.send(RES.miss);
+                if (status !== 200) throw new Error(response.statusText);
 
                 const json = await response.json();
                 const getPokemon = new GetPokemon(json, res.message.user.name);
                 res.send(getPokemon.getSuccessRes());
-
                 firebase.pushData(getPokemon.getSaveData());
             } catch (err) {
-                res.send(err);
+                res.send(RES.miss);
             }
         })();
     });
