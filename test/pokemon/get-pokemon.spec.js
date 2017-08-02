@@ -2,6 +2,7 @@ import assert from 'assert';
 import sinon from 'sinon';
 import proxyquire from 'proxyquire';
 import MockDate from 'mockdate';
+import rewire from 'rewire';
 const GetPokemon = proxyquire('../../src/pokemon/get-pokemon', {
     // get-pokemon.js内のimportをダミーに差し替え
     './pokestadium': {
@@ -182,55 +183,57 @@ describe('pokemon/get-pokemon.js.js', () => {
 
     it('強さレベルの順番が変わってもCPが正しく抽選される', () => {
         // ポケモンの強さレベルと出現確率、レスポンスコメントを順番を変えたstubに差し替え
-        const stubStrength = sinon.stub(GetPokemon, 'STRENGTH');
-        stubStrength.get(() => {
-            return {
+        const module = rewire('../../src/pokemon/get-pokemon.js');
+        module.__set__({
+            'STRENGTH': {
                 stronger: { cp: 2000 },
                 weaker: { cp: 2 },
                 strongest: { cp: 3500 },
                 weakest: { cp: 1 },
                 normal: { cp: 100 },
                 god: { cp: 4000 }
-            };
+            }
         });
+        // stubに差し替えたGetPokemonクラスを再取得
+        const GetPokemonRewire = module.__get__('GetPokemon');
 
         // 強さ抽選メソッドをstubに差し替えてstrengthLvを固定
-        const stubLotStrength = sinon.stub(GetPokemon.prototype, 'lotStrength');
+        const stubLotStrength = sinon.stub(GetPokemonRewire.prototype, 'lotStrength');
         stubLotStrength.returns('god');
         Math.random = () => { return 0; };
-        const god1 = new GetPokemon();
+        const god1 = new GetPokemonRewire();
         Math.random = () => { return 0.999999999; };
-        const god2 = new GetPokemon();
+        const god2 = new GetPokemonRewire();
 
         stubLotStrength.returns('strongest');
         Math.random = () => { return 0; };
-        const strongest1 = new GetPokemon();
+        const strongest1 = new GetPokemonRewire();
         Math.random = () => { return 0.999999999; };
-        const strongest2 = new GetPokemon();
+        const strongest2 = new GetPokemonRewire();
 
         stubLotStrength.returns('stronger');
         Math.random = () => { return 0; };
-        const stronger1 = new GetPokemon();
+        const stronger1 = new GetPokemonRewire();
         Math.random = () => { return 0.999999999; };
-        const stronger2 = new GetPokemon();
+        const stronger2 = new GetPokemonRewire();
 
         stubLotStrength.returns('normal');
         Math.random = () => { return 0; };
-        const normal1 = new GetPokemon();
+        const normal1 = new GetPokemonRewire();
         Math.random = () => { return 0.999999999; };
-        const normal2 = new GetPokemon();
+        const normal2 = new GetPokemonRewire();
 
         stubLotStrength.returns('weaker');
         Math.random = () => { return 0; };
-        const weaker1 = new GetPokemon();
+        const weaker1 = new GetPokemonRewire();
         Math.random = () => { return 0.999999999; };
-        const weaker2 = new GetPokemon();
+        const weaker2 = new GetPokemonRewire();
 
         stubLotStrength.returns('weakest');
         Math.random = () => { return 0; };
-        const weakest1 = new GetPokemon();
+        const weakest1 = new GetPokemonRewire();
         Math.random = () => { return 0.999999999; };
-        const weakest2 = new GetPokemon();
+        const weakest2 = new GetPokemonRewire();
 
         assert.equal(god1.cp, 4000);
         assert.equal(god2.cp, 4000);
@@ -244,10 +247,6 @@ describe('pokemon/get-pokemon.js.js', () => {
         assert(weaker2.cp >= 2 && weaker2.cp < 100);
         assert.equal(weakest1.cp, 1);
         assert.equal(weakest2.cp, 1);
-
-        // stubを戻す
-        stubStrength.restore();
-        stubLotStrength.restore();
     });
 
     it('正しいidを渡すとポケモンの日本語名が正しく作成される', () => {
@@ -255,7 +254,7 @@ describe('pokemon/get-pokemon.js.js', () => {
             id: 5
         };
         const getPokemon = new GetPokemon(json);
-        assert.equal(getPokemon.jpName, 'リザード');
+        assert.equal(getPokemon.dispName, 'リザード');
     });
 
     it('正しくないidを渡すとnameがそのまま日本語名として作成される', () => {
@@ -264,7 +263,7 @@ describe('pokemon/get-pokemon.js.js', () => {
             name: 'foo'
         };
         const getPokemon = new GetPokemon(json);
-        assert.equal(getPokemon.jpName, 'foo');
+        assert.equal(getPokemon.dispName, 'foo');
     });
 
     it('画像PATHが正しく作成される', () => {
@@ -338,8 +337,8 @@ describe('pokemon/get-pokemon.js.js', () => {
         const stubLotCp = sinon.stub(GetPokemon.prototype, 'lotCp');
         stubLotCp.returns(100);
         // 日本語名作成メソッドをstubに差し替えて日本語名を固定
-        const stubCreateJpName = sinon.stub(GetPokemon.prototype, 'createJpName');
-        stubCreateJpName.returns('フシギダネ');
+        const stubCreateDispName = sinon.stub(GetPokemon.prototype, 'createDispName');
+        stubCreateDispName.returns('フシギダネ');
         // 画像パス作成メソッドをstubに差し替えて画像パスを固定
         const stubCreateImgPath = sinon.stub(GetPokemon.prototype, 'createImgPath');
         stubCreateImgPath.returns('http://example.com/1/foo.png');
@@ -372,30 +371,7 @@ describe('pokemon/get-pokemon.js.js', () => {
         stubLotShiny.restore();
         stubLotStrength.restore();
         stubLotCp.restore();
-        stubCreateJpName.restore();
+        stubCreateDispName.restore();
         stubCreateImgPath.restore();
-    });
-
-    it('定数が正しく返却される', () => {
-        assert.equal(GetPokemon.MAX, 720);
-        assert.equal(GetPokemon.MAXCP, 4000);
-        assert.equal(GetPokemon.STRENGTH.god.cp, 4000);
-        assert.equal(GetPokemon.STRENGTH.god.res, ':god:');
-        assert.equal(GetPokemon.STRENGTH.god.probability, 0.01);
-        assert.equal(GetPokemon.STRENGTH.strongest.cp, 3500);
-        assert.equal(GetPokemon.STRENGTH.strongest.res, 'コイツは空前絶後のつよさゴシ！！');
-        assert.equal(GetPokemon.STRENGTH.strongest.probability, 1);
-        assert.equal(GetPokemon.STRENGTH.stronger.cp, 2000);
-        assert.equal(GetPokemon.STRENGTH.stronger.res, 'コイツはつよいゴシ！！');
-        assert.equal(GetPokemon.STRENGTH.stronger.probability, 5);
-        assert.equal(GetPokemon.STRENGTH.normal.cp, 100);
-        assert.equal(GetPokemon.STRENGTH.normal.res, '');
-        assert.equal(GetPokemon.STRENGTH.normal.probability, 83.49);
-        assert.equal(GetPokemon.STRENGTH.weaker.cp, 2);
-        assert.equal(GetPokemon.STRENGTH.weaker.res, 'コイツはよわいゴシ…。');
-        assert.equal(GetPokemon.STRENGTH.weaker.probability, 10);
-        assert.equal(GetPokemon.STRENGTH.weakest.cp, 1);
-        assert.equal(GetPokemon.STRENGTH.weakest.res, 'コイツは超絶孤高によわすぎるゴシ…。');
-        assert.equal(GetPokemon.STRENGTH.weakest.probability, 0.5);
     });
 });

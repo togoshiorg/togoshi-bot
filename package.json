@@ -50,6 +50,7 @@
     "mocha": "^3.4.2",
     "mockdate": "^2.0.1",
     "proxyquire": "^1.8.0",
+    "rewire": "^2.5.2",
     "sinon": "^2.4.1"
   }
 }

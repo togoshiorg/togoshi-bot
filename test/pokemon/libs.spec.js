@@ -12,7 +12,7 @@ describe('pokemon/libs.js', () => {
 
     it('指定のURLが返ってくる', () => {
         Math.random = () => { return 0.9999999999; };
-        assert.equal(libs.getRandomUrl(200), 'http://pokeapi.co/api/v2/pokemon/200/');
+        assert.equal(libs.getRandomUrl(), 'http://pokeapi.co/api/v2/pokemon/720/');
     });
 
     it('指定の範囲内の数値が返ってくる', () => {

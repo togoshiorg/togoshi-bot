@@ -171,27 +171,4 @@ describe('pokemon/pokestadium.js', () => {
         assert.equal(pokestadiumShiny.getImgPath(), 'http://www.pokestadium.com/sprites/xy/shiny/hoge.gif');
         assert.equal(pokestadiumNormal.getImgPath(), 'http://www.pokestadium.com/sprites/xy/foo.gif');
     });
-
-    it('定数が正しく返却される', () => {
-        assert.equal(Pokestadium.PATH.url, 'http://www.pokestadium.com/sprites/xy/');
-        assert.equal(Pokestadium.PATH.fileType, 'gif');
-        assert.equal(Pokestadium.PATH.shiny, 'shiny/');
-        assert.notEqual(Pokestadium.CHANGE_NAME_ARR.deleteHyphen.indexOf(29), -1);
-        assert.notEqual(Pokestadium.CHANGE_NAME_ARR.deleteHyphen.indexOf(32), -1);
-        assert.notEqual(Pokestadium.CHANGE_NAME_ARR.deleteHyphenBack.indexOf(386), -1);
-        assert.notEqual(Pokestadium.CHANGE_NAME_ARR.deleteHyphenBack.indexOf(413), -1);
-        assert.notEqual(Pokestadium.CHANGE_NAME_ARR.deleteHyphenBack.indexOf(487), -1);
-        assert.notEqual(Pokestadium.CHANGE_NAME_ARR.deleteHyphenBack.indexOf(492), -1);
-        assert.notEqual(Pokestadium.CHANGE_NAME_ARR.deleteHyphenBack.indexOf(550), -1);
-        assert.notEqual(Pokestadium.CHANGE_NAME_ARR.deleteHyphenBack.indexOf(555), -1);
-        assert.notEqual(Pokestadium.CHANGE_NAME_ARR.deleteHyphenBack.indexOf(641), -1);
-        assert.notEqual(Pokestadium.CHANGE_NAME_ARR.deleteHyphenBack.indexOf(642), -1);
-        assert.notEqual(Pokestadium.CHANGE_NAME_ARR.deleteHyphenBack.indexOf(645), -1);
-        assert.notEqual(Pokestadium.CHANGE_NAME_ARR.deleteHyphenBack.indexOf(647), -1);
-        assert.notEqual(Pokestadium.CHANGE_NAME_ARR.deleteHyphenBack.indexOf(648), -1);
-        assert.notEqual(Pokestadium.CHANGE_NAME_ARR.deleteHyphenBack.indexOf(678), -1);
-        assert.notEqual(Pokestadium.CHANGE_NAME_ARR.deleteHyphenBack.indexOf(681), -1);
-        assert.notEqual(Pokestadium.CHANGE_NAME_ARR.deleteHyphenBack.indexOf(710), -1);
-        assert.notEqual(Pokestadium.CHANGE_NAME_ARR.deleteHyphenBack.indexOf(711), -1);
-    });
 });
