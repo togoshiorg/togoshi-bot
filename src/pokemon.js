@@ -5,35 +5,27 @@
 
 import 'babel-polyfill';
 import fetch from 'node-fetch';
+import GetPokemon from './pokemon/get-pokemon';
 import * as libs from './pokemon/libs';
 import * as firebase from './firebase/';
-import { MAX, RES } from './pokemon/constants';
+import { RES } from './pokemon/constants';
 
 module.exports = (robot) => {
     robot.respond(/get pokemon/, (res) => {
         res.send(RES.go);
 
-        const user = res.message.user.name;
-        const randomUrl = libs.getRandomUrl(MAX);
-        const isShiny = libs.isShiny();
-
         (async () => {
             try {
-                const response = await fetch(randomUrl);
-
+                const response = await fetch(libs.getRandomUrl());
                 const status = response.status;
-                if (status !== 200) res.send(RES.miss);
+                if (status !== 200) throw new Error(response.statusText);
 
                 const json = await response.json();
-                const pokeData = libs.getPokeData(json, isShiny);
-                res.send(libs.getSuccessRes(pokeData));
-                res.send(libs.getShinyRes(isShiny));
-                res.send(libs.evalPokeCpRes(pokeData.strength));
-
-                const saveData = libs.getSaveData(pokeData, user, isShiny);
-                firebase.pushData(saveData);
+                const getPokemon = new GetPokemon(json, res.message.user.name);
+                res.send(getPokemon.getSuccessRes());
+                firebase.pushData(getPokemon.getSaveData());
             } catch (err) {
-                res.send(err);
+                res.send(RES.miss);
             }
         })();
     });
