@@ -1,5 +1,8 @@
 // @flow
 
+// サポートするポケモンの数（0からカウントするので最大数-1）
+export const MAX: number = 720;
+
 // API URL
 export const API: string = 'http://pokeapi.co/api/v2/pokemon/';
 

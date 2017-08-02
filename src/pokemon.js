@@ -16,7 +16,7 @@ module.exports = (robot) => {
 
         (async () => {
             try {
-                const response = await fetch(libs.getRandomUrl(GetPokemon.MAX));
+                const response = await fetch(libs.getRandomUrl());
                 const status = response.status;
                 if (status !== 200) throw new Error(response.statusText);
 

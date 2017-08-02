@@ -1,5 +1,5 @@
 // @flow
-import { API } from './constants';
+import { MAX, API } from './constants';
 
 // ランダムな整数を返却する
 export const getRandomNum = (max: number): number => {
@@ -7,8 +7,8 @@ export const getRandomNum = (max: number): number => {
 };
 
 // APIのランダムなURLを返却する
-export const getRandomUrl = (max: number): string => {
-    const pokeSelect = Math.floor(Math.random() * max) + 1;
+export const getRandomUrl = (): string => {
+    const pokeSelect = Math.floor(Math.random() * MAX) + 1;
     return `${API}${pokeSelect}/`;
 };
 
