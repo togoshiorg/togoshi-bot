@@ -52,7 +52,6 @@ module.exports = (robot) => {
         const user = res.match[1];
         firebase.equalUser(user)
             .then(length => {
-                if (length === 0) return false;
                 res.send(libs.getLengthUserRes(length, user));
             });
     });
