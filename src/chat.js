@@ -14,7 +14,7 @@ module.exports = (robot) => {
     const errMsg = 'APIエラーゴシ・・・';
 
     let key = process.env.HUBOT_USERLOCAL_API_KEY;
-    let chatRoom = roomJson.togoshiChatting;
+    let chatRoom = roomJson.hubot;
     let roomJudge = (res) => {
         const resRoom = res.message.user.room;
         return resRoom === chatRoom;
@@ -74,12 +74,8 @@ module.exports = (robot) => {
             };
             // 自動会話APIとキャラクター会話変換APIが別のため2回叩く
             (async () => {
-                let midRes = await new Promise(() => {
-                    asyncApi(chatApi, res.match[1]);
-                    console.log(res.match[1]);
-                });
-                let endRes = asyncApi(charaApi, midRes);
-                console.log(endRes);
+                let midRes = await asyncApi(chatApi, res.match[1]);
+                let endRes = await asyncApi(charaApi, midRes);
                 res.send(endRes);
             })();
         }
