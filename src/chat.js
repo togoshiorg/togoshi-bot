@@ -5,74 +5,43 @@
 */
 
 import 'babel-polyfill';
-import fetch from 'node-fetch';
-import roomJson from '../data/room.json';
+import MakeUrl from './chat/url';
+import AsyncApi from './chat/api';
+import ChatJudge from './chat/judge';
+import { CHAT_API, CHARA_API, RES } from './chat/constants';
 
 module.exports = (robot) => {
-    const chatApi = 'https://chatbot-api.userlocal.jp/api/chat';
-    const charaApi = 'https://chatbot-api.userlocal.jp/api/character';
-    const errMsg = 'APIエラーゴシ・・・';
-    const key = process.env.HUBOT_USERLOCAL_API_KEY;
-    const chatRoom = roomJson.hubot;
-    const chatJudge = (res, bool) => {
-        bool = chatTerms || !chatTerms;
-        return res.message.user.room === chatRoom && bool;
-    };
-    const apiUrl = (api, paramsArr) => {
-        let url = api;
-        for (let key in paramsArr) {
-            url += (url.indexOf('?') === -1) ? '?' : '&';
-            url += key + '=' + paramsArr[key];
-        };
-        return url;
-    };
-
-    let chatTerms = false;
-
+    let isChatting = false;
     // 雑談開始
     robot.respond(/お話しよう/, (res) => {
-        if (chatJudge(res, chatTerms)) {
-            res.send('いいゴシよ！');
+        const chatJudge = new ChatJudge(res, isChatting);
+        if (chatJudge.channelJudge() && !chatJudge.chatStartJudge()) {
+            res.send(RES.start);
             res.finish();
-            chatTerms = true;
+            isChatting = chatJudge.changeChatFlag();
         }
     });
 
     // 雑談終了
     robot.hear(/お話おしまい/, (res) => {
-        if (chatJudge(res, chatTerms)) {
-            res.send('楽しかったゴシ！またお話しようゴシ〜');
+        const chatJudge = new ChatJudge(res, isChatting);
+        if (chatJudge.channelJudge() && chatJudge.chatStartJudge()) {
+            res.send(RES.end);
             res.finish();
-            chatTerms = false;
+            isChatting = chatJudge.changeChatFlag();
         }
     });
 
     // 雑談中
     robot.hear(/(.*)/i, (res) => {
-        if (chatJudge(res, chatTerms)) {
-            // 本来は.http(url).query(queryParameter).get()でAPIたたけるけど勉強のため今回はあえてasyncで
-            const params = (msg) => {
-                return {
-                    'key': key,
-                    'message': encodeURIComponent(msg),
-                    'character_type': 'custom'
-                };
-            };
-            const asyncApi = async (api, resMsg) => {
-                try {
-                    const response = await fetch(apiUrl(api, params(resMsg)));
-                    const status = response.status;
-                    if (status !== 200) throw new Error(response.statusText);
-                    const data = await response.json();
-                    return data.result;
-                } catch (err) {
-                    return errMsg + err;
-                }
-            };
+        const chatJudge = new ChatJudge(res, isChatting);
+        if (chatJudge.channelJudge() && chatJudge.chatStartJudge()) {
             // 自動会話APIとキャラクター会話変換APIが別のため2回叩く
             (async () => {
-                const midRes = await asyncApi(chatApi, res.match[1]);
-                const endRes = await asyncApi(charaApi, midRes);
+                const midUrl = await new MakeUrl(CHAT_API, res.match[1]).mkUrl();
+                const midRes = await new AsyncApi(midUrl).getMsg();
+                const endUrl = await new MakeUrl(CHARA_API, midRes).mkUrl();
+                const endRes = await new AsyncApi(endUrl).getMsg();
                 res.send(endRes);
             })();
         }
