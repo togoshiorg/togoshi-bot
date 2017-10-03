@@ -5,13 +5,13 @@
 */
 
 import 'babel-polyfill';
-import MakeUrl from './chat/url';
 import AsyncApi from './chat/api';
 import ChatJudge from './chat/judge';
-import { CHAT_API, CHARA_API, RES } from './chat/constants';
+import { CHAT_API, CHARA_API, KEY, RES } from './chat/constants';
 
 module.exports = (robot) => {
     let isChatting = false;
+
     // 雑談開始
     robot.respond(/お話しよう/, (res) => {
         const chatJudge = new ChatJudge(res, isChatting);
@@ -38,10 +38,8 @@ module.exports = (robot) => {
         if (chatJudge.channelJudge() && chatJudge.chatStartJudge()) {
             // 自動会話APIとキャラクター会話変換APIが別のため2回叩く
             (async () => {
-                const midUrl = await new MakeUrl(CHAT_API, res.match[1]).mkUrl();
-                const midRes = await new AsyncApi(midUrl).getMsg();
-                const endUrl = await new MakeUrl(CHARA_API, midRes).mkUrl();
-                const endRes = await new AsyncApi(endUrl).getMsg();
+                const midRes = await new AsyncApi(CHAT_API, KEY, res.match[1]).getMsg();
+                const endRes = await new AsyncApi(CHARA_API, KEY, midRes).getMsg();
                 res.send(endRes);
             })();
         }

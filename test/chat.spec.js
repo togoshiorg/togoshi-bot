@@ -1,14 +1,34 @@
+/**
+ * # 雑談機能テスト
+ * ## テスト項目
+ * - chat.js
+ *   -
+ * - chat/judge.js（chat/judge.spec.js）
+ *   - 起動ch判定
+ *   - 雑談開始判定
+ *   - 雑談フラグ切替
+ * - chat/url.js（chat/url.spec.js）
+ *   - クエリ生成
+ *   - URL生成
+ * - chat/api.js（chat/api.spec.js）
+ *   - API通信
+*/
 import assert from 'assert';
 import proxyquire from 'proxyquire';
 
 describe('chat.js', () => {
     let dummyCommon;
+    let chatRoom;
     let robot;
     let res;
+
     beforeEach(() => {
         // ダミーデータ（共通）
         dummyCommon = {
             './chat/constants': {
+                CHAT_API: 'http://example.com',
+                CHARA_API: 'http://example.com',
+                KEY: 'example',
                 RES: {
                     start: 'いいゴシよ！',
                     end: '楽しかったゴシ！またお話しようゴシ〜'
@@ -24,12 +44,17 @@ describe('chat.js', () => {
                 robot[new RegExp(pattern)] = func;
             }
         };
+        // ダミーチャットルーム
+        chatRoom = {
+            general: 'C04QLTK0C',
+            hubot: 'C0CT4RTQF'
+        };
         // ダミーres
         res = {
             message: {
                 user: {
                     name: 'admin',
-                    room: 'C0CT4RTQF' // ch hubot
+                    room: chatRoom.hubot // ch hubot
                 }
             },
             messages: [],
@@ -43,7 +68,8 @@ describe('chat.js', () => {
         };
     });
 
-    it('雑談を開始しようとした時に、botが特定の発言をする', async () => {
+    it('「@togoshi-bot お話しよう」が正しく処理される', async () => {
+        // chat.js内のimportをダミーに差し替え
         proxyquire('../src/chat', dummyCommon)(robot);
         res.messages = [];
         await robot['/お話しよう/'](res);
@@ -51,50 +77,46 @@ describe('chat.js', () => {
         assert.equal(res.messages[0], 'いいゴシよ！');
         assert.equal(typeof res.messages[1], 'undefined');
     });
-
-    it('雑談を終了した時に、botが特定の発言をする', async () => {
-        proxyquire('../src/chat', dummyCommon)(robot);
+    it('「お話おしまい」が正しく処理される', async () => {
+        // chat.js内のimportをダミーに差し替え
+        const dummyEnd = {
+            './chat/judge': {
+                default: class ChatJudge {
+                    channelJudge () { return true; }
+                    chatStartJudge () { return true; }
+                    changeChatFlag () { return false; }
+                }
+            }
+        };
+        proxyquire('../src/chat', Object.assign(dummyCommon, dummyEnd))(robot);
         res.messages = [];
         await robot['/お話おしまい/'](res);
 
         assert.equal(res.messages[0], '楽しかったゴシ！またお話しようゴシ〜');
         assert.equal(typeof res.messages[1], 'undefined');
     });
-    it('APIが正しく処理される（正常）', async () => {
-        // ダミーデータ（正常系）
-        const dummySuccess = {
-            'node-fetch': () => {
-                return {
-                    status: 200,
-                    result: 'テストやで'
-                };
+    it('「****」が正しく処理される', async () => {
+        // chat.js内のimportをダミーに差し替え
+        const dummyMisdst = {
+            './chat/judge': {
+                default: class ChatJudge {
+                    channelJudge () { return true; }
+                    chatStartJudge () { return true; }
+                    changeChatFlag () { return true; }
+                }
+            },
+            './chat/api': {
+                default: class AsyncApi {
+                    getMsg () { return '通信成功ゴシ！'; }
+                }
             }
         };
-        // chat.js内のimportをダミーに差し替え
-        proxyquire('../src/pokemon', Object.assign(dummyCommon, dummySuccess))(robot);
+        proxyquire('../src/chat', Object.assign(dummyCommon, dummyMisdst))(robot);
         res.messages = [];
-        await robot['/hogehoge/'](res);
+        await robot['/(.*)/i'](res);
 
-        assert.equal(res.messages[0], 'テストやで');
+        assert.equal(res.messages[0], '通信成功ゴシ！');
         assert.equal(typeof res.messages[1], 'undefined');
     });
-    it('APIが正しく処理される（異常）', async () => {
-        // ダミーデータ（正常系）
-        const dummySuccess = {
-            'node-fetch': () => {
-                return {
-                    status: 404,
-                    result: ''
-                };
-            }
-        };
-        // chat.js内のimportをダミーに差し替え
-        proxyquire('../src/pokemon', Object.assign(dummyCommon, dummySuccess))(robot);
-        res.messages = [];
-        await robot['/hogehoge/'](res);
-
-        assert.equal(res.messages[0], '');
-        assert.equal(typeof res.messages[1], 'undefined');
-
-    });
+    process.on('unhandledRejection', console.dir);
 });
