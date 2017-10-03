@@ -26,9 +26,6 @@ describe('chat.js', () => {
         // ダミーデータ（共通）
         dummyCommon = {
             './chat/constants': {
-                CHAT_API: 'http://example.com',
-                CHARA_API: 'http://example.com',
-                KEY: 'example',
                 RES: {
                     start: 'いいゴシよ！',
                     end: '楽しかったゴシ！またお話しようゴシ〜'
@@ -57,6 +54,7 @@ describe('chat.js', () => {
                     room: chatRoom.hubot // ch hubot
                 }
             },
+            match: [],
             messages: [],
             send: (message) => {
                 // 検証用にmessageを格納
@@ -112,11 +110,11 @@ describe('chat.js', () => {
             }
         };
         proxyquire('../src/chat', Object.assign(dummyCommon, dummyMisdst))(robot);
+        res.match = ['', 'hogehoge'];
         res.messages = [];
-        await robot['/(.*)/i'](res);
+        await await robot['/(.*)/i'](res);
 
         assert.equal(res.messages[0], '通信成功ゴシ！');
         assert.equal(typeof res.messages[1], 'undefined');
     });
-    process.on('unhandledRejection', console.dir);
 });
