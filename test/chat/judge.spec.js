@@ -42,34 +42,34 @@ describe('chat/api.js', () => {
     });
 
     it('指定のchの判定ができている', () => {
-        const chJudge = new ChatJudge(res, isChatting).channelJudge();
+        const chJudge = new ChatJudge(res.message.user.room, isChatting).channelJudge();
 
         assert.equal(typeof chJudge, 'boolean');
         assert.equal(chJudge, true);
     });
     it('雑談フラグの判定ができている（停止時）', () => {
         isChatting = false;
-        const chatJudge = new ChatJudge(res, isChatting).chatStartJudge();
+        const chatJudge = new ChatJudge(res.message.user.room, isChatting).chatStartJudge();
 
         assert.equal(typeof chatJudge, 'boolean');
         assert.equal(chatJudge, false);
     });
     it('雑談フラグの判定ができている（開始時）', () => {
         isChatting = true;
-        const chatJudge = new ChatJudge(res, isChatting).chatStartJudge();
+        const chatJudge = new ChatJudge(res.message.user.room, isChatting).chatStartJudge();
 
         assert.equal(typeof chatJudge, 'boolean');
         assert.equal(chatJudge, true);
     });
     it('雑談フラグの切り替えができる（停止時）', () => {
         isChatting = false;
-        const changeFlag = new ChatJudge(res, isChatting).changeChatFlag();
+        const changeFlag = new ChatJudge(res.message.user.room, isChatting).changeChatFlag();
         assert.equal(typeof changeFlag, 'boolean');
         assert.equal(changeFlag, true);
     });
     it('雑談フラグの切り替えができる（開始時）', () => {
         isChatting = true;
-        const changeFlag = new ChatJudge(res, isChatting).changeChatFlag();
+        const changeFlag = new ChatJudge(res.message.user.room, isChatting).changeChatFlag();
 
         assert.equal(typeof changeFlag, 'boolean');
         assert.equal(changeFlag, false);

@@ -28,7 +28,8 @@ describe('chat.js', () => {
             './chat/constants': {
                 RES: {
                     start: 'いいゴシよ！',
-                    end: '楽しかったゴシ！またお話しようゴシ〜'
+                    end: '楽しかったゴシ！またお話しようゴシ〜',
+                    error: 'ここではお話できないゴシ…'
                 }
             }
         };
@@ -73,6 +74,16 @@ describe('chat.js', () => {
         await robot['/お話しよう/'](res);
 
         assert.equal(res.messages[0], 'いいゴシよ！');
+        assert.equal(typeof res.messages[1], 'undefined');
+    });
+    it('「@togoshi-bot お話しよう」を別の部屋で話しかける', async () => {
+        // chat.js内のimportをダミーに差し替え
+        proxyquire('../src/chat', dummyCommon)(robot);
+        res.message.user.room = chatRoom.general;
+        res.messages = [];
+        await robot['/お話しよう/'](res);
+
+        assert.equal(res.messages[0], 'ここではお話できないゴシ…');
         assert.equal(typeof res.messages[1], 'undefined');
     });
     it('「お話おしまい」が正しく処理される', async () => {

@@ -44,7 +44,7 @@ export default class AsyncApi {
 
     // APIをたたく
     // 本来は.http(url).query(queryParameter).get()でAPIたたけるけど勉強のため今回はあえてasyncで
-    async getMsg (): string {
+    async getMsg (): Promise<any> {
         try {
             const response = await fetch(this.url);
             const status = response.status;

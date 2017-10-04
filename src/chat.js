@@ -14,17 +14,22 @@ module.exports = (robot) => {
 
     // 雑談開始
     robot.respond(/お話しよう/, (res) => {
-        const chatJudge = new ChatJudge(res, isChatting);
+        const room = res.message.user.room;
+        const chatJudge = new ChatJudge(room, isChatting);
         if (chatJudge.channelJudge() && !chatJudge.chatStartJudge()) {
             res.send(RES.start);
             res.finish();
             isChatting = chatJudge.changeChatFlag();
+        } else {
+            res.send(RES.error);
+            res.finish();
         }
     });
 
     // 雑談終了
     robot.hear(/お話おしまい/, (res) => {
-        const chatJudge = new ChatJudge(res, isChatting);
+        const room = res.message.user.room;
+        const chatJudge = new ChatJudge(room, isChatting);
         if (chatJudge.channelJudge() && chatJudge.chatStartJudge()) {
             res.send(RES.end);
             res.finish();
@@ -34,7 +39,8 @@ module.exports = (robot) => {
 
     // 雑談中
     robot.hear(/(.*)/i, (res) => {
-        const chatJudge = new ChatJudge(res, isChatting);
+        const room = res.message.user.room;
+        const chatJudge = new ChatJudge(room, isChatting);
         if (chatJudge.channelJudge() && chatJudge.chatStartJudge()) {
             // 自動会話APIとキャラクター会話変換APIが別のため2回叩く
             (async () => {

@@ -3,18 +3,18 @@
 import roomJson from '../../data/room.json';
 
 export default class ChatJudge {
-    res: string;
+    room: string;
     isChatting: boolean;
 
-    constructor (res: string, bool: boolean) {
-        this.res = res;
+    constructor (room: string, bool: boolean) {
+        this.room = room;
         this.isChatting = bool;
     }
 
     // 起動するchを判定
     channelJudge (): boolean {
         const room = roomJson.hubot;
-        return room === this.res.message.user.room;
+        return room === this.room;
     }
 
     // 雑談が開始してるか判定
