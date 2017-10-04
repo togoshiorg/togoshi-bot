@@ -2,16 +2,17 @@
  * # 雑談機能テスト
  * ## テスト項目
  * - chat.js
- *   -
+ *   - 雑談開始返答（特定ch/その他ch）
+ *   - 雑談終了返答
+ *   - 雑談中返答
  * - chat/judge.js（chat/judge.spec.js）
  *   - 起動ch判定
- *   - 雑談開始判定
- *   - 雑談フラグ切替
- * - chat/url.js（chat/url.spec.js）
+ *   - 雑談開始判定（停止/開始）
+ *   - 雑談フラグ切替（停止/開始）
+ * - chat/api.js（chat/api.spec.js）
  *   - クエリ生成
  *   - URL生成
- * - chat/api.js（chat/api.spec.js）
- *   - API通信
+ *   - API通信（success/error）
 */
 import assert from 'assert';
 import proxyquire from 'proxyquire';
