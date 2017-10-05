@@ -2,7 +2,9 @@
  * # 雑談機能テスト
  * ## テスト項目
  * - chat/api.js（chat/api.spec.js）
- *   - API通信
+ *   - クエリ生成
+ *   - URL生成
+ *   - API通信（success/error）
 */
 
 import assert from 'assert';
@@ -22,7 +24,7 @@ describe('chat/api.js', () => {
     });
 
     it('APIのURLに渡すクエリがオブジェクトとして生成される', () => {
-        const obj = new AsyncApi(api, key, msg).mkParams();
+        const obj = new AsyncApi(api, key, msg).createParams();
 
         assert.equal(typeof obj, 'object');
         assert.equal(obj.key, 'exapmle');
@@ -31,7 +33,7 @@ describe('chat/api.js', () => {
     });
 
     it('APIのURLが生成される', () => {
-        const url = new AsyncApi(api, key, msg).mkUrl();
+        const url = new AsyncApi(api, key, msg).createUrl();
 
         assert.equal(typeof url, 'string');
         assert.equal(url, 'http://exapmle.com/?key=exapmle&message=hogehoge&character_type=custom');
@@ -48,7 +50,7 @@ describe('chat/api.js', () => {
                 };
             }
         }).default;
-        const returnTxt = await new AsyncApi(api, key, msg).getMsg();
+        const returnTxt = await new AsyncApi(api, key, msg).fetchMsg();
         assert.equal(returnTxt, '通信成功ゴシ！');
     });
 
@@ -63,7 +65,7 @@ describe('chat/api.js', () => {
                 };
             }
         }).default;
-        const returnTxt = await new AsyncApi(api, key, msg).getMsg();
+        const returnTxt = await new AsyncApi(api, key, msg).fetchMsg();
         assert.equal(returnTxt, 'APIエラーゴシ・・・Error');
     });
 });

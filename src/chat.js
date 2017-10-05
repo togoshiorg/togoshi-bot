@@ -10,16 +10,16 @@ import ChatJudge from './chat/judge';
 import { CHAT_API, CHARA_API, KEY, RES } from './chat/constants';
 
 module.exports = (robot) => {
-    let isChatting = false;
+    let isChatStart = false;
 
     // 雑談開始
     robot.respond(/お話しよう/, (res) => {
         const room = res.message.user.room;
-        const chatJudge = new ChatJudge(room, isChatting);
-        if (chatJudge.channelJudge() && !chatJudge.chatStartJudge()) {
+        const chatJudge = new ChatJudge(room, isChatStart);
+        if (chatJudge.isTogoshiDev() && !chatJudge.isChatting()) {
             res.send(RES.start);
             res.finish();
-            isChatting = chatJudge.changeChatFlag();
+            isChatStart = chatJudge.isFlagChange();
         } else {
             res.send(RES.error);
             res.finish();
@@ -29,23 +29,23 @@ module.exports = (robot) => {
     // 雑談終了
     robot.hear(/お話おしまい/, (res) => {
         const room = res.message.user.room;
-        const chatJudge = new ChatJudge(room, isChatting);
-        if (chatJudge.channelJudge() && chatJudge.chatStartJudge()) {
+        const chatJudge = new ChatJudge(room, isChatStart);
+        if (chatJudge.isTogoshiDev() && chatJudge.isChatting()) {
             res.send(RES.end);
             res.finish();
-            isChatting = chatJudge.changeChatFlag();
+            isChatStart = chatJudge.isFlagChange();
         }
     });
 
     // 雑談中
     robot.hear(/(.*)/i, (res) => {
         const room = res.message.user.room;
-        const chatJudge = new ChatJudge(room, isChatting);
-        if (chatJudge.channelJudge() && chatJudge.chatStartJudge()) {
+        const chatJudge = new ChatJudge(room, isChatStart);
+        if (chatJudge.isTogoshiDev() && chatJudge.isChatting()) {
             // 自動会話APIとキャラクター会話変換APIが別のため2回叩く
             (async () => {
-                const midRes = await new AsyncApi(CHAT_API, KEY, res.match[1]).getMsg();
-                const endRes = await new AsyncApi(CHARA_API, KEY, midRes).getMsg();
+                const midRes = await new AsyncApi(CHAT_API, KEY, res.match[1]).fetchMsg();
+                const endRes = await new AsyncApi(CHARA_API, KEY, midRes).fetchMsg();
                 res.send(endRes);
             })();
         }

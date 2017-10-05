@@ -92,9 +92,9 @@ describe('chat.js', () => {
         const dummyEnd = {
             './chat/judge': {
                 default: class ChatJudge {
-                    channelJudge () { return true; }
-                    chatStartJudge () { return true; }
-                    changeChatFlag () { return false; }
+                    isTogoshiDev () { return true; }
+                    isChatting () { return true; }
+                    isFlagChange () { return false; }
                 }
             }
         };
@@ -110,14 +110,14 @@ describe('chat.js', () => {
         const dummyMisdst = {
             './chat/judge': {
                 default: class ChatJudge {
-                    channelJudge () { return true; }
-                    chatStartJudge () { return true; }
-                    changeChatFlag () { return true; }
+                    isTogoshiDev () { return true; }
+                    isChatting () { return true; }
+                    isFlagChange () { return true; }
                 }
             },
             './chat/api': {
                 default: class AsyncApi {
-                    getMsg () { return '通信成功ゴシ！'; }
+                    fetchMsg () { return '通信成功ゴシ！'; }
                 }
             }
         };

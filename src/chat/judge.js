@@ -4,26 +4,26 @@ import roomJson from '../../data/room.json';
 
 export default class ChatJudge {
     room: string;
-    isChatting: boolean;
+    isChatStart: boolean;
 
     constructor (room: string, bool: boolean) {
         this.room = room;
-        this.isChatting = bool;
+        this.isChatStart = bool;
     }
 
     // 起動するchを判定
-    channelJudge (): boolean {
-        const room = roomJson.hubot;
+    isTogoshiDev (): boolean {
+        const room = roomJson.togoshiDev;
         return room === this.room;
     }
 
     // 雑談が開始してるか判定
-    chatStartJudge (): boolean {
-        return this.isChatting;
+    isChatting (): boolean {
+        return this.isChatStart;
     }
 
     // 雑談フラグの切り替え
-    changeChatFlag (): boolean {
-        return !this.isChatting || false;
+    isFlagChange (): boolean {
+        return !this.isChatStart || false;
     }
 }

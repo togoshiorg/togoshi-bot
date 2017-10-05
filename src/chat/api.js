@@ -19,12 +19,12 @@ export default class AsyncApi {
         this.key = key;
         this.msg = msg;
         this.errMsg = ERR_MSG;
-        this.params = this.mkParams();
-        this.url = this.mkUrl();
+        this.params = this.createParams();
+        this.url = this.createUrl();
     }
 
-    // urlに渡すクエリを生成
-    mkParams (): Object {
+    // urlに渡すパラメータを生成
+    createParams (): Object {
         return {
             'key': this.key,
             'message': encodeURI(this.msg),
@@ -33,7 +33,7 @@ export default class AsyncApi {
     }
 
     // たたくurlを作成
-    mkUrl (): string {
+    createUrl (): string {
         let url = this.api;
         for (let key in this.params) {
             url += (url.indexOf('?') === -1) ? '?' : '&';
@@ -44,7 +44,7 @@ export default class AsyncApi {
 
     // APIをたたく
     // 本来は.http(url).query(queryParameter).get()でAPIたたけるけど勉強のため今回はあえてasyncで
-    async getMsg (): Promise<any> {
+    async fetchMsg (): Promise<any> {
         try {
             const response = await fetch(this.url);
             const status = response.status;
