@@ -7,7 +7,7 @@
     },
     "extends": "standard",
     "rules": {
-        "indent": [2, 4],
+        "indent": ["error", 4, {"SwitchCase": 1}],
         "semi": ["error", "always"],
         "arrow-body-style": [0],
         "import/no-unresolved": [2, { "ignore": ["log4js"] }],

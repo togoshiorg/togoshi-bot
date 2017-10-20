@@ -1,15 +1,7 @@
 // @flow
 
-// サポートするポケモンの数（0からカウントするので最大数-1）
-export const MAX: number = 720;
-
-// API URL
-export const API: string = 'http://pokeapi.co/api/v2/pokemon/';
-
 // レスポンス文
 export const RES = {
-    go: ':pokeball: 捕まえてくるゴシ。。。。。',
-    miss: '捕まえるの失敗したゴシ…。',
     help: `
 :heavy_check_mark: \`get pokemon\` : ポケモンを1匹捕まえます
 :heavy_check_mark: \`zukan pokemon\` : 今までに捕まえたポケモンの総数を表示

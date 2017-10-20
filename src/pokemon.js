@@ -4,28 +4,27 @@
 */
 
 import 'babel-polyfill';
-import fetch from 'node-fetch';
 import GetPokemon from './pokemon/get-pokemon';
 import * as libs from './pokemon/libs';
 import * as firebase from './firebase/';
 import { RES } from './pokemon/constants';
+import Request from './pokemon/pokeapi-v2';
 
 module.exports = (robot) => {
-    robot.respond(/get pokemon/, (res) => {
-        res.send(RES.go);
-
+    robot.respond(/get poketest/, (res) => {
+        res.send(GetPokemon.GO_RES);
         (async () => {
+            let getPokemon;
             try {
-                const response = await fetch(libs.getRandomUrl());
-                const status = response.status;
-                if (status !== 200) throw new Error(response.statusText);
-
-                const json = await response.json();
-                const getPokemon = new GetPokemon(json, res.message.user.name);
-                res.send(getPokemon.getSuccessRes());
-                firebase.pushData(getPokemon.getSaveData());
+                getPokemon = new GetPokemon(Request, res.message.user.name);
+                res.send(await getPokemon.getRandomPokemon());
             } catch (err) {
-                res.send(RES.miss);
+                res.send(err.message);
+            }
+            try {
+                // firebase.pushData(getPokemon.getSaveData());
+            } catch (err) {
+                res.send('保存するの失敗したゴシ…。');
             }
         })();
     });

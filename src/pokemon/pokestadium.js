@@ -56,7 +56,7 @@ export default class Pokestadium {
         return this.name;
     }
 
-    // 画像パスを返却する
+    // 画像パスを返却する（public）
     getImgPath (): string {
         const shinyPath = this.isShiny ? PATH.shiny : '';
         return `${PATH.url}${shinyPath}${this.pokestudiumName}.${PATH.fileType}`;
