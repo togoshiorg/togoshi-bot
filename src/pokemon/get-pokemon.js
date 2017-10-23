@@ -2,19 +2,32 @@
 
 import PokemonImg from './pokestadium';
 import Pokemon from './pokemon';
+import { format } from 'date-fns';
+
+interface Request {
+    constructor (): Request;
+    request (num: number): Object;
+    static getUrl (): string;
+};
 
 // サポートするポケモンの数（0からカウントするので最大数-1）
 const MAX: number = 720;
 
 export default class GetPokemon {
-    Request: any;
-    user: string;
-    pokemon: Pokemon;
+    Request: Class<Request>; // APIリクエスト用オブジェクト
+    user: string; // ユーザー
+    time: string; // 捕まえた時間
+    pokemon: Pokemon; // ポケモン
 
-    constructor (Request: any, user: string) {
+    constructor (Request: Class<Request>, user: string) {
         if (!Request || !user) throw new Error(GetPokemon.ERROR_RES);
-        this.Request = Request; // APIリクエスト用オブジェクト
-        this.user = user; // ユーザー
+        this.Request = Request;
+        this.user = user;
+    }
+
+    // ポケモン捕獲時間を作成する
+    createGetPokemon (): string {
+        return format(new Date(), 'YYYY-MM-DDTHH:mm:ssZ');
     }
 
     // 成功時のメッセージを作成する
@@ -47,6 +60,7 @@ export default class GetPokemon {
             const pokeSelect = Math.floor(Math.random() * MAX) + 1;
             const data = await request.request(pokeSelect);
             this.pokemon = new Pokemon(data.id, data.name, PokemonImg);
+            this.time = this.createGetPokemon();
         } catch (err) {
             throw new Error(GetPokemon.ERROR_RES);
         }
@@ -58,7 +72,7 @@ export default class GetPokemon {
         return {
             id: this.pokemon.getId(),
             user: this.user,
-            time: this.pokemon.getTime(),
+            time: this.time,
             cp: this.pokemon.getCp(),
             isShiny: this.pokemon.getIsShiny()
         };

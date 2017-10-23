@@ -1,7 +1,11 @@
 // @flow
 
-import { format } from 'date-fns';
 import translateData from '../../data/pokemon.json';
+
+interface PokemonImg {
+    constructor (object: Object): PokemonImg;
+    getImgPath (): string;
+};
 
 // サポートするポケモンの強さ（CP）
 const MAXCP: number = 4000;
@@ -34,29 +38,27 @@ const STRENGTH: Object = {
     }
 };
 
-export default class GetPokemon {
-    id: number;
-    name: string;
-    PokemonImg: any;
-    isShiny: boolean;
-    strengthLv: string;
-    cp: number;
-    dispName: string;
-    img: string;
-    time: string;
+export default class Pokemon {
+    id: number; // ポケモンid
+    name: string; // ポケモンname
+    PokemonImg: Class<PokemonImg>; // ポケモン画像クラス
+    isShiny: boolean; // 色違い
+    strengthLv: string; // ポケモンの強さ
+    cp: number; // CP（strengthLvより決定）
+    dispName: string; // ポケモンの表示名
+    img: string; // 画像パス
 
-    constructor (id: number, name: string, PokemonImg: any) {
-        this.id = id; // ポケモンid
-        this.name = name; // ポケモンname
-        this.PokemonImg = PokemonImg; // ポケモン画像クラス
+    constructor (id: number, name: string, PokemonImg: Class<PokemonImg>) {
+        this.id = id;
+        this.name = name;
+        this.PokemonImg = PokemonImg;
 
-        this.isShiny = this.lotShiny(); // 色違い
-        this.strengthLv = this.lotStrength(); // ポケモンの強さ
-        this.cp = this.lotCp(); // CP（strengthLvより決定）
+        this.isShiny = this.lotShiny();
+        this.strengthLv = this.lotStrength();
+        this.cp = this.lotCp();
 
-        this.dispName = this.createDispName(); // ポケモンの表示名
-        this.img = this.createImgPath(); // 画像パス
-        this.time = this.createGetPokemon(); // 捕まえた時間
+        this.dispName = this.createDispName();
+        this.img = this.createImgPath();
     }
 
     // 色違いかどうかを抽選する
@@ -117,11 +119,6 @@ export default class GetPokemon {
         return new this.PokemonImg(this).getImgPath();
     }
 
-    // ポケモン捕獲時間を作成する
-    createGetPokemon (): string {
-        return format(new Date(), 'YYYY-MM-DDTHH:mm:ssZ');
-    }
-
     // getter id（public）
     getId (): number {
         return this.id;
@@ -150,10 +147,5 @@ export default class GetPokemon {
     // getter img（public）
     getImg (): string {
         return this.img;
-    }
-
-    // getter time（public）
-    getTime (): string {
-        return this.time;
     }
 }

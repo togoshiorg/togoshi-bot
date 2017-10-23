@@ -12,6 +12,7 @@ import Request from './pokemon/pokeapi-v2';
 
 module.exports = (robot) => {
     robot.respond(/get poketest/, (res) => {
+    // robot.respond(/get pokemon/, (res) => {
         res.send(GetPokemon.GO_RES);
         (async () => {
             let getPokemon;
