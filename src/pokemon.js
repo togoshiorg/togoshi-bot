@@ -1,3 +1,5 @@
+// @flow
+
 /**
  * ポケモンゲットだぜ
  * `get pokemon` というコマンドで、botがランダムに一匹のポケモンを捕獲してきます。
@@ -5,20 +7,20 @@
 
 import 'babel-polyfill';
 import GetPokemon from './pokemon/get-pokemon';
+import PokeapiV2 from './pokemon/pokeapi-v2';
 import * as libs from './pokemon/libs';
 import * as firebase from './firebase/';
 import { RES } from './pokemon/constants';
-import Request from './pokemon/pokeapi-v2';
 
-module.exports = (robot) => {
+module.exports = (robot: Object) => {
     robot.respond(/get poketest/, (res) => {
     // robot.respond(/get pokemon/, (res) => {
         res.send(GetPokemon.GO_RES);
         (async () => {
-            let getPokemon;
+            let getPokemon: GetObject;
             try {
-                getPokemon = new GetPokemon(Request, res.message.user.name);
-                res.send(await getPokemon.getRandomPokemon());
+                getPokemon = new GetPokemon(PokeapiV2, res.message.user.name);
+                res.send(await getPokemon.getRandom());
             } catch (err) {
                 res.send(err.message);
             }

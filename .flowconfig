@@ -7,3 +7,4 @@ unsafe.enable_getters_and_setters=true
 
 [libs]
 ./decls/decls.js
+./interface/

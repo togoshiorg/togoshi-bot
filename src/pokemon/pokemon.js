@@ -2,11 +2,6 @@
 
 import translateData from '../../data/pokemon.json';
 
-interface PokemonImg {
-    constructor (object: Object): PokemonImg;
-    getImgPath (): string;
-};
-
 // サポートするポケモンの強さ（CP）
 const MAXCP: number = 4000;
 

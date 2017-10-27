@@ -1,25 +1,19 @@
 // @flow
 
 import PokemonImg from './pokestadium';
-import Pokemon from './pokemon';
+import PokemonObj from './pokemon';
 import { format } from 'date-fns';
-
-interface Request {
-    constructor (): Request;
-    request (num: number): Object;
-    static getUrl (): string;
-};
 
 // サポートするポケモンの数（0からカウントするので最大数-1）
 const MAX: number = 720;
 
 export default class GetPokemon {
-    Request: Class<Request>; // APIリクエスト用オブジェクト
+    Request: Class<RequestApi>; // APIリクエスト用オブジェクト
     user: string; // ユーザー
     time: string; // 捕まえた時間
-    pokemon: Pokemon; // ポケモン
+    pokemon: PokemonObj; // ポケモン
 
-    constructor (Request: Class<Request>, user: string) {
+    constructor (Request: Class<RequestApi>, user: string) {
         if (!Request || !user) throw new Error(GetPokemon.ERROR_RES);
         this.Request = Request;
         this.user = user;
@@ -35,14 +29,14 @@ export default class GetPokemon {
         let res = '';
         const strengthRes = this.createStrengthRes();
         res += (strengthRes !== '') ? `${strengthRes}\n` : ''; // 強さに応じたメッセージ
-        res += this.pokemon.isShiny ? `色違いを捕まえたゴシィィィ！！！？\n` : ''; // 色違いだった場合のメッセージ
+        res += this.pokemon.getIsShiny() ? `色違いを捕まえたゴシィィィ！！！？\n` : ''; // 色違いだった場合のメッセージ
         res += `CP${this.pokemon.getCp()}の${this.pokemon.getDispName()}を捕まえたゴシ！\n${this.pokemon.getImg()}`;
         return res;
     }
 
     // ポケモンの強さレベルのメッセージを作成する
     createStrengthRes (): string {
-        switch (this.pokemon.strengthLv) {
+        switch (this.pokemon.getStrengthLv()) {
             case 'god': return ':god:'; // 神 CP4000のみ
             case 'strongest': return 'コイツは空前絶後のつよさゴシ！！'; // 最強 CP3500以上3999以下
             case 'stronger': return 'コイツはつよいゴシ！！'; // 強い CP2000以上3499以下
@@ -54,12 +48,12 @@ export default class GetPokemon {
     }
 
     // ランダムにポケモンを返却する（public）
-    async getRandomPokemon (): Object {
+    async getRandom (): Object {
         try {
             const request = new this.Request();
             const pokeSelect = Math.floor(Math.random() * MAX) + 1;
             const data = await request.request(pokeSelect);
-            this.pokemon = new Pokemon(data.id, data.name, PokemonImg);
+            this.pokemon = new PokemonObj(data.id, data.name, PokemonImg);
             this.time = this.createGetPokemon();
         } catch (err) {
             throw new Error(GetPokemon.ERROR_RES);
