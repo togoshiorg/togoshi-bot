@@ -1,16 +1,14 @@
 // @flow
 
-// get-pokemon.js
+interface RequestApi {
+    constructor (): RequestApi;
+    request (num: number): Object;
+};
+
 interface GetObject {
-    constructor (): GetObject;
+    constructor (Request: Class<RequestApi>, user: string): GetObject;
     getRandom (): Object;
     getSaveData (): Object;
     static GO_RES: string;
     static ERROR_RES: string;
-};
-
-// pokeapi-v2.js
-interface RequestApi {
-    constructor (): RequestApi;
-    request (num: number): Object;
 };

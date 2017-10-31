@@ -1,7 +1,7 @@
 // @flow
 
-import PokemonImg from './pokestadium';
-import PokemonObj from './pokemon';
+import Pokestadium from './pokestadium';
+import Pokemon from './pokemon';
 import { format } from 'date-fns';
 
 // サポートするポケモンの数（0からカウントするので最大数-1）
@@ -21,7 +21,7 @@ export default class GetPokemon {
 
     // ポケモン捕獲時間を作成する
     createGetPokemon (): string {
-        return format(new Date(), 'YYYY-MM-DDTHH:mm:ssZ');
+        return format(new Date(), GetPokemon.TIME_FORMAT);
     }
 
     // 成功時のメッセージを作成する
@@ -30,7 +30,7 @@ export default class GetPokemon {
         const strengthRes = this.createStrengthRes();
         res += (strengthRes !== '') ? `${strengthRes}\n` : ''; // 強さに応じたメッセージ
         res += this.pokemon.getIsShiny() ? `色違いを捕まえたゴシィィィ！！！？\n` : ''; // 色違いだった場合のメッセージ
-        res += `CP${this.pokemon.getCp()}の${this.pokemon.getDispName()}を捕まえたゴシ！\n${this.pokemon.getImg()}`;
+        res += `CP${this.pokemon.getCp()}の${this.pokemon.getName()}を捕まえたゴシ！\n${this.pokemon.getImg()}`;
         return res;
     }
 
@@ -53,7 +53,7 @@ export default class GetPokemon {
             const request = new this.Request();
             const pokeSelect = Math.floor(Math.random() * MAX) + 1;
             const data = await request.request(pokeSelect);
-            this.pokemon = new PokemonObj(data.id, data.name, PokemonImg);
+            this.pokemon = new Pokemon(data, Pokestadium);
             this.time = this.createGetPokemon();
         } catch (err) {
             throw new Error(GetPokemon.ERROR_RES);
@@ -80,5 +80,10 @@ export default class GetPokemon {
     // エラー時のメッセージを返却する
     static get ERROR_RES (): string {
         return '捕まえるの失敗したゴシ…。';
+    }
+
+    // 捕獲時間のフォーマットを返却する
+    static get TIME_FORMAT (): string {
+        return 'YYYY-MM-DDTHH:mm:ssZ';
     }
 }

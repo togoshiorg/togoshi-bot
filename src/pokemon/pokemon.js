@@ -35,25 +35,30 @@ const STRENGTH: Object = {
 
 export default class Pokemon {
     id: number; // ポケモンid
-    name: string; // ポケモンname
-    PokemonImg: Class<PokemonImg>; // ポケモン画像クラス
+    name: string; // ポケモンの名前
     isShiny: boolean; // 色違い
     strengthLv: string; // ポケモンの強さ
-    cp: number; // CP（strengthLvより決定）
-    dispName: string; // ポケモンの表示名
+    cp: number; // CP
     img: string; // 画像パス
 
-    constructor (id: number, name: string, PokemonImg: Class<PokemonImg>) {
+    constructor ({ id, name }: Object, PokemonImg: Class<PokemonImg>) {
+        if (!id || !name || !PokemonImg) throw new Error('Invalid constructor argument.');
         this.id = id;
-        this.name = name;
-        this.PokemonImg = PokemonImg;
-
+        this.name = this.createName(id, name);
         this.isShiny = this.lotShiny();
         this.strengthLv = this.lotStrength();
-        this.cp = this.lotCp();
+        this.cp = this.lotCp(this.strengthLv);
+        this.img = new PokemonImg(this).getImgPath();
+    }
 
-        this.dispName = this.createDispName();
-        this.img = this.createImgPath();
+    // ポケモンの名前を作成する
+    createName (id: number, name: string): string {
+        try {
+            return translateData[id - 1].ja;
+        } catch (err) {
+            // 該当する日本語名が無かった場合はnameをそのまま返却
+            return name;
+        }
     }
 
     // 色違いかどうかを抽選する
@@ -77,8 +82,8 @@ export default class Pokemon {
     };
 
     // 強さからCPを抽選する
-    lotCp (): number {
-        const cpMin = STRENGTH[this.strengthLv].cp;
+    lotCp (strengthLv: string): number {
+        const cpMin = STRENGTH[strengthLv].cp;
         const strengthSortedArr = Object.keys(STRENGTH).sort((aArr, bArr) => {
             const cpA = STRENGTH[aArr].cp;
             const cpB = STRENGTH[bArr].cp;
@@ -89,34 +94,24 @@ export default class Pokemon {
             }
             return 0;
         });
-        if (strengthSortedArr[0] === this.strengthLv) {
+        if (strengthSortedArr[0] === strengthLv) {
             return cpMin;
         } else {
-            const index = strengthSortedArr.indexOf(this.strengthLv);
+            const index = strengthSortedArr.indexOf(strengthLv);
             const strengthUpLv = strengthSortedArr[index - 1];
             const cpMax = STRENGTH[strengthUpLv].cp - 1;
             return Math.floor(Math.random() * (cpMax - cpMin + 1) + cpMin);
         }
     }
 
-    // ポケモンの表示名を作成する
-    createDispName (): string {
-        try {
-            return translateData[this.id - 1].ja;
-        } catch (err) {
-            // 該当する日本語名が無かった場合はnameをそのまま返却
-            return this.name;
-        }
-    }
-
-    // 画像パスを作成する
-    createImgPath (): string {
-        return new this.PokemonImg(this).getImgPath();
-    }
-
     // getter id（public）
     getId (): number {
         return this.id;
+    }
+
+    // getter name（public）
+    getName (): string {
+        return this.name;
     }
 
     // getter isShiny（public）
@@ -132,11 +127,6 @@ export default class Pokemon {
     // getter cp（public）
     getCp (): number {
         return this.cp;
-    }
-
-    // getter dispName（public）
-    getDispName (): string {
-        return this.dispName;
     }
 
     // getter img（public）
