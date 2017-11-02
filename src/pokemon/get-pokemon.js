@@ -8,14 +8,14 @@ import { format } from 'date-fns';
 const MAX: number = 720;
 
 export default class GetPokemon {
-    Request: Class<RequestApi>; // APIリクエスト用オブジェクト
+    api: RequestApi; // APIリクエスト用オブジェクト
     user: string; // ユーザー
     time: string; // 捕まえた時間
     pokemon: PokemonObj; // ポケモン
 
     constructor (Request: Class<RequestApi>, user: string) {
-        if (!Request || !user) throw new Error(GetPokemon.ERROR_RES);
-        this.Request = Request;
+        if (Request == null || user == null) throw new Error(GetPokemon.GET_ERROR_RES);
+        this.api = new Request();
         this.user = user;
     }
 
@@ -47,22 +47,8 @@ export default class GetPokemon {
         }
     }
 
-    // ランダムにポケモンを返却する（public）
-    async getRandom (): Object {
-        try {
-            const request = new this.Request();
-            const pokeSelect = Math.floor(Math.random() * MAX) + 1;
-            const data = await request.request(pokeSelect);
-            this.pokemon = new Pokemon(data, Pokestadium);
-            this.time = this.createGetPokemon();
-        } catch (err) {
-            throw new Error(GetPokemon.ERROR_RES);
-        }
-        return this.createSuccessRes();
-    }
-
-    // 保存用データを返却する（public）
-    getSaveData (): Object {
+    // 保存用データを作成する
+    createSaveData (): Object {
         return {
             id: this.pokemon.getId(),
             user: this.user,
@@ -72,14 +58,42 @@ export default class GetPokemon {
         };
     }
 
+    // ランダムにポケモンを返却する（public）
+    async getRandom (): Object {
+        try {
+            const pokeSelect = Math.floor(Math.random() * MAX) + 1;
+            const data = await this.api.request(pokeSelect);
+            this.pokemon = new Pokemon(data, Pokestadium);
+            this.time = this.createGetPokemon();
+            return this.createSuccessRes();
+        } catch (err) {
+            throw new Error(GetPokemon.GET_ERROR_RES);
+        }
+    }
+
+    // ポケモンをDBに保存する（public）
+    pushData (Database: Class<Database>): void {
+        try {
+            const db = new Database();
+            db.push(this.createSaveData());
+        } catch (err) {
+            throw new Error(GetPokemon.PUSH_ERROR_RES);
+        }
+    }
+
     // 捕まえてくる時のメッセージを返却する
     static get GO_RES (): string {
         return ':pokeball: 捕まえてくるゴシ。。。。。';
     }
 
-    // エラー時のメッセージを返却する
-    static get ERROR_RES (): string {
+    // 捕獲エラー時のメッセージを返却する
+    static get GET_ERROR_RES (): string {
         return '捕まえるの失敗したゴシ…。';
+    }
+
+    // 保存エラー時のメッセージを返却する
+    static get PUSH_ERROR_RES (): string {
+        return '保存するの失敗したゴシ…。';
     }
 
     // 捕獲時間のフォーマットを返却する

@@ -42,7 +42,7 @@ export default class Pokemon {
     img: string; // 画像パス
 
     constructor ({ id, name }: Object, PokemonImg: Class<PokemonImg>) {
-        if (!id || !name || !PokemonImg) throw new Error('Invalid constructor argument.');
+        if (id == null || name == null || PokemonImg == null) throw new Error('Invalid constructor argument.');
         this.id = id;
         this.name = this.createName(id, name);
         this.isShiny = this.lotShiny();

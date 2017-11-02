@@ -39,7 +39,7 @@ export default class Pokestadium {
     pokestudiumName: string; // pokestudium.com用の名前
 
     constructor ({ id, name, isShiny }: Object) {
-        if (!id || !name || !isShiny) throw new Error('Invalid constructor argument.');
+        if (id === null || name === null || isShiny === null) throw new Error('Invalid constructor argument.');
         this.id = id;
         this.name = name;
         this.isShiny = isShiny;
