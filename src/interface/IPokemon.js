@@ -7,7 +7,7 @@ interface RequestApi {
 
 interface Database {
     constructor (): Database;
-    push (data: any): void;
+    push (data: Object): void;
     getLength (): Object;
     getLengthEqualTo (key: string, value: any): Object;
     getLengthGreaterThan (key: string, value: any): Object;

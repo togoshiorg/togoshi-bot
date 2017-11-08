@@ -12,22 +12,20 @@ import PokeapiV2 from './pokemon/pokeapi-v2';
 import Firebase from './pokemon/firebase';
 
 module.exports = (robot: Object) => {
-    // robot.respond(/get pokemon/, (res) => {
-    robot.respond(/get poketest/, (res) => {
+    robot.respond(/get pokemon/, (res) => {
         res.send(GetPokemon.GO_RES);
         (async () => {
             let getPokemon: GetObject;
             try {
                 getPokemon = new GetPokemon(PokeapiV2, res.message.user.name);
                 res.send(await getPokemon.getRandom());
-                // getPokemon.pushData(Firebase);
+                getPokemon.pushData(Firebase);
             } catch (err) {
                 res.send(err.message);
             }
         })();
     });
-    // robot.respond(/zukan pokemon/, (res) => {
-    robot.respond(/zukan poketest/, (res) => {
+    robot.respond(/zukan pokemon/, (res) => {
         // 入力値に数値が付与されていたら処理しない
         const input = res.message.text;
         const resMention = '@togoshi-bot zukan pokemon';
@@ -42,8 +40,7 @@ module.exports = (robot: Object) => {
             }
         })();
     });
-    // robot.respond(/zukan pokemon (.*)/, (res) => {
-    robot.respond(/zukan poketest (.*)/, (res) => {
+    robot.respond(/zukan pokemon (.*)/, (res) => {
         const name = res.match[1];
         (async () => {
             try {
@@ -54,8 +51,7 @@ module.exports = (robot: Object) => {
             }
         })();
     });
-    // robot.respond(/user pokemon (.*)/, (res) => {
-    robot.respond(/user poketest (.*)/, (res) => {
+    robot.respond(/user pokemon (.*)/, (res) => {
         const user = res.match[1];
         (async () => {
             try {
@@ -66,8 +62,7 @@ module.exports = (robot: Object) => {
             }
         })();
     });
-    // robot.respond(/overcp pokemon (.*)/, (res) => {
-    robot.respond(/overcp poketest (.*)/, (res) => {
+    robot.respond(/overcp pokemon (.*)/, (res) => {
         const selectCp = parseInt(res.match[1]);
         (async () => {
             try {
@@ -78,8 +73,7 @@ module.exports = (robot: Object) => {
             }
         })();
     });
-    // robot.respond(/shiny pokemon/, (res) => {
-    robot.respond(/shiny poketest/, (res) => {
+    robot.respond(/shiny pokemon/, (res) => {
         (async () => {
             try {
                 const refPokemon: RefObject = new RefPokemon(Firebase);
@@ -91,8 +85,7 @@ module.exports = (robot: Object) => {
     });
 
     // Help Command
-    // robot.respond(/h pokemon/, (res) => {
-    robot.respond(/h poketest/, (res) => {
+    robot.respond(/h pokemon/, (res) => {
         res.send(`
 :heavy_check_mark: \`get pokemon\` : ポケモンを1匹捕まえます
 :heavy_check_mark: \`zukan pokemon\` : 今までに捕まえたポケモンの総数を表示

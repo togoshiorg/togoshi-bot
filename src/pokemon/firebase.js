@@ -18,7 +18,7 @@ export default class Firebase {
     }
 
     // データを保存
-    push (data: any): any {
+    push (data: Object): void {
         this.getlist.push(data);
     }
 
