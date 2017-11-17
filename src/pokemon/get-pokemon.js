@@ -1,26 +1,26 @@
 // @flow
 
 import Pokestadium from './pokestadium';
-import Pokemon from './pokemon';
+import PokemonJa from './pokemon-ja';
 import { format } from 'date-fns';
 
 // サポートするポケモンの数（0からカウントするので最大数-1）
 const MAX: number = 720;
 
 export default class GetPokemon {
-    api: RequestApi; // APIリクエスト用オブジェクト
+    requestApi: RequestApi; // APIリクエスト用オブジェクト
     user: string; // ユーザー
     time: string; // 捕まえた時間
-    pokemon: PokemonObj; // ポケモン
+    pokemonObj: PokemonObj; // ポケモン
 
-    constructor (Request: Class<RequestApi>, user: string) {
-        if (Request == null || user == null) throw new Error(GetPokemon.GET_ERROR_RES);
-        this.api = new Request();
+    constructor (RequestApi: Class<RequestApi>, user: string) {
+        if (RequestApi == null || user == null) throw new Error(GetPokemon.GET_ERROR_RES);
+        this.requestApi = new RequestApi();
         this.user = user;
     }
 
     // ポケモン捕獲時間を作成する
-    createGetPokemon (): string {
+    createGetTime (): string {
         return format(new Date(), GetPokemon.TIME_FORMAT);
     }
 
@@ -29,14 +29,14 @@ export default class GetPokemon {
         let res = '';
         const strengthRes = this.createStrengthRes();
         res += (strengthRes !== '') ? `${strengthRes}\n` : ''; // 強さに応じたメッセージ
-        res += this.pokemon.getIsShiny() ? `色違いを捕まえたゴシィィィ！！！？\n` : ''; // 色違いだった場合のメッセージ
-        res += `CP${this.pokemon.getCp()}の${this.pokemon.getName()}を捕まえたゴシ！\n${this.pokemon.getImg()}`;
+        res += this.pokemonObj.getIsShiny() ? `色違いを捕まえたゴシィィィ！！！？\n` : ''; // 色違いだった場合のメッセージ
+        res += `CP${this.pokemonObj.getCp()}の${this.pokemonObj.getName()}を捕まえたゴシ！\n${this.pokemonObj.getImg()}`;
         return res;
     }
 
     // ポケモンの強さレベルのメッセージを作成する
     createStrengthRes (): string {
-        switch (this.pokemon.getStrengthLv()) {
+        switch (this.pokemonObj.getStrengthLv()) {
             case 'god': return ':god:'; // 神 CP4000のみ
             case 'strongest': return 'コイツは空前絶後のつよさゴシ！！'; // 最強 CP3500以上3999以下
             case 'stronger': return 'コイツはつよいゴシ！！'; // 強い CP2000以上3499以下
@@ -50,11 +50,11 @@ export default class GetPokemon {
     // 保存用データを作成する
     createSaveData (): Object {
         return {
-            id: this.pokemon.getId(),
+            id: this.pokemonObj.getId(),
             user: this.user,
             time: this.time,
-            cp: this.pokemon.getCp(),
-            isShiny: this.pokemon.getIsShiny()
+            cp: this.pokemonObj.getCp(),
+            isShiny: this.pokemonObj.getIsShiny()
         };
     }
 
@@ -62,9 +62,9 @@ export default class GetPokemon {
     async getRandom (): Object {
         try {
             const pokeSelect = Math.floor(Math.random() * MAX) + 1;
-            const data = await this.api.request(pokeSelect);
-            this.pokemon = new Pokemon(data, Pokestadium);
-            this.time = this.createGetPokemon();
+            const data = await this.requestApi.request(pokeSelect);
+            this.pokemonObj = new PokemonJa(data, Pokestadium);
+            this.time = this.createGetTime();
             return this.createSuccessRes();
         } catch (err) {
             throw new Error(GetPokemon.GET_ERROR_RES);

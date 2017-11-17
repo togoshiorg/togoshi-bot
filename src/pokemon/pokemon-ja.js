@@ -5,7 +5,7 @@ import translateData from '../../data/pokemon.json';
 // サポートするポケモンの強さ（CP）
 const MAXCP: number = 4000;
 
-// ポケモンの強さレベルと出現確率、レスポンスコメント
+// ポケモンの強さレベルと出現確率
 const STRENGTH: Object = {
     god: { // 神 CP4000のみ
         cp: MAXCP,
@@ -33,7 +33,7 @@ const STRENGTH: Object = {
     }
 };
 
-export default class Pokemon {
+export default class PokemonJa {
     id: number; // ポケモンid
     name: string; // ポケモンの名前
     isShiny: boolean; // 色違い
@@ -41,7 +41,7 @@ export default class Pokemon {
     cp: number; // CP
     img: string; // 画像パス
 
-    constructor ({ id, name }: Object, PokemonImg: Class<PokemonImg>) {
+    constructor ({ id, name }: Object = {}, PokemonImg: Class<PokemonImg>) {
         if (id == null || name == null || PokemonImg == null) throw new Error('Invalid constructor argument.');
         this.id = id;
         this.name = this.createName(id, name);

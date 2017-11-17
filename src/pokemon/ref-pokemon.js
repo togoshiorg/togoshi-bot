@@ -22,10 +22,12 @@ export default class RefPokemon {
 
     // 指定の日本語名のポケモンを捕まえた数を返却する（public）
     async getLengthByName (name: string): Object {
-        let id: number;
+        if (name == null) throw new Error(RefPokemon.REF_ERROR_RES);
+        let id = null;
         translateData.forEach((data, index) => {
             if (data.ja === name) id = (index + 1);
         });
+        if (id === null) return `${name}なんてポケモンはいないゴシ...`;
         try {
             const length = await this.db.getLengthEqualTo('id', id);
             return length ? `${name}はこれまでに${length}匹捕まえたゴシ！` : `${name}はまだ捕まえてないゴシ...`;
@@ -36,6 +38,7 @@ export default class RefPokemon {
 
     // 指定のuserが捕まえたポケモンの数を返却する（public）
     async getLengthByUser (user: string): Object {
+        if (user == null) throw new Error(RefPokemon.REF_ERROR_RES);
         try {
             const length = await this.db.getLengthEqualTo('user', user);
             return length ? `${user}が捕まえたポケモンは${length}匹だゴシ！` : `${user}はまだポケモンを捕まえてないゴシ...`;
@@ -46,6 +49,7 @@ export default class RefPokemon {
 
     // 指定したCPよりも強いポケモンの数を返却する（public）
     async getLengthGreaterThanCp (cp: number): Object {
+        if (cp == null) throw new Error(RefPokemon.REF_ERROR_RES);
         try {
             const length = await this.db.getLengthGreaterThan('cp', cp);
             return length ? `今までにCP${cp}以上のポケモンは${length}匹捕まえたゴシ！` : `CP${cp}以上のポケモンはまだ捕まえてないゴシ...`;

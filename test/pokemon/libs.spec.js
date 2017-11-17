@@ -1,6 +1,6 @@
 
 import assert from 'assert';
-import * as libs from '../../src/pokemon/libs';
+// import * as libs from '../../src/pokemon/libs';
 
 describe('pokemon/libs.js', () => {
     // Math.random上書き前に退避
@@ -10,7 +10,7 @@ describe('pokemon/libs.js', () => {
         Math.random = random;
     });
 
-    it('指定のURLが返ってくる', () => {
+    /* it('指定のURLが返ってくる', () => {
         Math.random = () => { return 0.9999999999; };
         assert.equal(libs.getRandomUrl(), 'http://pokeapi.co/api/v2/pokemon/720/');
     });
@@ -54,5 +54,5 @@ describe('pokemon/libs.js', () => {
     it('lengthを渡すと適切な文字列が返ってくる（色違い）', () => {
         assert.equal(libs.getLengthShinyRes(0), 'まだ普通のポケモンしか捕まえてないゴシ...');
         assert.equal(libs.getLengthShinyRes(100), '今までに色違いポケモンは100匹捕まえたゴシ！');
-    });
+    }); */
 });

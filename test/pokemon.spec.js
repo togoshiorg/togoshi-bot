@@ -69,7 +69,7 @@ describe('pokemon.js', () => {
         };
     });
 
-    it('get pokemonが正しく処理される（正常系）', async () => {
+    /* it('get pokemonが正しく処理される（正常系）', async () => {
         // ダミーデータ（正常系）
         const dummySuccess = {
             'node-fetch': () => {
@@ -186,5 +186,5 @@ describe('pokemon.js', () => {
 
         assert.equal(res.messages[0], 'helpゴシ');
         assert.equal(typeof res.messages[1], 'undefined');
-    });
+    }); */
 });
