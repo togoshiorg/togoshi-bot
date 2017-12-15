@@ -34,7 +34,7 @@ module.exports = (robot: Object) => {
         (async () => {
             try {
                 const refPokemon: RefObject = new RefPokemon(Firebase);
-                res.send(refPokemon.getLengthTotal());
+                res.send(await refPokemon.getLengthTotal());
             } catch (err) {
                 res.send(err.message);
             }
@@ -56,7 +56,7 @@ module.exports = (robot: Object) => {
         (async () => {
             try {
                 const refPokemon: RefObject = new RefPokemon(Firebase);
-                res.send(refPokemon.getLengthByUser(user));
+                res.send(await refPokemon.getLengthByUser(user));
             } catch (err) {
                 res.send(err.message);
             }
@@ -67,7 +67,7 @@ module.exports = (robot: Object) => {
         (async () => {
             try {
                 const refPokemon: RefObject = new RefPokemon(Firebase);
-                res.send(refPokemon.getLengthGreaterThanCp(selectCp));
+                res.send(await refPokemon.getLengthGreaterThanCp(selectCp));
             } catch (err) {
                 res.send(err.message);
             }
@@ -77,7 +77,7 @@ module.exports = (robot: Object) => {
         (async () => {
             try {
                 const refPokemon: RefObject = new RefPokemon(Firebase);
-                res.send(refPokemon.getLengthIsShiny());
+                res.send(await refPokemon.getLengthIsShiny());
             } catch (err) {
                 res.send(err.message);
             }
