@@ -36,6 +36,7 @@ const STRENGTH: Object = {
 export default class PokemonJa {
     id: number; // ポケモンid
     name: string; // ポケモンの名前
+    dispName: string; // ポケモンの表示名
     isShiny: boolean; // 色違い
     strengthLv: string; // ポケモンの強さ
     cp: number; // CP
@@ -44,7 +45,8 @@ export default class PokemonJa {
     constructor ({ id, name }: Object = {}, PokemonImg: Class<PokemonImg>) {
         if (id == null || name == null || PokemonImg == null) throw new Error('Invalid constructor argument.');
         this.id = id;
-        this.name = this.createName(id, name);
+        this.name = name;
+        this.dispName = this.createName(id, name);
         this.isShiny = this.lotShiny();
         this.strengthLv = this.lotStrength();
         this.cp = this.lotCp(this.strengthLv);
@@ -111,7 +113,7 @@ export default class PokemonJa {
 
     // getter name（public）
     getName (): string {
-        return this.name;
+        return this.dispName;
     }
 
     // getter isShiny（public）
