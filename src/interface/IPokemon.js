@@ -16,7 +16,7 @@ interface Database {
 interface GetObject {
     constructor (Request: Class<RequestApi>, user: string): GetObject;
     getRandom (): Object;
-    pushData(Database: Class<Database>): void;
+    pushData (Database: Class<Database>): void;
     static GO_RES: string;
     static GET_ERROR_RES: string;
     static PUSH_ERROR_RES: string;
