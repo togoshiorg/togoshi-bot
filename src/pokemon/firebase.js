@@ -11,32 +11,34 @@ const APP: any = firebase.initializeApp({
 });
 
 export default class Firebase {
-    getlist: any;
+    ref: any;
 
     constructor () {
-        this.getlist = APP.database().ref('/getlist');
+        this.ref = APP.database().ref('/getlist');
     }
 
     // データを保存
     push (data: Object): void {
-        this.getlist.push(data);
+        this.ref.push(data);
     }
 
     // 全データのlengthを取得
     async getLength (): Object {
-        const snapshot = await this.getlist.once('value');
+        const snapshot = await this.ref.once('value');
         return snapshot.numChildren();
     }
 
     // valueと等しいデータのlengthを取得
     async getLengthEqualTo (key: string, value: any): Object {
-        const snapshot = await this.getlist.orderByChild(key).equalTo(value).once('value');
+        if (key == null || value == null) throw new Error('Invalid request argument.');
+        const snapshot = await this.ref.orderByChild(key).equalTo(value).once('value');
         return snapshot.numChildren();
     }
 
     // valueより大きいデータのlengthを取得
     async getLengthGreaterThan (key: string, value: any): Object {
-        const snapshot = await this.getlist.orderByChild(key).startAt(value).once('value');
+        if (key == null || value == null) throw new Error('Invalid request argument.');
+        const snapshot = await this.ref.orderByChild(key).startAt(value).once('value');
         return snapshot.numChildren();
     }
 }

@@ -3,7 +3,7 @@ import assert from 'assert';
 import proxyquire from 'proxyquire';
 
 describe('pokemon/pokeapi-v2.js', () => {
-    it('numを渡すと正しく処理する', async () => {
+    it('request()メソッドを呼ぶと正しく処理する', async () => {
         // pokeapi-v2.js内のimportをダミーに差し替え
         const PokeapiV2 = proxyquire('../../src/pokemon/pokeapi-v2', {
             'node-fetch': () => {
@@ -19,7 +19,7 @@ describe('pokemon/pokeapi-v2.js', () => {
         assert.equal(data.name, 'foo');
     });
 
-    it('numを渡さないとErrorをthrowする（numがnull）', async () => {
+    it('request()メソッドにnumを渡さないとErrorをthrowする（numがnull）', async () => {
         // pokeapi-v2.js内のimportをダミーに差し替え
         const PokeapiV2 = proxyquire('../../src/pokemon/pokeapi-v2', {
             'node-fetch': () => {
@@ -39,7 +39,7 @@ describe('pokemon/pokeapi-v2.js', () => {
         }
     });
 
-    it('numを渡さないとErrorをthrowする（numがundefined）', async () => {
+    it('request()メソッドにnumを渡さないとErrorをthrowする（numがundefined）', async () => {
         // pokeapi-v2.js内のimportをダミーに差し替え
         const PokeapiV2 = proxyquire('../../src/pokemon/pokeapi-v2', {
             'node-fetch': () => {
@@ -59,7 +59,7 @@ describe('pokemon/pokeapi-v2.js', () => {
         }
     });
 
-    it('numを渡さないとErrorをthrowする（numが空）', async () => {
+    it('request()メソッドにnumを渡さないとErrorをthrowする（numが空）', async () => {
         // pokeapi-v2.js内のimportをダミーに差し替え
         const PokeapiV2 = proxyquire('../../src/pokemon/pokeapi-v2', {
             'node-fetch': () => {
@@ -79,7 +79,7 @@ describe('pokemon/pokeapi-v2.js', () => {
         }
     });
 
-    it('レスポンスステータスが200以外の時Errorをthrowする', async () => {
+    it('request()メソッド内でエラーが発生するとErrorをthrowする（レスポンスステータスが200以外）', async () => {
         // pokeapi-v2.js内のimportをダミーに差し替え
         const PokeapiV2 = proxyquire('../../src/pokemon/pokeapi-v2', {
             'node-fetch': () => {
