@@ -33,16 +33,17 @@ const CHANGE_NAME_ARR: Object = {
 };
 
 export default class Pokestadium {
-    id: number;
-    name: string;
-    isShiny: boolean;
-    pokestudiumName: string;
+    id: number; // ポケモンid
+    name: string; // ポケモンname
+    isShiny: boolean; // 色違い
+    pokestudiumName: string; // pokestudium.com用の名前
 
-    constructor ({ id, name, isShiny }: Object = { id: 1, name: 'bulbasaur', isShiny: false }) {
+    constructor ({ id, name, isShiny }: Object = {}) {
+        if (id == null || name == null || isShiny == null) throw new Error('Invalid constructor argument.');
         this.id = id;
         this.name = name;
         this.isShiny = isShiny;
-        this.pokestudiumName = this.createPokestudiumName(); // pokestudium.com用の名前
+        this.pokestudiumName = this.createPokestudiumName();
     }
 
     // pokestudium.com用の名前を作成する
@@ -56,7 +57,7 @@ export default class Pokestadium {
         return this.name;
     }
 
-    // 画像パスを返却する
+    // 画像パスを返却する（public）
     getImgPath (): string {
         const shinyPath = this.isShiny ? PATH.shiny : '';
         return `${PATH.url}${shinyPath}${this.pokestudiumName}.${PATH.fileType}`;

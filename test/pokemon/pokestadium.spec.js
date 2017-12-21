@@ -3,7 +3,7 @@ import assert from 'assert';
 import Pokestadium from '../../src/pokemon/pokestadium';
 
 describe('pokemon/pokestadium.js', () => {
-    it('idとnameとisShinyを渡すとインスタンス作成が正しくされる', () => {
+    it('constructorにidとnameとisShinyを渡すと正しく処理する', () => {
         const data = {
             id: 0,
             name: 'foo',
@@ -16,15 +16,119 @@ describe('pokemon/pokestadium.js', () => {
         assert.equal(pokestadium.pokestudiumName, 'foo');
     });
 
-    it('idとnameとisShinyを渡さないとデフォルトの設定でインスタンス作成される', () => {
-        const pokestadium = new Pokestadium();
-        assert.equal(pokestadium.id, 1);
-        assert.equal(pokestadium.name, 'bulbasaur');
-        assert.equal(pokestadium.isShiny, false);
-        assert.equal(pokestadium.pokestudiumName, 'bulbasaur');
+    it('constructorにidとnameとisShinyを渡さないとErrorをthrowする（idがnull）', () => {
+        const data = {
+            id: null,
+            name: 'foo',
+            isShiny: true
+        };
+        assert.throws(
+            () => { return new Pokestadium(data); },
+            (err) => { assert.equal(err.message, 'Invalid constructor argument.'); return true; }
+        );
     });
 
-    it('ハイフンの入ったnameからハイフンのみが削除される', () => {
+    it('constructorにidとnameとisShinyを渡さないとErrorをthrowする（idがundefined）', () => {
+        const data = {
+            id: undefined,
+            name: 'foo',
+            isShiny: true
+        };
+        assert.throws(
+            () => { return new Pokestadium(data); },
+            (err) => { assert.equal(err.message, 'Invalid constructor argument.'); return true; }
+        );
+    });
+
+    it('constructorにidとnameとisShinyを渡さないとErrorをthrowする（idが空）', () => {
+        const data = {
+            name: 'foo',
+            isShiny: true
+        };
+        assert.throws(
+            () => { return new Pokestadium(data); },
+            (err) => { assert.equal(err.message, 'Invalid constructor argument.'); return true; }
+        );
+    });
+
+    it('constructorにidとnameとisShinyを渡さないとErrorをthrowする（nameがnull）', () => {
+        const data = {
+            id: 0,
+            name: null,
+            isShiny: true
+        };
+        assert.throws(
+            () => { return new Pokestadium(data); },
+            (err) => { assert.equal(err.message, 'Invalid constructor argument.'); return true; }
+        );
+    });
+
+    it('constructorにidとnameとisShinyを渡さないとErrorをthrowする（nameがundefined）', () => {
+        const data = {
+            id: 0,
+            name: undefined,
+            isShiny: true
+        };
+        assert.throws(
+            () => { return new Pokestadium(data); },
+            (err) => { assert.equal(err.message, 'Invalid constructor argument.'); return true; }
+        );
+    });
+
+    it('constructorにidとnameとisShinyを渡さないとErrorをthrowする（nameが空）', () => {
+        const data = {
+            id: 0,
+            isShiny: true
+        };
+        assert.throws(
+            () => { return new Pokestadium(data); },
+            (err) => { assert.equal(err.message, 'Invalid constructor argument.'); return true; }
+        );
+    });
+
+    it('constructorにidとnameとisShinyを渡さないとErrorをthrowする（isShinyがnull）', () => {
+        const data = {
+            id: 0,
+            name: 'foo',
+            isShiny: null
+        };
+        assert.throws(
+            () => { return new Pokestadium(data); },
+            (err) => { assert.equal(err.message, 'Invalid constructor argument.'); return true; }
+        );
+    });
+
+    it('constructorにidとnameとisShinyを渡さないとErrorをthrowする（isShinyがundefined）', () => {
+        const data = {
+            id: 0,
+            name: 'foo',
+            isShiny: undefined
+        };
+        assert.throws(
+            () => { return new Pokestadium(data); },
+            (err) => { assert.equal(err.message, 'Invalid constructor argument.'); return true; }
+        );
+    });
+
+    it('constructorにidとnameとisShinyを渡さないとErrorをthrowする（isShinyが空）', () => {
+        const data = {
+            id: 0,
+            name: 'foo'
+        };
+        assert.throws(
+            () => { return new Pokestadium(data); },
+            (err) => { assert.equal(err.message, 'Invalid constructor argument.'); return true; }
+        );
+    });
+
+    it('constructorにidとnameとisShinyを渡さないとErrorをthrowする（dataが空）', () => {
+        assert.throws(
+            () => { return new Pokestadium(); },
+            (err) => { assert.equal(err.message, 'Invalid constructor argument.'); return true; }
+        );
+    });
+
+    it('ハイフンの入ったnameからハイフンのみを削除する', () => {
         const data = {
             nidoranf: {
                 id: 29,
@@ -43,7 +147,7 @@ describe('pokemon/pokestadium.js', () => {
         assert.equal(nidoranm.pokestudiumName, 'nidoranm');
     });
 
-    it('ハイフンの入ったnameからハイフンから後ろが削除される', () => {
+    it('ハイフンの入ったnameからハイフンから後ろを削除する', () => {
         const data = {
             deoxysnormal: {
                 id: 386,
@@ -153,7 +257,7 @@ describe('pokemon/pokestadium.js', () => {
         assert.equal(gourgeistaverage.pokestudiumName, 'gourgeist');
     });
 
-    it('画像パスが正しく返却される', () => {
+    it('画像パスを正しく返却する', () => {
         const data = {
             shiny: {
                 id: 0,
