@@ -128,7 +128,7 @@ describe('pokemon/pkparaiso.js', () => {
         );
     });
 
-    it('ハイフンの入ったnameからハイフンのみを削除する', () => {
+    it('29/32はハイフンをアンダースコアに置き換える', () => {
         const data = {
             nidoranf: {
                 id: 29,
@@ -143,8 +143,8 @@ describe('pokemon/pkparaiso.js', () => {
         };
         const nidoranf = new Pkparaiso(data.nidoranf);
         const nidoranm = new Pkparaiso(data.nidoranm);
-        assert.equal(nidoranf.pkparaisoName, 'nidoranf');
-        assert.equal(nidoranm.pkparaisoName, 'nidoranm');
+        assert.equal(nidoranf.pkparaisoName, 'nidoran_f');
+        assert.equal(nidoranm.pkparaisoName, 'nidoran_m');
     });
 
     it('ハイフンの入ったnameからハイフンから後ろを削除する', () => {
@@ -223,6 +223,16 @@ describe('pokemon/pkparaiso.js', () => {
                 id: 711,
                 name: 'gourgeist-average',
                 isShiny: false
+            },
+            lycanrocmidday: {
+                id: 745,
+                name: 'lycanroc-midday',
+                isShiny: false
+            },
+            wishiwashisolo: {
+                id: 746,
+                name: 'wishiwashi-solo',
+                isShiny: false
             }
         };
         const deoxysnormal = new Pkparaiso(data.deoxysnormal);
@@ -240,6 +250,8 @@ describe('pokemon/pkparaiso.js', () => {
         const aegislashshield = new Pkparaiso(data.aegislashshield);
         const pumpkabooaverage = new Pkparaiso(data.pumpkabooaverage);
         const gourgeistaverage = new Pkparaiso(data.gourgeistaverage);
+        const lycanrocmidday = new Pkparaiso(data.lycanrocmidday);
+        const wishiwashisolo = new Pkparaiso(data.wishiwashisolo);
         assert.equal(deoxysnormal.pkparaisoName, 'deoxys');
         assert.equal(wormadamplant.pkparaisoName, 'wormadam');
         assert.equal(giratinaaltered.pkparaisoName, 'giratina');
@@ -255,6 +267,8 @@ describe('pokemon/pkparaiso.js', () => {
         assert.equal(aegislashshield.pkparaisoName, 'aegislash');
         assert.equal(pumpkabooaverage.pkparaisoName, 'pumpkaboo');
         assert.equal(gourgeistaverage.pkparaisoName, 'gourgeist');
+        assert.equal(lycanrocmidday.pkparaisoName, 'lycanroc');
+        assert.equal(wishiwashisolo.pkparaisoName, 'wishiwashi');
     });
 
     it('画像パスを正しく返却する', () => {
@@ -268,11 +282,27 @@ describe('pokemon/pkparaiso.js', () => {
                 id: 1,
                 name: 'foo',
                 isShiny: false
+            },
+            gen6: {
+                id: 721,
+                name: 'gen6',
+                isShiny: false
+            },
+            gen7: {
+                id: 722,
+                name: 'gen7',
+                isShiny: false
             }
         };
         const pokestadiumShiny = new Pkparaiso(data.shiny);
         const pokestadiumNormal = new Pkparaiso(data.normal);
-        assert.equal(pokestadiumShiny.getImgPath(), 'http://www.pokestadium.com/sprites/xy/shiny/hoge.gif');
-        assert.equal(pokestadiumNormal.getImgPath(), 'http://www.pokestadium.com/sprites/xy/foo.gif');
+        const pokestadiumGen6 = new Pkparaiso(data.gen6);
+        const pokestadiumGen7 = new Pkparaiso(data.gen7);
+        assert.equal(pokestadiumShiny.getImgPath(), 'https://www.pkparaiso.com/imagenes/xy/sprites/animados-shiny/hoge.gif');
+        assert.equal(pokestadiumNormal.getImgPath(), 'https://www.pkparaiso.com/imagenes/xy/sprites/animados/foo.gif');
+
+        // 722を境界に画像パスが変わる
+        assert.equal(pokestadiumGen6.getImgPath(), 'https://www.pkparaiso.com/imagenes/xy/sprites/animados/gen6.gif');
+        assert.equal(pokestadiumGen7.getImgPath(), 'https://www.pkparaiso.com/imagenes/sol-luna/sprites/animados/gen7.gif');
     });
 });
