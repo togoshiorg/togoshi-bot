@@ -20,6 +20,13 @@ const CHANGE_NAME_ARR: Object = {
         29, // ニドラン♀
         32 // ニドラン♂
     ],
+    deleteHyphen: [ // ハイフンだけを削除
+        772, // タイプ：ヌル
+        785, // カプ・コケコ
+        786, // カプ・テテフ
+        787, // カプ・ブルル
+        788 // カプ・レヒレ
+    ],
     deleteHyphenBack: [ // ハイフンから後ろを削除
         386, // デオキシス
         413, // ミノマダム
@@ -35,7 +42,9 @@ const CHANGE_NAME_ARR: Object = {
         678, // ニャオニクス
         681, // ギルガルド
         710, // バケッチャ
-        711 // パンプジン
+        711, // パンプジン
+        745, // ルガルガン
+        746 // ヨワシ
     ]
 };
 
@@ -55,12 +64,12 @@ export default class Pkparaiso {
         this.pkparaisoName = this.createPkparaisoName();
     }
 
-    // pkparaiso.com用の名前を作成する
-    // ※性別があるニドランは'-'を'_'に変換する。
-    // ※形態変化があるポケモンはPokeAPIでは名前の後ろに'-'がついて画像名にそのまま使えない。
+    // 例外的な名称を持つポケモンの名前をpkparaiso.com用に成形する
     createPkparaisoName (): string {
         if (CHANGE_NAME_ARR.replaceHyphen.indexOf(this.id) !== -1) {
             return this.name.replace(/-/, '_');
+        } else if (CHANGE_NAME_ARR.deleteHyphen.indexOf(this.id) !== -1) {
+            return this.name.replace(/-/, '');
         } else if (CHANGE_NAME_ARR.deleteHyphenBack.indexOf(this.id) !== -1) {
             return this.name.replace(/(-)(.*)/, '');
         }
