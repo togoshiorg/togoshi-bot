@@ -5,7 +5,7 @@ import PokemonJa from './pokemon-ja';
 import { format } from 'date-fns';
 
 // サポートするポケモンの数（0からカウントするので最大数-1）
-const MAX: number = 720;
+const MAX: number = 801;
 
 export default class GetPokemon {
     requestApi: RequestApi; // APIリクエスト用オブジェクト
