@@ -1,19 +1,19 @@
 
 import assert from 'assert';
-import Pokestadium from '../../src/pokemon/pokestadium';
+import Pkparaiso from '../../src/pokemon/pkparaiso';
 
-describe('pokemon/pokestadium.js', () => {
+describe('pokemon/pkparaiso.js', () => {
     it('constructorにidとnameとisShinyを渡すと正しく処理する', () => {
         const data = {
             id: 0,
             name: 'foo',
             isShiny: true
         };
-        const pokestadium = new Pokestadium(data);
-        assert.equal(pokestadium.id, 0);
-        assert.equal(pokestadium.name, 'foo');
-        assert.equal(pokestadium.isShiny, true);
-        assert.equal(pokestadium.pokestudiumName, 'foo');
+        const pkparaiso = new Pkparaiso(data);
+        assert.equal(pkparaiso.id, 0);
+        assert.equal(pkparaiso.name, 'foo');
+        assert.equal(pkparaiso.isShiny, true);
+        assert.equal(pkparaiso.pkparaisoName, 'foo');
     });
 
     it('constructorにidとnameとisShinyを渡さないとErrorをthrowする（idがnull）', () => {
@@ -23,7 +23,7 @@ describe('pokemon/pokestadium.js', () => {
             isShiny: true
         };
         assert.throws(
-            () => { return new Pokestadium(data); },
+            () => { return new Pkparaiso(data); },
             (err) => { assert.equal(err.message, 'Invalid constructor argument.'); return true; }
         );
     });
@@ -35,7 +35,7 @@ describe('pokemon/pokestadium.js', () => {
             isShiny: true
         };
         assert.throws(
-            () => { return new Pokestadium(data); },
+            () => { return new Pkparaiso(data); },
             (err) => { assert.equal(err.message, 'Invalid constructor argument.'); return true; }
         );
     });
@@ -46,7 +46,7 @@ describe('pokemon/pokestadium.js', () => {
             isShiny: true
         };
         assert.throws(
-            () => { return new Pokestadium(data); },
+            () => { return new Pkparaiso(data); },
             (err) => { assert.equal(err.message, 'Invalid constructor argument.'); return true; }
         );
     });
@@ -58,7 +58,7 @@ describe('pokemon/pokestadium.js', () => {
             isShiny: true
         };
         assert.throws(
-            () => { return new Pokestadium(data); },
+            () => { return new Pkparaiso(data); },
             (err) => { assert.equal(err.message, 'Invalid constructor argument.'); return true; }
         );
     });
@@ -70,7 +70,7 @@ describe('pokemon/pokestadium.js', () => {
             isShiny: true
         };
         assert.throws(
-            () => { return new Pokestadium(data); },
+            () => { return new Pkparaiso(data); },
             (err) => { assert.equal(err.message, 'Invalid constructor argument.'); return true; }
         );
     });
@@ -81,7 +81,7 @@ describe('pokemon/pokestadium.js', () => {
             isShiny: true
         };
         assert.throws(
-            () => { return new Pokestadium(data); },
+            () => { return new Pkparaiso(data); },
             (err) => { assert.equal(err.message, 'Invalid constructor argument.'); return true; }
         );
     });
@@ -93,7 +93,7 @@ describe('pokemon/pokestadium.js', () => {
             isShiny: null
         };
         assert.throws(
-            () => { return new Pokestadium(data); },
+            () => { return new Pkparaiso(data); },
             (err) => { assert.equal(err.message, 'Invalid constructor argument.'); return true; }
         );
     });
@@ -105,7 +105,7 @@ describe('pokemon/pokestadium.js', () => {
             isShiny: undefined
         };
         assert.throws(
-            () => { return new Pokestadium(data); },
+            () => { return new Pkparaiso(data); },
             (err) => { assert.equal(err.message, 'Invalid constructor argument.'); return true; }
         );
     });
@@ -116,14 +116,14 @@ describe('pokemon/pokestadium.js', () => {
             name: 'foo'
         };
         assert.throws(
-            () => { return new Pokestadium(data); },
+            () => { return new Pkparaiso(data); },
             (err) => { assert.equal(err.message, 'Invalid constructor argument.'); return true; }
         );
     });
 
     it('constructorにidとnameとisShinyを渡さないとErrorをthrowする（dataが空）', () => {
         assert.throws(
-            () => { return new Pokestadium(); },
+            () => { return new Pkparaiso(); },
             (err) => { assert.equal(err.message, 'Invalid constructor argument.'); return true; }
         );
     });
@@ -141,10 +141,10 @@ describe('pokemon/pokestadium.js', () => {
                 isShiny: false
             }
         };
-        const nidoranf = new Pokestadium(data.nidoranf);
-        const nidoranm = new Pokestadium(data.nidoranm);
-        assert.equal(nidoranf.pokestudiumName, 'nidoranf');
-        assert.equal(nidoranm.pokestudiumName, 'nidoranm');
+        const nidoranf = new Pkparaiso(data.nidoranf);
+        const nidoranm = new Pkparaiso(data.nidoranm);
+        assert.equal(nidoranf.pkparaisoName, 'nidoranf');
+        assert.equal(nidoranm.pkparaisoName, 'nidoranm');
     });
 
     it('ハイフンの入ったnameからハイフンから後ろを削除する', () => {
@@ -225,36 +225,36 @@ describe('pokemon/pokestadium.js', () => {
                 isShiny: false
             }
         };
-        const deoxysnormal = new Pokestadium(data.deoxysnormal);
-        const wormadamplant = new Pokestadium(data.wormadamplant);
-        const giratinaaltered = new Pokestadium(data.giratinaaltered);
-        const shayminland = new Pokestadium(data.shayminland);
-        const basculinredstriped = new Pokestadium(data.basculinredstriped);
-        const darmanitanstandard = new Pokestadium(data.darmanitanstandard);
-        const tornadusincarnate = new Pokestadium(data.tornadusincarnate);
-        const thundurusincarnate = new Pokestadium(data.thundurusincarnate);
-        const landorusincarnate = new Pokestadium(data.landorusincarnate);
-        const keldeoordinary = new Pokestadium(data.keldeoordinary);
-        const meloettaaria = new Pokestadium(data.meloettaaria);
-        const meowsticmale = new Pokestadium(data.meowsticmale);
-        const aegislashshield = new Pokestadium(data.aegislashshield);
-        const pumpkabooaverage = new Pokestadium(data.pumpkabooaverage);
-        const gourgeistaverage = new Pokestadium(data.gourgeistaverage);
-        assert.equal(deoxysnormal.pokestudiumName, 'deoxys');
-        assert.equal(wormadamplant.pokestudiumName, 'wormadam');
-        assert.equal(giratinaaltered.pokestudiumName, 'giratina');
-        assert.equal(shayminland.pokestudiumName, 'shaymin');
-        assert.equal(basculinredstriped.pokestudiumName, 'basculin');
-        assert.equal(darmanitanstandard.pokestudiumName, 'darmanitan');
-        assert.equal(tornadusincarnate.pokestudiumName, 'tornadus');
-        assert.equal(thundurusincarnate.pokestudiumName, 'thundurus');
-        assert.equal(landorusincarnate.pokestudiumName, 'landorus');
-        assert.equal(keldeoordinary.pokestudiumName, 'keldeo');
-        assert.equal(meloettaaria.pokestudiumName, 'meloetta');
-        assert.equal(meowsticmale.pokestudiumName, 'meowstic');
-        assert.equal(aegislashshield.pokestudiumName, 'aegislash');
-        assert.equal(pumpkabooaverage.pokestudiumName, 'pumpkaboo');
-        assert.equal(gourgeistaverage.pokestudiumName, 'gourgeist');
+        const deoxysnormal = new Pkparaiso(data.deoxysnormal);
+        const wormadamplant = new Pkparaiso(data.wormadamplant);
+        const giratinaaltered = new Pkparaiso(data.giratinaaltered);
+        const shayminland = new Pkparaiso(data.shayminland);
+        const basculinredstriped = new Pkparaiso(data.basculinredstriped);
+        const darmanitanstandard = new Pkparaiso(data.darmanitanstandard);
+        const tornadusincarnate = new Pkparaiso(data.tornadusincarnate);
+        const thundurusincarnate = new Pkparaiso(data.thundurusincarnate);
+        const landorusincarnate = new Pkparaiso(data.landorusincarnate);
+        const keldeoordinary = new Pkparaiso(data.keldeoordinary);
+        const meloettaaria = new Pkparaiso(data.meloettaaria);
+        const meowsticmale = new Pkparaiso(data.meowsticmale);
+        const aegislashshield = new Pkparaiso(data.aegislashshield);
+        const pumpkabooaverage = new Pkparaiso(data.pumpkabooaverage);
+        const gourgeistaverage = new Pkparaiso(data.gourgeistaverage);
+        assert.equal(deoxysnormal.pkparaisoName, 'deoxys');
+        assert.equal(wormadamplant.pkparaisoName, 'wormadam');
+        assert.equal(giratinaaltered.pkparaisoName, 'giratina');
+        assert.equal(shayminland.pkparaisoName, 'shaymin');
+        assert.equal(basculinredstriped.pkparaisoName, 'basculin');
+        assert.equal(darmanitanstandard.pkparaisoName, 'darmanitan');
+        assert.equal(tornadusincarnate.pkparaisoName, 'tornadus');
+        assert.equal(thundurusincarnate.pkparaisoName, 'thundurus');
+        assert.equal(landorusincarnate.pkparaisoName, 'landorus');
+        assert.equal(keldeoordinary.pkparaisoName, 'keldeo');
+        assert.equal(meloettaaria.pkparaisoName, 'meloetta');
+        assert.equal(meowsticmale.pkparaisoName, 'meowstic');
+        assert.equal(aegislashshield.pkparaisoName, 'aegislash');
+        assert.equal(pumpkabooaverage.pkparaisoName, 'pumpkaboo');
+        assert.equal(gourgeistaverage.pkparaisoName, 'gourgeist');
     });
 
     it('画像パスを正しく返却する', () => {
@@ -270,8 +270,8 @@ describe('pokemon/pokestadium.js', () => {
                 isShiny: false
             }
         };
-        const pokestadiumShiny = new Pokestadium(data.shiny);
-        const pokestadiumNormal = new Pokestadium(data.normal);
+        const pokestadiumShiny = new Pkparaiso(data.shiny);
+        const pokestadiumNormal = new Pkparaiso(data.normal);
         assert.equal(pokestadiumShiny.getImgPath(), 'http://www.pokestadium.com/sprites/xy/shiny/hoge.gif');
         assert.equal(pokestadiumNormal.getImgPath(), 'http://www.pokestadium.com/sprites/xy/foo.gif');
     });

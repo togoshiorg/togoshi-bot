@@ -85,7 +85,7 @@ describe('pokemon/get-pokemon.js', () => {
     it('constructorにRequestApiクラスとuserを渡すと正しく処理する', () => {
         // get-pokemon.js内のimportをダミーに差し替え
         const GetPokemon = proxyquire('../../src/pokemon/get-pokemon', {
-            './pokestadium': { default: PokemonImgMock },
+            './pkparaiso': { default: PokemonImgMock },
             './pokemon-ja': { default: PokemonObjMockNormal }
         }).default;
 
@@ -99,7 +99,7 @@ describe('pokemon/get-pokemon.js', () => {
     it('constructorにRequestApiクラスとuserを渡さないとErrorをthrowする（RequestApiがnull）', () => {
         // get-pokemon.js内のimportをダミーに差し替え
         const GetPokemon = proxyquire('../../src/pokemon/get-pokemon', {
-            './pokestadium': { default: PokemonImgMock },
+            './pkparaiso': { default: PokemonImgMock },
             './pokemon-ja': { default: PokemonObjMockNormal }
         }).default;
 
@@ -112,7 +112,7 @@ describe('pokemon/get-pokemon.js', () => {
     it('constructorにRequestApiクラスとuserを渡さないとErrorをthrowする（RequestApiがundefined）', () => {
         // get-pokemon.js内のimportをダミーに差し替え
         const GetPokemon = proxyquire('../../src/pokemon/get-pokemon', {
-            './pokestadium': { default: PokemonImgMock },
+            './pkparaiso': { default: PokemonImgMock },
             './pokemon-ja': { default: PokemonObjMockNormal }
         }).default;
 
@@ -125,7 +125,7 @@ describe('pokemon/get-pokemon.js', () => {
     it('constructorにRequestApiクラスとuserを渡さないとErrorをthrowする（userがnull）', () => {
         // get-pokemon.js内のimportをダミーに差し替え
         const GetPokemon = proxyquire('../../src/pokemon/get-pokemon', {
-            './pokestadium': { default: PokemonImgMock },
+            './pkparaiso': { default: PokemonImgMock },
             './pokemon-ja': { default: PokemonObjMockNormal }
         }).default;
 
@@ -138,7 +138,7 @@ describe('pokemon/get-pokemon.js', () => {
     it('constructorにRequestApiクラスとuserを渡さないとErrorをthrowする（userがundefined）', () => {
         // get-pokemon.js内のimportをダミーに差し替え
         const GetPokemon = proxyquire('../../src/pokemon/get-pokemon', {
-            './pokestadium': { default: PokemonImgMock },
+            './pkparaiso': { default: PokemonImgMock },
             './pokemon-ja': { default: PokemonObjMockNormal }
         }).default;
 
@@ -151,7 +151,7 @@ describe('pokemon/get-pokemon.js', () => {
     it('constructorにRequestApiクラスとuserを渡さないとErrorをthrowする（RequestApiおよびuserが空）', () => {
         // get-pokemon.js内のimportをダミーに差し替え
         const GetPokemon = proxyquire('../../src/pokemon/get-pokemon', {
-            './pokestadium': { default: PokemonImgMock },
+            './pkparaiso': { default: PokemonImgMock },
             './pokemon-ja': { default: PokemonObjMockNormal }
         }).default;
 
@@ -164,7 +164,7 @@ describe('pokemon/get-pokemon.js', () => {
     it('getRandom()メソッドを呼ぶとランダムにポケモン捕獲テキストを返却する（通常）', async () => {
         // get-pokemon.js内のimportをダミーに差し替え
         const GetPokemon = proxyquire('../../src/pokemon/get-pokemon', {
-            './pokestadium': { default: PokemonImgMock },
+            './pkparaiso': { default: PokemonImgMock },
             './pokemon-ja': { default: PokemonObjMockNormal }
         }).default;
 
@@ -177,7 +177,7 @@ describe('pokemon/get-pokemon.js', () => {
     it('getRandom()メソッドを呼ぶとランダムにポケモン捕獲テキストを返却する（色違いおよびgod）', async () => {
         // get-pokemon.js内のimportをダミーに差し替え
         const GetPokemon = proxyquire('../../src/pokemon/get-pokemon', {
-            './pokestadium': { default: PokemonImgMock },
+            './pkparaiso': { default: PokemonImgMock },
             './pokemon-ja': { default: PokemonObjMockShinyGod }
         }).default;
 
@@ -190,7 +190,7 @@ describe('pokemon/get-pokemon.js', () => {
     it('getRandom()メソッドを呼ぶとランダムにポケモン捕獲テキストを返却する（色違い）', async () => {
         // get-pokemon.js内のimportをダミーに差し替え
         const GetPokemon = proxyquire('../../src/pokemon/get-pokemon', {
-            './pokestadium': { default: PokemonImgMock },
+            './pkparaiso': { default: PokemonImgMock },
             './pokemon-ja': { default: PokemonObjMockShiny }
         }).default;
 
@@ -203,7 +203,7 @@ describe('pokemon/get-pokemon.js', () => {
     it('getRandom()メソッドを呼ぶとランダムにポケモン捕獲テキストを返却する（god）', async () => {
         // get-pokemon.js内のimportをダミーに差し替え
         const GetPokemon = proxyquire('../../src/pokemon/get-pokemon', {
-            './pokestadium': { default: PokemonImgMock },
+            './pkparaiso': { default: PokemonImgMock },
             './pokemon-ja': { default: PokemonObjMockGod }
         }).default;
 
@@ -216,7 +216,7 @@ describe('pokemon/get-pokemon.js', () => {
     it('getRandom()メソッドを呼ぶとランダムにポケモン捕獲テキストを返却する（strongest）', async () => {
         // get-pokemon.js内のimportをダミーに差し替え
         const GetPokemon = proxyquire('../../src/pokemon/get-pokemon', {
-            './pokestadium': { default: PokemonImgMock },
+            './pkparaiso': { default: PokemonImgMock },
             './pokemon-ja': { default: PokemonObjMockStrongest }
         }).default;
 
@@ -229,7 +229,7 @@ describe('pokemon/get-pokemon.js', () => {
     it('getRandom()メソッドを呼ぶとランダムにポケモン捕獲テキストを返却する（stronger）', async () => {
         // get-pokemon.js内のimportをダミーに差し替え
         const GetPokemon = proxyquire('../../src/pokemon/get-pokemon', {
-            './pokestadium': { default: PokemonImgMock },
+            './pkparaiso': { default: PokemonImgMock },
             './pokemon-ja': { default: PokemonObjMockStronger }
         }).default;
 
@@ -242,7 +242,7 @@ describe('pokemon/get-pokemon.js', () => {
     it('getRandom()メソッドを呼ぶとランダムにポケモン捕獲テキストを返却する（weaker）', async () => {
         // get-pokemon.js内のimportをダミーに差し替え
         const GetPokemon = proxyquire('../../src/pokemon/get-pokemon', {
-            './pokestadium': { default: PokemonImgMock },
+            './pkparaiso': { default: PokemonImgMock },
             './pokemon-ja': { default: PokemonObjMockWeaker }
         }).default;
 
@@ -255,7 +255,7 @@ describe('pokemon/get-pokemon.js', () => {
     it('getRandom()メソッドを呼ぶとランダムにポケモン捕獲テキストを返却する（weakest）', async () => {
         // get-pokemon.js内のimportをダミーに差し替え
         const GetPokemon = proxyquire('../../src/pokemon/get-pokemon', {
-            './pokestadium': { default: PokemonImgMock },
+            './pkparaiso': { default: PokemonImgMock },
             './pokemon-ja': { default: PokemonObjMockWeakest }
         }).default;
 
@@ -268,7 +268,7 @@ describe('pokemon/get-pokemon.js', () => {
     it('getRandom()メソッドを呼ぶとランダムにポケモン捕獲テキストを返却する（other）', async () => {
         // get-pokemon.js内のimportをダミーに差し替え
         const GetPokemon = proxyquire('../../src/pokemon/get-pokemon', {
-            './pokestadium': { default: PokemonImgMock },
+            './pkparaiso': { default: PokemonImgMock },
             './pokemon-ja': { default: PokemonObjMockOther }
         }).default;
 
@@ -281,7 +281,7 @@ describe('pokemon/get-pokemon.js', () => {
     it('getRandom()メソッド内でエラーが発生するとErrorをthrowする（request失敗）', async () => {
         // get-pokemon.js内のimportをダミーに差し替え
         const GetPokemon = proxyquire('../../src/pokemon/get-pokemon', {
-            './pokestadium': { default: PokemonImgMock },
+            './pkparaiso': { default: PokemonImgMock },
             './pokemon-ja': { default: PokemonObjMockNormal }
         }).default;
 
@@ -297,7 +297,7 @@ describe('pokemon/get-pokemon.js', () => {
     it('getRandom()メソッド内でエラーが発生するとErrorをthrowする（dataがnull）', async () => {
         // get-pokemon.js内のimportをダミーに差し替え
         const GetPokemon = proxyquire('../../src/pokemon/get-pokemon', {
-            './pokestadium': { default: PokemonImgMock },
+            './pkparaiso': { default: PokemonImgMock },
             './pokemon-ja': { default: PokemonObjMockNormal }
         }).default;
 
@@ -313,7 +313,7 @@ describe('pokemon/get-pokemon.js', () => {
     it('pushData()メソッドを呼ぶと捕まえたポケモンを保存する', async () => {
         // get-pokemon.js内のimportをダミーに差し替え
         const GetPokemon = proxyquire('../../src/pokemon/get-pokemon', {
-            './pokestadium': { default: PokemonImgMock },
+            './pkparaiso': { default: PokemonImgMock },
             './pokemon-ja': { default: PokemonObjMockNormal }
         }).default;
         // new Date()をMockに差し替え(※タイムゾーン0)
@@ -333,7 +333,7 @@ describe('pokemon/get-pokemon.js', () => {
     it('pushData()メソッド内でエラーが発生するとErrorをthrowする（push失敗）', async () => {
         // get-pokemon.js内のimportをダミーに差し替え
         const GetPokemon = proxyquire('../../src/pokemon/get-pokemon', {
-            './pokestadium': { default: PokemonImgMock },
+            './pkparaiso': { default: PokemonImgMock },
             './pokemon-ja': { default: PokemonObjMockNormal }
         }).default;
 
@@ -348,7 +348,7 @@ describe('pokemon/get-pokemon.js', () => {
     it('pushData()メソッド内でエラーが発生するとErrorをthrowする（引数無し）', async () => {
         // get-pokemon.js内のimportをダミーに差し替え
         const GetPokemon = proxyquire('../../src/pokemon/get-pokemon', {
-            './pokestadium': { default: PokemonImgMock },
+            './pkparaiso': { default: PokemonImgMock },
             './pokemon-ja': { default: PokemonObjMockNormal }
         }).default;
 
@@ -363,7 +363,7 @@ describe('pokemon/get-pokemon.js', () => {
     it('pushData()メソッド内でエラーが発生するとErrorをthrowする（捕獲前）', async () => {
         // get-pokemon.js内のimportをダミーに差し替え
         const GetPokemon = proxyquire('../../src/pokemon/get-pokemon', {
-            './pokestadium': { default: PokemonImgMock },
+            './pkparaiso': { default: PokemonImgMock },
             './pokemon-ja': { default: PokemonObjMockNormal }
         }).default;
 
@@ -377,7 +377,7 @@ describe('pokemon/get-pokemon.js', () => {
     it('テキストを正しく返却する（GO_RES）', () => {
         // get-pokemon.js内のimportをダミーに差し替え
         const GetPokemon = proxyquire('../../src/pokemon/get-pokemon', {
-            './pokestadium': { default: PokemonImgMock },
+            './pkparaiso': { default: PokemonImgMock },
             './pokemon-ja': { default: PokemonObjMockNormal }
         }).default;
 
@@ -387,7 +387,7 @@ describe('pokemon/get-pokemon.js', () => {
     it('テキストを正しく返却する（GET_ERROR_RES）', () => {
         // get-pokemon.js内のimportをダミーに差し替え
         const GetPokemon = proxyquire('../../src/pokemon/get-pokemon', {
-            './pokestadium': { default: PokemonImgMock },
+            './pkparaiso': { default: PokemonImgMock },
             './pokemon-ja': { default: PokemonObjMockNormal }
         }).default;
 
@@ -397,7 +397,7 @@ describe('pokemon/get-pokemon.js', () => {
     it('テキストを正しく返却する（PUSH_ERROR_RES）', () => {
         // get-pokemon.js内のimportをダミーに差し替え
         const GetPokemon = proxyquire('../../src/pokemon/get-pokemon', {
-            './pokestadium': { default: PokemonImgMock },
+            './pkparaiso': { default: PokemonImgMock },
             './pokemon-ja': { default: PokemonObjMockNormal }
         }).default;
 
@@ -407,7 +407,7 @@ describe('pokemon/get-pokemon.js', () => {
     it('テキストを正しく返却する（TIME_FORMAT）', () => {
         // get-pokemon.js内のimportをダミーに差し替え
         const GetPokemon = proxyquire('../../src/pokemon/get-pokemon', {
-            './pokestadium': { default: PokemonImgMock },
+            './pkparaiso': { default: PokemonImgMock },
             './pokemon-ja': { default: PokemonObjMockNormal }
         }).default;
 
