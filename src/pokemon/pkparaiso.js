@@ -53,7 +53,7 @@ export default class Pkparaiso {
     name: string; // ポケモンname
     isShiny: boolean; // 色違い
     genPath: string; // 世代判定
-    pkparaisoName: string; // pokestudium.com用の名前
+    pkparaisoName: string; // pkparaiso.com用の名前
 
     constructor ({ id, name, isShiny }: Object = {}) {
         if (id == null || name == null || isShiny == null) throw new Error('Invalid constructor argument.');
