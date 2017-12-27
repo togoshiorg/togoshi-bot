@@ -60,7 +60,6 @@ export default class Pkparaiso {
         this.id = id;
         this.name = name;
         this.isShiny = isShiny;
-        this.genPath = this.createGenerationPath();
         this.pkparaisoName = this.createPkparaisoName();
     }
 
@@ -76,14 +75,12 @@ export default class Pkparaiso {
         return this.name;
     }
 
-    // idが722以降の場合は第7世代用のPathになる
-    createGenerationPath (): string {
-        return this.id >= 722 ? PATH.gen.later7 : PATH.gen.earlier6;
-    }
-
     // 画像パスを返却する（public）
     getImgPath (): string {
+        // idが722以降の場合は第7世代用のPathになる
+        const genPath = this.id >= 722 ? PATH.gen.later7 : PATH.gen.earlier6;
+
         const shinyPath = this.isShiny ? PATH.shiny : '';
-        return `${PATH.url.intro}${this.genPath}${PATH.url.outro}${shinyPath}/${this.pkparaisoName}.${PATH.fileType}`;
+        return `${PATH.url.intro}${genPath}${PATH.url.outro}${shinyPath}/${this.pkparaisoName}.${PATH.fileType}`;
     }
 }
