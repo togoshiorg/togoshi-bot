@@ -323,12 +323,22 @@ describe('pokemon/pkparaiso.js', () => {
                 name: 'foo',
                 isShiny: false
             },
-            gen6: {
+            gen6shiny: {
+                id: 721,
+                name: 'gen6',
+                isShiny: true
+            },
+            gen6normal: {
                 id: 721,
                 name: 'gen6',
                 isShiny: false
             },
-            gen7: {
+            gen7shiny: {
+                id: 722,
+                name: 'gen7',
+                isShiny: true
+            },
+            gen7normal: {
                 id: 722,
                 name: 'gen7',
                 isShiny: false
@@ -336,13 +346,17 @@ describe('pokemon/pkparaiso.js', () => {
         };
         const pokestadiumShiny = new Pkparaiso(data.shiny);
         const pokestadiumNormal = new Pkparaiso(data.normal);
-        const pokestadiumGen6 = new Pkparaiso(data.gen6);
-        const pokestadiumGen7 = new Pkparaiso(data.gen7);
+        const pokestadiumGen6Shiny = new Pkparaiso(data.gen6shiny);
+        const pokestadiumGen6Normal = new Pkparaiso(data.gen6normal);
+        const pokestadiumGen7Shiny = new Pkparaiso(data.gen7shiny);
+        const pokestadiumGen7Normal = new Pkparaiso(data.gen7normal);
         assert.equal(pokestadiumShiny.getImgPath(), 'https://www.pkparaiso.com/imagenes/xy/sprites/animados-shiny/hoge.gif');
         assert.equal(pokestadiumNormal.getImgPath(), 'https://www.pkparaiso.com/imagenes/xy/sprites/animados/foo.gif');
 
         // 722を境界に画像パスが変わる
-        assert.equal(pokestadiumGen6.getImgPath(), 'https://www.pkparaiso.com/imagenes/xy/sprites/animados/gen6.gif');
-        assert.equal(pokestadiumGen7.getImgPath(), 'https://www.pkparaiso.com/imagenes/sol-luna/sprites/animados/gen7.gif');
+        assert.equal(pokestadiumGen6Shiny.getImgPath(), 'https://www.pkparaiso.com/imagenes/xy/sprites/animados-shiny/gen6.gif');
+        assert.equal(pokestadiumGen6Normal.getImgPath(), 'https://www.pkparaiso.com/imagenes/xy/sprites/animados/gen6.gif');
+        assert.equal(pokestadiumGen7Shiny.getImgPath(), 'https://www.pkparaiso.com/imagenes/sol-luna/sprites/animados-shiny/gen7.gif');
+        assert.equal(pokestadiumGen7Normal.getImgPath(), 'https://www.pkparaiso.com/imagenes/sol-luna/sprites/animados/gen7.gif');
     });
 });
