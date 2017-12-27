@@ -147,6 +147,46 @@ describe('pokemon/pkparaiso.js', () => {
         assert.equal(nidoranm.pkparaisoName, 'nidoran_m');
     });
 
+    it('ハイフンだけを削除する', () => {
+        const data = {
+            typenull: {
+                id: 772,
+                name: 'type-null',
+                isShiny: false
+            },
+            tapukoko: {
+                id: 785,
+                name: 'tapu-koko',
+                isShiny: false
+            },
+            tapulele: {
+                id: 786,
+                name: 'tapu-lele',
+                isShiny: false
+            },
+            tapubulu: {
+                id: 787,
+                name: 'tapu-bulu',
+                isShiny: false
+            },
+            tapufini: {
+                id: 788,
+                name: 'tapu-fini',
+                isShiny: false
+            }
+        };
+        const typenull = new Pkparaiso(data.typenull);
+        const tapukoko = new Pkparaiso(data.tapukoko);
+        const tapulele = new Pkparaiso(data.tapulele);
+        const tapubulu = new Pkparaiso(data.tapubulu);
+        const tapufini = new Pkparaiso(data.tapufini);
+        assert.equal(typenull.pkparaisoName, 'typenull');
+        assert.equal(tapukoko.pkparaisoName, 'tapukoko');
+        assert.equal(tapulele.pkparaisoName, 'tapulele');
+        assert.equal(tapubulu.pkparaisoName, 'tapubulu');
+        assert.equal(tapufini.pkparaisoName, 'tapufini');
+    });
+
     it('ハイフンの入ったnameからハイフンから後ろを削除する', () => {
         const data = {
             deoxysnormal: {
