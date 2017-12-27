@@ -1,11 +1,11 @@
 // @flow
 
-import Pokestadium from './pokestadium';
+import Pkparaiso from './pkparaiso';
 import PokemonJa from './pokemon-ja';
 import { format } from 'date-fns';
 
 // サポートするポケモンの数（0からカウントするので最大数-1）
-const MAX: number = 720;
+const MAX: number = 801;
 
 export default class GetPokemon {
     requestApi: RequestApi; // APIリクエスト用オブジェクト
@@ -63,7 +63,7 @@ export default class GetPokemon {
         try {
             const pokeSelect = Math.floor(Math.random() * MAX) + 1;
             const data = await this.requestApi.request(pokeSelect);
-            this.pokemonObj = new PokemonJa(data, Pokestadium);
+            this.pokemonObj = new PokemonJa(data, Pkparaiso);
             this.time = this.createGetTime();
             return this.createSuccessRes();
         } catch (err) {
