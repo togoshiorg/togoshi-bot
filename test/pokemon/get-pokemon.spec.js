@@ -9,61 +9,43 @@ class RequestApiMock {
 class RequestApiMockError {
     request (num) { throw new Error(); }
 }
-class RequestApiMockNull {
-    request (num) { return null; }
-}
-
-// PokemonImgのMockクラス
-class PokemonImgMock {
-    constructor ({id}) { this.id = id; }
-    getImgPath () { return `http://example.com/${this.id}/bulbasaur.png`; }
-}
 
 // PokemonObjのMockクラス
 class PokemonObjMockNormal {
-    constructor ({id}) {
-        this.id = id;
-        this.img = new PokemonImgMock(this).getImgPath();
-    }
-    getId () { return this.id; }
+    getId () { return 1; }
     getIsShiny () { return false; }
     getStrengthLv () { return 'normal'; }
     getCp () { return 1000; };
     getName () { return 'フシギダネ'; }
-    getImg () { return this.img; }
+    getImg () { return 'http://example.com/1/bulbasaur.png'; }
 }
 class PokemonObjMockShinyGod extends PokemonObjMockNormal {
-    constructor ({id}) { super({id}); }
     getIsShiny () { return true; }
     getStrengthLv () { return 'god'; }
 }
 class PokemonObjMockShiny extends PokemonObjMockNormal {
-    constructor ({id}) { super({id}); }
     getIsShiny () { return true; }
 }
 class PokemonObjMockGod extends PokemonObjMockNormal {
-    constructor ({id}) { super({id}); }
     getStrengthLv () { return 'god'; }
 }
 class PokemonObjMockStrongest extends PokemonObjMockNormal {
-    constructor ({id}) { super({id}); }
     getStrengthLv () { return 'strongest'; }
 }
 class PokemonObjMockStronger extends PokemonObjMockNormal {
-    constructor ({id}) { super({id}); }
     getStrengthLv () { return 'stronger'; }
 }
 class PokemonObjMockWeaker extends PokemonObjMockNormal {
-    constructor ({id}) { super({id}); }
     getStrengthLv () { return 'weaker'; }
 }
 class PokemonObjMockWeakest extends PokemonObjMockNormal {
-    constructor ({id}) { super({id}); }
     getStrengthLv () { return 'weakest'; }
 }
 class PokemonObjMockOther extends PokemonObjMockNormal {
-    constructor ({id}) { super({id}); }
     getStrengthLv () { return 'hoge'; }
+}
+class PokemonObjMockError {
+    constructor () { throw new Error(); }
 }
 
 // DatabaseのMockクラス
@@ -75,13 +57,6 @@ class DatabaseMockError {
 }
 
 describe('pokemon/get-pokemon.js', () => {
-    // Math.random上書き前に退避
-    const random = Math.random;
-    afterEach(() => {
-        // Math.randomを戻す
-        Math.random = random;
-    });
-
     it('constructorにRequestApiクラスとuserを渡すと正しく処理する', () => {
         // get-pokemon.js内のimportをダミーに差し替え
         const GetPokemon = proxyquire('../../src/pokemon/get-pokemon', {
@@ -162,7 +137,6 @@ describe('pokemon/get-pokemon.js', () => {
         }).default;
 
         const getPokemon = new GetPokemon(RequestApiMock, 'foo-user');
-        Math.random = () => { return 0; };
         const res = await getPokemon.getRandom();
         assert.equal(res, 'CP1000のフシギダネを捕まえたゴシ！\nhttp://example.com/1/bulbasaur.png');
     });
@@ -174,7 +148,6 @@ describe('pokemon/get-pokemon.js', () => {
         }).default;
 
         const getPokemon = new GetPokemon(RequestApiMock, 'foo-user');
-        Math.random = () => { return 0; };
         const res = await getPokemon.getRandom();
         assert.equal(res, ':god:\n色違いを捕まえたゴシィィィ！！！？\nCP1000のフシギダネを捕まえたゴシ！\nhttp://example.com/1/bulbasaur.png');
     });
@@ -186,7 +159,6 @@ describe('pokemon/get-pokemon.js', () => {
         }).default;
 
         const getPokemon = new GetPokemon(RequestApiMock, 'foo-user');
-        Math.random = () => { return 0; };
         const res = await getPokemon.getRandom();
         assert.equal(res, '色違いを捕まえたゴシィィィ！！！？\nCP1000のフシギダネを捕まえたゴシ！\nhttp://example.com/1/bulbasaur.png');
     });
@@ -198,7 +170,6 @@ describe('pokemon/get-pokemon.js', () => {
         }).default;
 
         const getPokemon = new GetPokemon(RequestApiMock, 'foo-user');
-        Math.random = () => { return 0; };
         const res = await getPokemon.getRandom();
         assert.equal(res, ':god:\nCP1000のフシギダネを捕まえたゴシ！\nhttp://example.com/1/bulbasaur.png');
     });
@@ -210,7 +181,6 @@ describe('pokemon/get-pokemon.js', () => {
         }).default;
 
         const getPokemon = new GetPokemon(RequestApiMock, 'foo-user');
-        Math.random = () => { return 0; };
         const res = await getPokemon.getRandom();
         assert.equal(res, 'コイツは空前絶後のつよさゴシ！！\nCP1000のフシギダネを捕まえたゴシ！\nhttp://example.com/1/bulbasaur.png');
     });
@@ -222,7 +192,6 @@ describe('pokemon/get-pokemon.js', () => {
         }).default;
 
         const getPokemon = new GetPokemon(RequestApiMock, 'foo-user');
-        Math.random = () => { return 0; };
         const res = await getPokemon.getRandom();
         assert.equal(res, 'コイツはつよいゴシ！！\nCP1000のフシギダネを捕まえたゴシ！\nhttp://example.com/1/bulbasaur.png');
     });
@@ -234,7 +203,6 @@ describe('pokemon/get-pokemon.js', () => {
         }).default;
 
         const getPokemon = new GetPokemon(RequestApiMock, 'foo-user');
-        Math.random = () => { return 0; };
         const res = await getPokemon.getRandom();
         assert.equal(res, 'コイツはよわいゴシ…。\nCP1000のフシギダネを捕まえたゴシ！\nhttp://example.com/1/bulbasaur.png');
     });
@@ -246,7 +214,6 @@ describe('pokemon/get-pokemon.js', () => {
         }).default;
 
         const getPokemon = new GetPokemon(RequestApiMock, 'foo-user');
-        Math.random = () => { return 0; };
         const res = await getPokemon.getRandom();
         assert.equal(res, 'コイツは超絶孤高によわすぎるゴシ…。\nCP1000のフシギダネを捕まえたゴシ！\nhttp://example.com/1/bulbasaur.png');
     });
@@ -258,7 +225,6 @@ describe('pokemon/get-pokemon.js', () => {
         }).default;
 
         const getPokemon = new GetPokemon(RequestApiMock, 'foo-user');
-        Math.random = () => { return 0; };
         const res = await getPokemon.getRandom();
         assert.equal(res, 'CP1000のフシギダネを捕まえたゴシ！\nhttp://example.com/1/bulbasaur.png');
     });
@@ -278,13 +244,13 @@ describe('pokemon/get-pokemon.js', () => {
         }
     });
 
-    it('getRandom()メソッド内でエラーが発生するとErrorをthrowする（dataがnull）', async () => {
+    it('getRandom()メソッド内でエラーが発生するとErrorをthrowする（PokemonObjインスタンス生成失敗）', async () => {
         // get-pokemon.js内のimportをダミーに差し替え
         const GetPokemon = proxyquire('../../src/pokemon/get-pokemon', {
-            './pokemon-ja': { default: PokemonObjMockNormal }
+            './pokemon-ja': { default: PokemonObjMockError }
         }).default;
 
-        const getPokemon = new GetPokemon(RequestApiMockNull, 'foo-user');
+        const getPokemon = new GetPokemon(RequestApiMock, 'foo-user');
         try {
             await getPokemon.getRandom();
             assert.fail();
@@ -302,7 +268,6 @@ describe('pokemon/get-pokemon.js', () => {
         MockDate.set('1/1/2017 12:34:56', 0);
 
         const getPokemon = new GetPokemon(RequestApiMock, 'foo-user');
-        Math.random = () => { return 0; };
         await getPokemon.getRandom();
         getPokemon.pushData(DatabaseMock);
         assert.equal(DatabaseMock.data.id, 1);
