@@ -39,7 +39,7 @@ interface PokemonImg {
 };
 
 interface PokemonObj {
-    constructor (object: Object, PokemonImg: Class<PokemonImg>): PokemonObj;
+    constructor (object: Object): PokemonObj;
     getId (): number;
     getIsShiny (): boolean;
     getStrengthLv (): string;
