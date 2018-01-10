@@ -21,7 +21,7 @@ export default class ReportMusic {
         this.params = this.createParams();
     }
 
-    createId () {
+    createId ():string {
         return this.items[this.index].contentDetails.videoId;
     }
 
