@@ -1,5 +1,8 @@
-{
+module.exports = {
     "parser": "babel-eslint",
+    "plugins": [
+        "flow-vars"
+    ],
     "env": {
         "node": true,
         "es6": true,
@@ -7,7 +10,7 @@
     },
     "extends": "standard",
     "rules": {
-        "indent": [2, 4],
+        "indent": ["error", 4, {"SwitchCase": 1}],
         "semi": ["error", "always"],
         "arrow-body-style": [0],
         "import/no-unresolved": [2, { "ignore": ["log4js"] }],
@@ -16,6 +19,8 @@
         "no-constant-condition": ["error", { "checkLoops": false }],
         "no-unused-vars": ["error"],
         "id-length": [2, {"exceptions": ["$", "_"]}],
-        "no-bitwise": [2, {"allow": ["^"]}]
+        "no-bitwise": [2, {"allow": ["^"]}],
+        "flow-vars/define-flow-type": 1,
+        "flow-vars/use-flow-type": 1
     }
-}
+};
