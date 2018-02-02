@@ -264,6 +264,11 @@ describe('pokemon/pkparaiso.js', () => {
                 name: 'gourgeist-average',
                 isShiny: false
             },
+            oricoriobaile: {
+                id: 741,
+                name: 'oricorio-baile',
+                isShiny: false
+            },
             lycanrocmidday: {
                 id: 745,
                 name: 'lycanroc-midday',
@@ -272,6 +277,16 @@ describe('pokemon/pkparaiso.js', () => {
             wishiwashisolo: {
                 id: 746,
                 name: 'wishiwashi-solo',
+                isShiny: false
+            },
+            miniorredmeteor: {
+                id: 774,
+                name: 'minior-red-meteor',
+                isShiny: false
+            },
+            mimikyudisguised: {
+                id: 778,
+                name: 'mimikyu-disguised',
                 isShiny: false
             }
         };
@@ -290,8 +305,11 @@ describe('pokemon/pkparaiso.js', () => {
         const aegislashshield = new Pkparaiso(data.aegislashshield);
         const pumpkabooaverage = new Pkparaiso(data.pumpkabooaverage);
         const gourgeistaverage = new Pkparaiso(data.gourgeistaverage);
+        const oricoriobaile = new Pkparaiso(data.oricoriobaile);
         const lycanrocmidday = new Pkparaiso(data.lycanrocmidday);
         const wishiwashisolo = new Pkparaiso(data.wishiwashisolo);
+        const miniorredmeteor = new Pkparaiso(data.miniorredmeteor);
+        const mimikyudisguised = new Pkparaiso(data.mimikyudisguised);
         assert.equal(deoxysnormal.pkparaisoName, 'deoxys');
         assert.equal(wormadamplant.pkparaisoName, 'wormadam');
         assert.equal(giratinaaltered.pkparaisoName, 'giratina');
@@ -307,8 +325,11 @@ describe('pokemon/pkparaiso.js', () => {
         assert.equal(aegislashshield.pkparaisoName, 'aegislash');
         assert.equal(pumpkabooaverage.pkparaisoName, 'pumpkaboo');
         assert.equal(gourgeistaverage.pkparaisoName, 'gourgeist');
+        assert.equal(oricoriobaile.pkparaisoName, 'oricorio');
         assert.equal(lycanrocmidday.pkparaisoName, 'lycanroc');
         assert.equal(wishiwashisolo.pkparaisoName, 'wishiwashi');
+        assert.equal(miniorredmeteor.pkparaisoName, 'minior');
+        assert.equal(mimikyudisguised.pkparaisoName, 'mimikyu');
     });
 
     it('画像パスを正しく返却する', () => {
