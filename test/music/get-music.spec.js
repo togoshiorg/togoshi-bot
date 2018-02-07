@@ -1,11 +1,10 @@
 /**
  * # おすすめ音楽機能テスト
  * ## テスト項目
- * - music/recommend.js（music/recommend.spec.js）
- *   - APIURL生成
- *   - 動画URL生成
+ * - music/get-music.js（music/get-music.spec.js）
+ *   - パラメータ返却
  *   - 発言用オブジェクト生成
- *   - API通信
+ *   - 発言用オブジェクト返却
 */
 import assert from 'assert';
 import proxyquire from 'proxyquire';

@@ -1,9 +1,9 @@
 /**
  * # おすすめ音楽機能テスト
  * ## テスト項目
- * - music/api.js（music/api.spec.js）
+ * - music/youtube-api.js（music/youtube-api.spec.js）
  *   - パラメータ返却
- *   - URL返却
+ *   - APIリクエストの処理
 */
 import assert from 'assert';
 import proxyquire from 'proxyquire';
