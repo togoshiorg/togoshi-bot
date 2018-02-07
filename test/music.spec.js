@@ -3,18 +3,13 @@
  * ## テスト項目
  * - music.js（music.spec.js）
  *   - 返答とURLを返す
- * - music/recommend.js（music/recommend.spec.js）
+ * - music/get-music.js（music/get-music.spec.js）
  *   - API通信
- * - music/api.js（music/api.spec.js）
- *   - パラメータ返却
- *   - URL返却
- * - music/report.js（music/url.report.js）
- *   - 動画ID返却
+ * - music/youtube-api.js（music/youtube-api.spec.js）
  *   - パラメータ返却
  *   - URL返却
  * - music/libs.js（music/libs.spec.js）
  *   - URL生成
- *   - index返却
 */
 import assert from 'assert';
 import proxyquire from 'proxyquire';
@@ -44,12 +39,12 @@ describe('music.js', () => {
     it('「"オススメ、オヌヌメ等"の曲」に返答する', async () => {
         // music.js内のimportをダミーに差し替え
         proxyquire('../src/music', {
-            './music/recommend': {
-                'default': class RecommendMusic {
-                    getRecommend () {
+            './music/get-music': {
+                'default': class GetMusic {
+                    returnData () {
                         return {
-                            url: 'https://example.com/movie/',
-                            text: 'この曲がおすすめゴシ！'
+                            data: 'https://example.com/movie/',
+                            message: 'この曲がおすすめゴシ！'
                         };
                     }
                 }
