@@ -28,17 +28,17 @@ module.exports = (robot) => {
                 let result = [];
                 data.map((elm, index) => {
                     switch (elm.rank) {
-                    case 1:
-                        result[0] = elm;
-                        break;
-                    case 2:
-                        result[1] = elm;
-                        break;
-                    case 3:
-                        result[2] = elm;
-                        break;
-                    default:
-                        break;
+                        case 1:
+                            result[0] = elm;
+                            break;
+                        case 2:
+                            result[1] = elm;
+                            break;
+                        case 3:
+                            result[2] = elm;
+                            break;
+                        default:
+                            break;
                     }
                 });
 

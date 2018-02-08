@@ -3,9 +3,6 @@
 */
 
 module.exports = (robot) => {
-    robot.hear(/銀次郎くん！/, (res) => res.send('はいゴシ！'));
-    robot.hear(/うるさい/, (res) => res.send('なんだとゴシ！'));
-
     robot.hear(/.*調子.*/, (res) => {
         const post = res.random([
             ':very_good:',
