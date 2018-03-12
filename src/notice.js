@@ -10,11 +10,12 @@
 
 import roomJson from '../data/room.json';
 const CronJob = require('cron').CronJob;
-const Response = require('hubot').Response;
+// const Response = require('hubot').Response;
 
 module.exports = (robot) => {
     // 定時のお知らせ
     // 平日19:00
+    /*
     const ordinary = new CronJob('0 0 19 * * 1-5', () => {
         const room = { room: roomJson.general };
         const post = Response.prototype.random([
@@ -34,24 +35,29 @@ module.exports = (robot) => {
         robot.send(room, post);
     }, null, true, 'Asia/Tokyo');
     ordinary.start();
+    */
 
     // カンパニー提出リマインド（前日）
     // 毎月10日19:00
+    /*
     const companyDailyClose = new CronJob('0 0 19 10 * *', () => {
         const room = { room: roomJson.general };
         const post = '<!channel> 明日はカンパニーの月次提出日ゴシ。日時提出は今のうち終わらせておくゴシ。';
         robot.send(room, post);
     }, null, true, 'Asia/Tokyo');
     companyDailyClose.start();
+    */
 
     // カンパニー提出リマインド（当日）
     // 毎月11日9:55
+    /*
     const companyMonthlyClose = new CronJob('0 55 9 11 * *', () => {
         const room = { room: roomJson.general };
         const post = '<!channel> 今日はカンパニーの月次提出日ゴシ。朝のうちに出しておくゴシ。';
         robot.send(room, post);
     }, null, true, 'Asia/Tokyo');
     companyMonthlyClose.start();
+    */
 
     // 大晦日
     // 12/31 23:00
