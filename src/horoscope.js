@@ -20,7 +20,7 @@ module.exports = (robot) => {
         const todayStr = todayDate.getFullYear() + '/' + (('0' + (todayDate.getMonth() + 1)).slice(-2)) + '/' + (('0' + todayDate.getDate()).slice(-2));
         const url = api + todayStr;
 
-        request.get({url, json: true}, (response, body) => {
+        request.get({ url: url, json: true }, (err, response, body) => {
             if (response.statusCode === 200) {
                 const data = body.horoscope[todayStr];
 
@@ -28,17 +28,17 @@ module.exports = (robot) => {
                 let result = [];
                 data.map((elm, index) => {
                     switch (elm.rank) {
-                    case 1:
-                        result[0] = elm;
-                        break;
-                    case 2:
-                        result[1] = elm;
-                        break;
-                    case 3:
-                        result[2] = elm;
-                        break;
-                    default:
-                        break;
+                        case 1:
+                            result[0] = elm;
+                            break;
+                        case 2:
+                            result[1] = elm;
+                            break;
+                        case 3:
+                            result[2] = elm;
+                            break;
+                        default:
+                            break;
                     }
                 });
 
@@ -50,12 +50,13 @@ module.exports = (robot) => {
                     three: '*3位 ' + result[2].sign + '*\n' + '金運：' + result[2].money + '　仕事運：' + result[2].job + '　恋愛運：' + result[2].love + '　総合運：' + result[2].total + '\n' + result[2].content
                 };
 
-                robot.send(room, text.title);
-                robot.send(room, text.one);
-                robot.send(room, text.two);
                 robot.send(room, text.three);
+                robot.send(room, text.two);
+                robot.send(room, text.one);
+                robot.send(room, text.title);
             } else {
                 robot.send(room, '今日は占いはお休みゴシ');
+                robot.send(room, err);
             }
         });
     }, null, true, 'Asia/Tokyo');
