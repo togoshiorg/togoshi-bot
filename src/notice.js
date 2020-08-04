@@ -17,14 +17,14 @@ module.exports = (robot) => {
     // 12/31 23:00
     const newyearsEve = new CronJob('0 0 23 31 12 *', () => {
         const room = { room: roomJson.general };
-        const post = '<!channel> 今年もお世話になったゴシ。みなさま良いお年をゴシ。さて、「笑ってはいけない」見よっと。';
+        const post = '<!channel> 今年もお世話になったゴシ。みなさま良いお年をゴシ。';
         robot.send(room, post);
     }, null, true, 'Asia/Tokyo');
     newyearsEve.start();
 
     // 新年
     // 1/1 8:00
-    const newyear = new CronJob('0 0 8 1 1 *', () => {
+    const newyear = new CronJob('0 0 9 1 1 *', () => {
         const room = { room: roomJson.general };
         const post = '<!channel> あけましておめでとうゴシ。今年もよろしくお願いしまゴシ。';
         robot.send(room, post);
