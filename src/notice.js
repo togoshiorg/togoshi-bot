@@ -24,7 +24,7 @@ module.exports = (robot) => {
 
     // 新年
     // 1/1 8:00
-    const newyear = new CronJob('0 0 9 1 1 *', () => {
+    const newyear = new CronJob('0 0 9 1 0 *', () => {
         const room = { room: roomJson.general };
         const post = 'あけましておめでとうゴシ。今年もよろしくお願いしますゴシ。';
         robot.send(room, post);
